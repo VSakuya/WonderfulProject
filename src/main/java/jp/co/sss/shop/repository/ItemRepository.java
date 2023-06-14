@@ -1,5 +1,6 @@
 package jp.co.sss.shop.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -54,4 +55,10 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @author tanaka
 	 */
 	List<Item> findByCategory(Category category);
+	/**
+	 * 
+	 * @param insertDate 登録日
+	 * @return 商品エンティティ
+	 */
+	public Item findAllByOrderByInsertDateDesc(Date insertDate);
 }
