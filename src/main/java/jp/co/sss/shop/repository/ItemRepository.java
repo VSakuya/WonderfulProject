@@ -43,4 +43,12 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @return 商品エンティティ
 	 */
 	public Item findByNameAndDeleteFlag(String name, int notDeleted);
+	
+	/**
+	 * 
+	 * @param insertDate 登録日
+	 * @return 商品エンティティ
+	 */
+	
+	public Item findAllByOrderByInsertDateDesc(Date insertDate);
 }
