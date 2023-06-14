@@ -14,7 +14,7 @@ import jp.co.sss.shop.util.URLCheck;
 /**
  * ログインチェック用フィルタ
  * 　未ログイン状態でのチェック
- * 
+ *
  * @author System Shared
  */
 
@@ -25,7 +25,6 @@ public class LoginCheckFilter extends HttpFilter {
 
 		// リクエストURLを取得
 		String requestURL = request.getRequestURI();
-
 		if (URLCheck.isURLForNonLogin(requestURL, request.getContextPath())) {
 
 			// セッション情報を取得

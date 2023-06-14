@@ -25,7 +25,7 @@ public class Constant {
 	public static final int BACK_FLG_TRUE = 1;
 
 	/**
-	 * 商品画像のアップロード先 (注意) 
+	 * 商品画像のアップロード先 (注意)
 	 * プロジェクト名直下にimagesフォルダを作成することを想定しています。
 	 */
 	public static final String FILE_UPLOAD_PATH = "images";
@@ -35,6 +35,9 @@ public class Constant {
 
 	/** 商品画像ファイル保存用フォルダの名前 */
 	public static final String IMAGE_FOLDER = "/images/";
+
+	/** JavaScriptファイル保存用フォルダの名前 */
+	public static final String JS_FOLDER = "/js/";
 
 	/** 会員情報の最大登録数 */
 	public static final Long USERS_MAX_COUNT = 999999L;

@@ -43,22 +43,24 @@
 	<p class="complete_link">
 		<a th:href="@{/}" th:text="#{msg.back.to.top}"></a>
 	</p>
-
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 	<script>
+		function sha256(message) {
+    		return CryptoJS.SHA256(message).toString();
+		}
 		const loginForm = document.getElementsByClassName("login_form")[0];
 		loginForm.addEventListener("submit", formSubmit);
 		function formSubmit(event){
 			event.preventDefault(); 
 			const pwdInput = document.getElementById("password");
 			var password = pwdInput.value;
-			var hashedPassword = sha256(password + 'WonderfulProject');
-			console.log(hashedPassword);
-			pwdInput.value = hashedPassword;
+			if (password){
+				var hashedPassword = sha256(password + 'WonderfulProject');
+				pwdInput.value = hashedPassword;
+			}
 			loginForm.submit();
 		}
-		function sha256(message) {
-  			return CryptoJS.SHA256(message).toString();
-		}
+
 
 	</script>
 </body>

@@ -8,14 +8,15 @@ package jp.co.sss.shop.util;
 public class URLCheck {
 	/**
 	 * 静的ファイルのリクエストURLであるかを判定[
-	 * 
+	 *
 	 * @param requestURL リクエストURL
 	 * @return true：静的ファイルへのリクエストURLである、false：静的ファイルへのリクエストURLではない
 	 */
 	public static boolean isURLForStaticFile(String requestURL) {
 		boolean isCheckURLOK = false;
 		if (requestURL.indexOf(Constant.CSS_FOLDER) != -1
-				|| requestURL.indexOf(Constant.IMAGE_FOLDER) != -1) {
+				|| requestURL.indexOf(Constant.IMAGE_FOLDER) != -1
+				|| requestURL.indexOf(Constant.JS_FOLDER) != -1) {
 			// URLのリクエスト先がフィルタ実行対象である場合
 			isCheckURLOK = true;
 		} else {
@@ -28,7 +29,7 @@ public class URLCheck {
 
 	/**
 	 * システム管理者 リクエストURLがアクセス可能かを判定
-	 * 
+	 *
 	 * @param requestURL リクエストURL
 	 * @return true：アクセス可能、false：アクセス不可
 	 */
@@ -51,7 +52,7 @@ public class URLCheck {
 
 	/**
 	 * 運用管理者 リクエストURLがチェック対象であるかを判定
-	 * 
+	 *
 	 * @param requestURL リクエストURL
 	 * @return true：チェック対象、false：チェック対象外
 	 */
@@ -74,7 +75,7 @@ public class URLCheck {
 
 	/**
 	 * 一般会員 リクエストURLがチェック対象であるかを判定
-	 * 
+	 *
 	 * @param requestURL リクエストURL
 	 * @param contextPath コンテキストパス名
 	 * @return true：チェック対象、false：チェック対象外
@@ -100,7 +101,7 @@ public class URLCheck {
 
 	/**
 	 *  未ログイン、非会員 リクエストURLがチェック対象であるかを判定
-	 * 
+	 *
 	 * @param requestURL リクエストURL
 	 * @param contextPath コンテキストパス名
 	 * @return true：チェック対象、false：チェック対象外
