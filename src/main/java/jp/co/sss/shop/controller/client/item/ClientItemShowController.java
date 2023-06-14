@@ -1,11 +1,19 @@
 package jp.co.sss.shop.controller.client.item;
 
+
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.sss.shop.bean.ItemBean;
+import jp.co.sss.shop.entity.Category;
+import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.service.BeanTools;
 
@@ -38,4 +46,37 @@ public class ClientItemShowController {
 	public String index(Model model) {
 		return "index";
 	}
+	
+	/**
+	 * カテゴリー検索
+	 * @param categoryId カテゴリーidの値受け渡し
+	 * @param model Viewとの値受け渡し
+	 * @return "list" 商品一覧画面
+	 */
+	@RequestMapping(path = "/client/item/list/{sortType}?category\r\n"
+			+ "Id={id}", method = RequestMethod.GET)
+	public String category(@PathVariable Integer categoryId, Model model) {
+		Category category = new Category();
+		category.setId(categoryId);
+		List<Item> items = itemRepository.findByCategory(category);
+		model.addAttribute("items", items);
+		return"list";
+	}
+	
+	/**
+	 * 商品詳細表示 
+	 * @param id 商品id
+	 * @param model Viewとの値受け渡し
+	 * @return "detail" 商品詳細画面
+	 * @author tanaka
+	 */
+	@RequestMapping(path = "/client/item/detail/{id}", method = RequestMethod.POST)
+	public String detail(@PathVariable Integer id, Model model) {
+		Item item = itemRepository.getReferenceById(id);
+		ItemBean itemBean = new ItemBean();
+		beanTools.copyEntityToItemBean(item);
+		model.addAttribute("items",itemBean);
+		return"detail";
+	}
+	
 }
