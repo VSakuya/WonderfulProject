@@ -55,7 +55,11 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 */
 	List<Item> findByCategory(Category category);
 
-	
+	/**
+	 *@param insertDate 登録日
+	 * @return 商品エンティティのリスト
+	 * @author Tomita
+	 */
 	List<Item> findAllByOrderByIdDesc();
 
 }
