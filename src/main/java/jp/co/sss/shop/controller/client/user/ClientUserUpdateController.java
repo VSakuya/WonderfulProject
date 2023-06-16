@@ -20,12 +20,24 @@ import jp.co.sss.shop.repository.UserRepository;
  */
 @Controller
 public class ClientUserUpdateController {
+	
+	/**
+	 * 会員情報 リポジトリ
+	 */
 	@Autowired
 	UserRepository userRepository;
 
+	/**[
+	 * セッション
+	 */
 	@Autowired
 	HttpSession session;
 
+	/**
+	 * 入力画面　初期表示処理
+	 * 
+	 * @return "client/user/update_input" 入力画面 表示処理
+	 */
 	@RequestMapping(path = "/client/user/update/input", method = RequestMethod.POST)
 	public String updateInput() {
 		
