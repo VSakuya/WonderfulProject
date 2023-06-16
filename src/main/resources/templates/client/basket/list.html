@@ -10,17 +10,13 @@
 				</h2>
 				<table class="list_table basket">
 					<tr>
-						<th>
-							商品名
+						<th th:text="#{data.basket.item.name}">
 						</th>
-						<th>
-							数
+						<th th:text="#{data.basket.count}">
 						</th>
-						<th>
-							操作
+						<th th:text="#{data.basket.operate}">
 						</th>
-						<th>
-							在庫状況
+						<th th:text="#{data.basket.stock.status}">
 						</th>
 					</tr>
 					<tr>
@@ -42,6 +38,33 @@
 							4
 						</td>
 					</tr>
+					
+
+					
+					
+					
+					<tr th:each="basket: ${session.baskets}">
+						<td>
+							<a th:href="@{/client/item/detail/{id}(id=${basket.id})}" th:text="${basket.name}"> </a>
+						</td>
+						<td>
+							2
+						</td>
+						<td>
+							<form action="/shared_shop/client/basket/delete" method="post">
+								<input type="hidden" name="id" value="6" />
+								<input type="submit" value="削除" class="delete"/>
+							</form>
+						</td>
+						<td th:text="${basket.stock}"></td>
+					</tr>
+					
+					
+					
+					
+					
+					
+					
 					<tr>
 						<td>
 							<a href="/shared_shop/client/item/detail/3">
@@ -49,10 +72,10 @@
 							</a>
 						</td>
 						<td>
-							1
+							2
 						</td>
 						<td>
-							<form action="/shared_shop/client/basket/delete" method="post">
+							<form action="/client/basket/delete" method="post">
 								<input type="hidden" name="id" value="3" />
 								<input type="submit" value="削除" class="delete"/>
 							</form>
@@ -61,32 +84,18 @@
 							在庫あり
 						</td>
 					</tr>
-					<tr>
-						<td>
-							<a href="/shared_shop/client/item/detail/1">
-								りんご
-							</a>
-						</td>
-						<td>
-							2
-						</td>
-						<td>
-							<form action="/shared_shop/client/basket/delete" method="post">
-								<input type="hidden" name="id" value="1" />
-								<input type="submit" value="削除" class="delete"/>
-							</form>
-						</td>
-						<td>
-							在庫あり
-						</td>
-					</tr>
-				</table>
 
+					
+				</table>
+				
+				<div th:text="${session.id}"></div>
+				
+				
 				<div class="user_info_form_area  shopping_button">
-					<form action="/shared_shop/client/order/address/input" method="post">
+					<form action="/client/order/address/input" method="post">
 						<input type="submit" value="ご注文のお手続き" />
 					</form>
-					<form action="/shared_shop/client/basket/allDelete" method="post">
+					<form action="/client/basket/allDelete" method="post">
 						<input type="submit" value="買い物かごを空にする" class="delete" />
 					</form>
 				</div>
