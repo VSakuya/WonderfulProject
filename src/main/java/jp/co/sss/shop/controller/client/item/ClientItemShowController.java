@@ -86,9 +86,11 @@ public class ClientItemShowController {
 	 * @author Tomita
 	 */
 	@RequestMapping(path = "/client/item/list/1")
-	public String idSortDesc(Model model) {
+	public String idSortDesc(Model model) {	
+		
 		model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
-		return "client/item/list_new_arrival";
+		return "client/item/latest";
+		
 	}
 	
 }
