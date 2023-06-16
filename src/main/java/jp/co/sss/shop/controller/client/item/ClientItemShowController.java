@@ -53,14 +53,13 @@ public class ClientItemShowController {
 	 * @param model Viewとの値受け渡し
 	 * @return "list" 商品一覧画面
 	 */
-	@RequestMapping(path = "/client/item/list/{sortType}?category\r\n"
-			+ "Id={id}", method = RequestMethod.GET)
+	@RequestMapping(path = "/client/item/list/{sortType}", method = RequestMethod.GET)
 	public String category(@PathVariable Integer categoryId, Model model) {
 		Category category = new Category();
 		category.setId(categoryId);
 		List<Item> items = itemRepository.findByCategory(category);
 		model.addAttribute("items", items);
-		return"list";
+		return"client/item/list";
 	}
 	
 	/**
@@ -70,13 +69,24 @@ public class ClientItemShowController {
 	 * @return "detail" 商品詳細画面
 	 * @author tanaka
 	 */
-	@RequestMapping(path = "/client/item/detail/{id}", method = RequestMethod.POST)
+	@RequestMapping(path = "/client/item/detail/{id}", method = RequestMethod.GET)
 	public String detail(@PathVariable Integer id, Model model) {
 		Item item = itemRepository.getReferenceById(id);
-		ItemBean itemBean = new ItemBean();
-		beanTools.copyEntityToItemBean(item);
+		ItemBean itemBean = beanTools.copyEntityToItemBean(item);
 		model.addAttribute("items",itemBean);
-		return"detail";
+		return"client/item/detail";
 	}
 	
+	/**
+	 *戻るボタン押して商品一覧画面に戻る
+	 * @return "list" 商品一覧画面
+	 * @author tanaka
+	 */
+	@RequestMapping(path = "/client/item/list/1", method = RequestMethod.POST)
+	public String rollback() {
+		return"redirect:/client/item/list";
+	}
+	
+	
+		
 }
