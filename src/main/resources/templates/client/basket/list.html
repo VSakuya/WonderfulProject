@@ -8,21 +8,21 @@
 	<h2 class="title">
 		買い物かご
 	</h2>
-	
+	<!--  買い物かごに商品がない場合のメッセージ    -->
 	<div th:if="${session.baskets == null}" th:text="#{msg.basket.list.none}">
 	</div>
-	
+	<!--  商品の在庫がない場合のメッセージ    -->
 	<div th:if="${stockNone != null}" th:field="*{basket.name}">
 	<span th:text="#{msg.basket.stock.none}"></span>
 	</div>
-	
+	<!--  商品の注文数が在庫を超えた場合のメッセージ    -->
 	<div th:if="${stockShort != null}" th:field="*{basket.name}">
 	<span th:text="#{msg.basket.stock.short}"></span>
 	</div>
-	
+	<!--  買い物かご一覧    -->
 	<th:block th:if="${session.baskets != null}">
 	
-		<table  class="list_table basket">
+		<table class="list_table basket">
 			<tr>
 				<th th:text="#{data.basket.item.name}">
 				</th>
@@ -52,8 +52,8 @@
 		</table>
 					
 			<div th:text="${session.id}"></div>
-					
-					
+			
+			
 			<div class="user_info_form_area  shopping_button">
 				<form action="/client/order/address/input" method="post">
 					<input type="submit" value="ご注文のお手続き" />
