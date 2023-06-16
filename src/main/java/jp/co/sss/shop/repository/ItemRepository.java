@@ -62,5 +62,5 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @author Tomita
 	 */
 	List<Item> findAllByOrderByIdDesc();
-	
+
 }
