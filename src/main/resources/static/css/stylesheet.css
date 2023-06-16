@@ -288,8 +288,8 @@ li.error_msg  {
 }
 .error_list li{
 	color:#C00;
-	padding-left: 10px;
-	list-style:disc;
+	/* padding-left: 10px; */
+	/* list-style:disc; */
 }
 
 .error_list_no_mark li{

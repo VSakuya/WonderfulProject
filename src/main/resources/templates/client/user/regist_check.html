@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{common/layout_3block :: layout(~{::title},~{::body/content()})}">
+
+<head>
+	<meta charset="UTF-8">
+	<title th:text="#{title.input.check}+' | '+ #{shop.title}"></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body class="user">
+	<div class="user_info_form_area">
+		<h2 th:class="title" th:text="#{msg.regist.check}"></h2>
+		<p th:class="input_message">以下の内容で登録します。</p>
+		<ul class="input_list">
+			<li>メールアドレス:<span th:text="${session.userForm.email}"></span></li>
+			<li>氏名:<span th:text="${session.userForm.name}"></span></li>
+			<li>郵便番号:<span th:text="${session.userForm.postalCode}"></span></li>
+			<li>住所<br /><span th:text="${session.userForm.address}"></span></li>
+			<li>電話番号:<span th:text="${session.userForm.phoneNumber}"></span></li>
+		</ul>
+		<form method="post" th:action="@{/client/user/regist/complete}">
+			<input type="submit" value="登録" class="send_button" />
+		</form>
+		<form method="post" th:action="@{/client/user/regist/input}">
+			<input type="submit" value="戻る" class="back_button" />
+		</form>
+	</div>
+</body>
+
+</html>

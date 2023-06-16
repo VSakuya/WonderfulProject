@@ -89,4 +89,16 @@ public class ClientItemShowController {
 	
 	
 		
+	/**
+	 * 商品新着順表示
+	 * @param model Viewとの値受け渡し
+	 * @return "list/new/arrival"商品新着順画面
+	 * @author Tomita
+	 */
+	@RequestMapping(path = "/client/item/list/1")
+	public String idSortDesc(Model model) {
+		model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
+		return "client/item/list_new_arrival";
+	}
+
 }

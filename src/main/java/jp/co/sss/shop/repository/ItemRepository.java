@@ -1,6 +1,5 @@
 package jp.co.sss.shop.repository;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -38,7 +37,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @param deleteFlag 削除フラグ
 	 * @return 商品エンティティ
 	 */
-	public Item findByIdAndDeleteFlag(Integer id, int deleteFlag);
+	Item findByIdAndDeleteFlag(Integer id, int deleteFlag);
 
 	/**
 	 * 商品名と削除フラグを条件に検索 (ItemValidatorで利用)
@@ -46,8 +45,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @param notDeleted 削除フラグ
 	 * @return 商品エンティティ
 	 */
-	public Item findByNameAndDeleteFlag(String name, int notDeleted);
-	
+	Item findByNameAndDeleteFlag(String name, int notDeleted);
+
 	/**
 	 * カテゴリーidで条件検索
 	 * @param category カテゴリーid
@@ -55,17 +54,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @author tanaka
 	 */
 	List<Item> findByCategory(Category category);
-	
-	/**
-	 * 
-	 * @param insertDate 登録日
-	 * @return 商品エンティティ
-	 */
-	public Item findAllByOrderByInsertDateDesc(Date insertDate);
-	
-	
-	
 
 	
-	
+	List<Item> findAllByOrderByIdDesc();
+
 }
