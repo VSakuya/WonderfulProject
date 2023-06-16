@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+
+<head>
+	<meta charset="UTF-8">
+	<title th:text="#{title.update.input}+' | '+ #{shop.title}"></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body class="user">
+	<h2 th:class="title" th:text="#{title.update.input}"></h2>
+	<p th:class="input_message" th:text="#{msg.update.input}"></p>
+	<div class="user_info_form_area">
+		<form method="post" th:action="@{/client/user/update/input}" class="user_info_form">
+			<ul class="input_list">
+				<li>
+					<label><span class="input_title">[[#{userForm.email}]]</span></label>
+					<input type="text" name="email" th:value="${session.userForm.email}" />
+				</li>
+				<li>
+					<label><span class="input_title">[[#{userForm.password}]]</span></label>
+					<input type="password" name="password" />
+				</li>
+				<li>
+					<label><span class="input_title">[[#{userForm.name}]]</span></label>
+					<input type="text" name="name" th:value="${session.userForm.name}" />
+				</li>
+				<li>
+					<label><span class="input_title">[[#{userForm.postalCode}]]</span></label>
+					<input type="text" name="postalCode" th:value="${session.userForm.postalCode}" />
+				</li>
+				<li>
+					<label><span class="input_title">[[#{userForm.address}]]</span></label>
+					<textarea rows="6" name="address" th:value="${session.userForm.address}"></textarea>
+				</li>
+				<li>
+					<label><span class="input_title">[[#{userForm.phoneNumber}]]</span></label>
+					<input type="text" name="phoneNumber" th:value="${session.userForm.phoneNumber}" />
+				</li>
+			</ul>
+		</form>
+		<form th:action="@{/client/user/detail}" method="post">
+			<input type="submit" value="戻る" class="back_button" />
+		</form>
+		</div>
+
+</body>
+
+</html>

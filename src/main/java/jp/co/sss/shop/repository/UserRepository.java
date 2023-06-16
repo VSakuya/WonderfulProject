@@ -51,5 +51,13 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 	 * @return 会員エンティティ
 	 */
 	User findByIdAndDeleteFlag(Integer id, int deleteFlg);
+	
+	/**
+	 * ユーザー名に該当する会員情報を検索
+	 * @param name ユーザー名
+	 * @return 会員エンティティ
+	 * @author Kaine
+	 */
+	User findByName(String name);
 
 }

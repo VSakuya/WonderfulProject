@@ -19,11 +19,12 @@ import jp.co.sss.shop.entity.Order;
 import jp.co.sss.shop.entity.OrderItem;
 import jp.co.sss.shop.repository.OrderRepository;
 import jp.co.sss.shop.service.BeanTools;
+import jp.co.sss.shop.service.PriceCalc;
 
 
 /**
  * 注文管理　一覧表示機能(一般会員)
- * 
+ *
  * @author Wandormen
  * TIPS: 一般会員向けの注文一覧と注文一覧詳細の処理です。
  *
@@ -47,14 +48,16 @@ public class ClientOrderShowController {
 	 */
 	@Autowired
 	BeanTools beanTools;
-	private Object priceCalc;
+
+	@Autowired
+	PriceCalc priceCalc;
 
 	/**
 	 * 一覧取得、一覧画面表示　処理
-	 * 
+	 *
 	 * @param model
 	 * @param pageable
-	 * @param orderBeanList 
+	 * @param orderBeanList
 	 * @return "client/oeder/list" 注文情報 一覧画面へ
 	 */
 
@@ -71,14 +74,14 @@ public class ClientOrderShowController {
 			OrderBean orderBean = beanTools.copyEntityToOrderBean(order);
 
 			//orderレコードから紐づくOrderItemのListを取り出す
-			List<OrderItem> orderItemList = order.getOrderItemsList();
+			List<OrderItem> orderItemList1 = order.getOrderItemsList();
 			//合計金額の産出
-			int total = priceCalc.orderItemPriceTotal( orderItemList);
+			int total = priceCalc.orderItemPriceTotal( orderItemList1);
 
 			//合計金額のセット
 			orderBean.setTotal(total);
 
-			orderBeanList.add(orderBean);
+//			orderBeanList.add(orderBean);
 
 		}
 		//注文情報リストをViewへ渡す

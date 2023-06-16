@@ -28,6 +28,7 @@ public class LoginForm implements Serializable {
 	 * パスワード
 	 */
 	@NotBlank
+	@Size(min = 64, max = 64)
 	@Pattern(regexp = "^[a-zA-Z0-9]+$")
 	private String password;
 
