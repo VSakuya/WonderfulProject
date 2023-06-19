@@ -5,6 +5,8 @@ package jp.co.sss.shop.controller.client.item;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.service.BeanTools;
+import jp.co.sss.shop.util.Constant;
 
 /**
  * 商品管理 一覧表示機能(一般会員用)のコントローラクラス
@@ -71,8 +74,11 @@ public class ClientItemShowController {
 	 */
 	@RequestMapping(path = "/client/item/detail/{id}", method = RequestMethod.GET)
 	public String detail(@PathVariable Integer id, Model model) {
-		Item item = itemRepository.getReferenceById(id);
+		Item item = itemRepository.findByIdAndDeleteFlag(id, Constant.NOT_DELETED);
 		ItemBean itemBean = beanTools.copyEntityToItemBean(item);
+		if (item == null) {
+		return "redirect:/syserror";
+		}
 		model.addAttribute("items",itemBean);
 		return"client/item/detail";
 	}
@@ -87,20 +93,21 @@ public class ClientItemShowController {
 		return"redirect:/client/item/list";
 	}
 	
-	
-		
 	/**
-	 * 商品新着順表示
+	 * 商品一覧表示 新着順
 	 * @param model Viewとの値受け渡し
-	 * @return "list/new/arrival"商品新着順画面
-	 * @author Tomita
+	 * @param pageable ページ表示
+	 * @return "list" 商品一覧画面
+	 * @author 株式会社WonderSystemSharing システム開発1部 Wonder Wada 
 	 */
-	@RequestMapping(path = "/client/item/list/1")
-	public String idSortDesc(Model model) {	
-		
-		model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
-		return "client/item/latest";
-		
+	@RequestMapping(path="/client/item/list/1", method =  RequestMethod.GET)
+	public String list(Model model, Pageable pageable) {
+		Page<Object[]> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
+		List<Object[]> itemList = itemsPage.getContent();
+		model.addAttribute("itemsPage", itemsPage);
+		model.addAttribute("itemList", itemList );
+		return"client/item/list";
 	}
+	
 
 }
