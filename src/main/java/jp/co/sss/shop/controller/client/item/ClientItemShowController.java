@@ -38,18 +38,18 @@ public class ClientItemShowController {
 	 */
 	@Autowired
 	BeanTools beanTools;
-	
+
 	/**
 	 * トップ画面 表示処理
 	 *
 	 * @param model    Viewとの値受渡し
 	 * @return "index" トップ画面
 	 */
-	@RequestMapping(path = "/" , method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(path = "/index" , method = { RequestMethod.GET, RequestMethod.POST })
 	public String index(Model model) {
 		return "index";
 	}
-	
+
 	/**
 	 * カテゴリー検索
 	 * @param categoryId カテゴリーidの値受け渡し
@@ -64,9 +64,9 @@ public class ClientItemShowController {
 		model.addAttribute("items", items);
 		return"client/item/list";
 	}
-	
+
 	/**
-	 * 商品詳細表示 
+	 * 商品詳細表示
 	 * @param id 商品id
 	 * @param model Viewとの値受け渡し
 	 * @return "detail" 商品詳細画面
@@ -82,7 +82,7 @@ public class ClientItemShowController {
 		model.addAttribute("items",itemBean);
 		return"client/item/detail";
 	}
-	
+
 	/**
 	 *戻るボタン押して商品一覧画面に戻る
 	 * @return "list" 商品一覧画面
@@ -92,14 +92,22 @@ public class ClientItemShowController {
 	public String rollback() {
 		return"redirect:/client/item/list";
 	}
-	
+
 	/**
 	 * 商品一覧表示 新着順
 	 * @param model Viewとの値受け渡し
 	 * @param pageable ページ表示
 	 * @return "list" 商品一覧画面
-	 * @author 株式会社WonderSystemSharing システム開発1部 Wonder Wada 
+	 * @author 株式会社WonderSystemSharing システム開発1部 Wonder Wada
 	 */
+	@RequestMapping(path = "/client/item/list/1")
+	public String idSortDesc(Model model) {
+
+		model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
+		return "client/item/latest";
+
+	}
+
 	@RequestMapping(path="/client/item/list/1", method =  RequestMethod.GET)
 	public String list(Model model, Pageable pageable) {
 		Page<Object[]> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
@@ -108,6 +116,6 @@ public class ClientItemShowController {
 		model.addAttribute("itemList", itemList );
 		return"client/item/list";
 	}
-	
+
 
 }
