@@ -5,6 +5,8 @@ package jp.co.sss.shop.controller.client.item;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +18,7 @@ import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.service.BeanTools;
+import jp.co.sss.shop.util.Constant;
 
 /**
  * 商品管理 一覧表示機能(一般会員用)のコントローラクラス
@@ -94,11 +97,15 @@ public class ClientItemShowController {
 	 * @param model Viewとの値受け渡し
 	 * @return "list/new/arrival"商品新着順画面
 	 * @author Tomita
+	 * @param pageable 
 	 */
 	@RequestMapping(path = "/client/item/list/1")
-	public String idSortDesc(Model model) {	
-		
+	public String idSortDesc(Model model, Pageable pageable) {	
+		Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
+		List<Item> itemList = itemsPage.getContent();
 		model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
+		model.addAttribute("itemsPage", itemsPage);
+		model.addAttribute("itemList", itemList);
 		return "client/item/latest";
 		
 	}
