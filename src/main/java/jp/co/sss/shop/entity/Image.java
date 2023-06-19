@@ -80,7 +80,7 @@ public class Image {
 	}
 
 	/**
-	 * アップロード日付んの所得
+	 * アップロード日付の所得
 	 * @return アップロード日付
 	 */
 	public Date getUploadDate() {

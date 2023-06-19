@@ -30,11 +30,20 @@ public class Constant {
 	 */
 	public static final String FILE_UPLOAD_PATH = "images";
 
-	/** CSS保存用フォルダの名前 */
-	public static final String CSS_FOLDER = "/css/";
-
 	/** 商品画像ファイル保存用フォルダの名前 */
 	public static final String IMAGE_FOLDER = "/images/";
+
+	/** ユーザー画像ファイル保存用フォルダの名前 */
+	public static final String USER_IMAGE_FOLDER = "/images/user_images/";
+
+	/** サイド画像ファイル保存用フォルダの名前 */
+	public static final String WEB_IMAGE_FOLDER = "/images/web_images/";
+
+	/** トップページスライダー画像ファイル保存用フォルダの名前 */
+	public static final String SLIDER_IMAGE_FOLDER = "/images/web_images/sliders/";
+
+	/** CSS保存用フォルダの名前 */
+	public static final String CSS_FOLDER = "/css/";
 
 	/** JavaScriptファイル保存用フォルダの名前 */
 	public static final String JS_FOLDER = "/js/";
