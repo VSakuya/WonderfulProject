@@ -1,0 +1,58 @@
+<!--
+商品詳細画面
+@author Wonder Wada
+-->
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+<head>
+<title>商品詳細</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+<body class="user">
+   <h2 class="title">商品詳細</h2>
+     <div class="info_form_area" th:object="${items}">
+       <div class="item_detail_area">
+         <div class="item_image_area">
+	       
+	     </div>
+	
+         <dl class="item_detail_list">
+           <dt>商品名</dt>
+             <dd th:text="*{name}"></dd>
+           <dt>価格</dt>
+             <dd th:text="*{price}"></dd>
+           <dt>在庫数</dt>
+             <th:block th:if="${stock ge 6}">
+               <p>在庫あり</p>
+             </th:block >
+             <div th:if="*{stock >= 6}">在庫あり</div>
+             <th:block th:if="*{stock le 5 && stock ge 1}">
+               <dd th:text="*{stock}"></dd>
+             </th:block>
+             
+             <th:block th:if="*{stock == 0}">
+               <p>在庫なし</p>
+             </th:block>
+           <dt>カテゴリ</dt>
+             <dd th:text="*{categoryName}"></dd>
+           <dt>説明文</dt>
+             <dd th:text="*{description}"></dd>
+         </dl>
+      </div>
+		
+     <div class="detail_button_area">
+        <form th:action="@{/client/basket/add}", method="post">
+            <input type="submit" value="買い物かごに入れる"/>
+        </form>
+   
+     	<form th:action="@{/client/item/list/1}" method="post">
+				<input type="submit" value="戻る" class="back_button" />
+		</form>
+     </div>
+</div>
+</body>
+
+</html>
