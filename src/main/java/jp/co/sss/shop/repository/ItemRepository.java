@@ -61,5 +61,19 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @author Tomita
 	 */
 	List<Item> findAllByOrderByIdDesc();
+	
+	/**
+	 * Itemの情報を登録日付順に所得
+	 * @param deleteFlag 削除フラグ
+	 * @param pageable
+	 * @return 商品エンティティ
+	 * @author 株式会社WonderSystemSharing システム開発1部 Wonder Wada 
+	 */
+	@Query(JPQLConstant.FIND_DATE_FOR_NEW_SELL)
+	Page<Object[]> findByDeleteFlagOrderByInsertDateDescIdDescPage(@Param (value = "deleteFlag")int deleteFlag, Pageable pageable);
+	
+	
+
+	
 
 }
