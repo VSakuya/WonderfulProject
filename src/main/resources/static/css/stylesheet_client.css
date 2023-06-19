@@ -1,0 +1,139 @@
+body{
+    font-family: "Consolas", monospace;
+}
+
+/* header elements */
+header{
+    background: white;
+}
+
+.header__icon{
+    display: inline-block;
+    width: 60px;
+    height: 60px;
+    vertical-align: middle;
+    text-align: center;
+    padding: 3px;
+}
+
+.header__icon img{
+    height: 95%;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.1s ease;
+}
+
+.header__icon img:hover{
+    transform: scale(1.1);
+    transition: transform 0.1s ease;
+}
+
+.header__icon-wide{
+    display: inline-block;
+    width: 100px;
+    height: 60px;
+    vertical-align: middle;
+    text-align: center;
+    padding: 3px;
+}
+
+.header__icon-wide img{
+    height: 95%;
+    object-fit: cover;
+    transition: transform 0.1s ease;
+}
+
+.header__icon-wide img:hover{
+    transform: scale(1.1);
+    transition: transform 0.1s ease;
+}
+
+.header__icon-wide a{
+    display: inline-flexbox;
+}
+
+.header__title{
+    height: 170px;
+}
+
+.header__title img{
+    height: 100%;
+    object-fit: cover;
+}
+
+.header__nav{
+    height: 60px;
+    vertical-align: middle;
+    text-align: center;
+    padding: 3px;
+}
+
+.header__nav img{
+    height: 95%;
+    object-fit: cover;
+    transition: transform 0.1s ease;
+}
+
+.header__nav img:hover{
+    transform: scale(1.1);
+    transition: transform 0.1s ease;
+}
+
+/* top page elements */
+.slider__container{
+    max-width: 90vw;
+    margin: 0 auto;
+    overflow: hidden;
+    float: none;
+}
+
+.slider__container ul{
+    display: flex;
+    flex-flow: row nowrap;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.slider__container ul:first-child{
+    animation: slider_loop_1 6s -3s linear infinite;
+    backface-visibility: hidden;
+    will-change: transform;
+}
+
+.slider__container ul + ul{
+    animation: slider_loop_2 6s linear infinite;
+}
+
+.slider__container li{
+    display: inline-block;
+    width: calc(100vw /2);
+    min-width: 150px;
+    margin: 0 20px 0 0;
+    list-style: none;
+    text-align: center;
+}
+
+@keyframes slider_loop_1 {
+    0%{
+        transform: translateX(100%);
+    }
+    to{
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes slider_loop_2 {
+    0%{
+        transform: translateX(0);
+    }
+    to{
+        transform: translateX(-200%);
+    }
+}
+
+
+/* footer elements */
+footer{
+    background: white;
+}
