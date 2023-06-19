@@ -64,6 +64,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	List<Item> findAllByOrderByIdDesc();
 	
 	/**
+<<<<<<< HEAD
 	 * 
 	 * @param deleteFlag
 	 * @param pageable
@@ -72,6 +73,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 */
 	@Query(JPQLConstant.FIND_ALL_ITEMS_ORDER_BY_INSERT_DATE)
 	Page<Item> findByDeleteFlagOrderByInsertDateDescIdDescPage(@Param (value = "deleteFlag")int deleteFlag, Pageable pageable);
+
+	
 
 	
 }

@@ -1,29 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{/client/layout/layout_3block_nav :: layout(~{::title},~{::body/content()})}">
+
 <head>
-<title th:text="#{top}+' | '+ #{shop.title}"> </title>
-<meta charset="UTF-8" />
+	<title th:text="#{top}+' | '+ #{shop.title}"> </title>
+	<meta charset="UTF-8" />
 </head>
+
 <body class="user index">
-	<div>
-		<h2 class="title">
-				<span th:if="${sortType==1}" th:text="#{sort.latest.title}"></span>
-				<span th:if="${sortType==2 || sortType==null}" th:text="#{sort.hotsell.title}"></span>
-		</h2>
-	</div>
-	<div th:if="${#lists.isEmpty(items)}">
-		<p th:text="#{msg.client.item.list.none}"></p>
-	</div>
-	<th:block th:each="item, status: ${items}" th:if="${status.count le 10}">
-		<!--/* 1件分の商品情報 */-->
-		<div class="item">
-			<div class="item_name" th:text="${item.name}"></div>
-			<a th:href="@{/client/item/detail/}+${item.id}">
-			    <img th:src="@{/images/{image}(image=${item.image})}" th:if="${item.image != null}" />
-			    <img th:src="@{/images/common/no_image.jpg}" th:if="${item.image == null}" />
-			</a>
+
+	<!-- <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
+		<ol class="carousel-indicators">
+			<li data-bs-target="#carouselId" data-bs-slide-to="0" class="active" aria-current="true" aria-label="First slide"></li>
+			<li data-bs-target="#carouselId" data-bs-slide-to="1" aria-label="Second slide"></li>
+			<li data-bs-target="#carouselId" data-bs-slide-to="2" aria-label="Third slide"></li>
+		</ol>
+		<div class="carousel-inner" role="listbox">
+			<div class="carousel-item active">
+				<img th:src="@{/static/images/web_images/sliders/test_1080p_1.jpg}" class="w-100 d-block" alt="First slide">
+			</div>
+			<div class="carousel-item">
+				<img th:src="@{/static/images/web_images/sliders/test_1080p_2.jpg}" class="w-100 d-block" alt="Second slide">
+			</div>
+			<div class="carousel-item">
+				<img th:src="@{/static/images/web_images/sliders/test_1080p_3.jpg}" class="w-100 d-block" alt="Third slide">
+			</div>
 		</div>
-	</th:block>
+		<button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Next</span>
+		</button>
+	</div> -->
+
+	<!-- <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
+		<ol class="carousel-indicators">
+			<li th:each="img, imgStat : ${sliderImgs}" data-bs-target="#carouselId" th:data-bs-slide-to="${imgStat.index}" class="active"  aria-current="true"></li>
+		</ol>
+		<div class="carousel-inner" role="listbox">
+			<div th:each="img, imgStat : ${sliderImgs}"   class="carousel-item" th:classappend="${imgStat.index == 0} ">
+				<img th:src="@{${img}}" class="w-100 d-block" >
+			</div>
+		</div>
+		<button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+			<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Previous</span>
+		</button>
+		<button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+			<span class="carousel-control-next-icon" aria-hidden="true"></span>
+			<span class="visually-hidden">Next</span>
+		</button>
+	</div> -->
 </body>
+
 </html>

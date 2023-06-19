@@ -38,18 +38,18 @@ public class ClientItemShowController {
 	 */
 	@Autowired
 	BeanTools beanTools;
-	
+
 	/**
 	 * トップ画面 表示処理
 	 *
 	 * @param model    Viewとの値受渡し
 	 * @return "index" トップ画面
 	 */
-	@RequestMapping(path = "/" , method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(path = "/index" , method = { RequestMethod.GET, RequestMethod.POST })
 	public String index(Model model) {
 		return "index";
 	}
-	
+
 	/**
 	 * カテゴリー検索
 	 * @param categoryId カテゴリーidの値受け渡し
@@ -64,9 +64,9 @@ public class ClientItemShowController {
 		model.addAttribute("items", items);
 		return"client/item/list";
 	}
-	
+
 	/**
-	 * 商品詳細表示 
+	 * 商品詳細表示
 	 * @param id 商品id
 	 * @param model Viewとの値受け渡し
 	 * @return "detail" 商品詳細画面
@@ -74,12 +74,15 @@ public class ClientItemShowController {
 	 */
 	@RequestMapping(path = "/client/item/detail/{id}", method = RequestMethod.GET)
 	public String detail(@PathVariable Integer id, Model model) {
-		Item item = itemRepository.getReferenceById(id);
+		Item item = itemRepository.findByIdAndDeleteFlag(id, Constant.NOT_DELETED);
 		ItemBean itemBean = beanTools.copyEntityToItemBean(item);
+		if (item == null) {
+		return "redirect:/syserror";
+		}
 		model.addAttribute("items",itemBean);
 		return"client/item/detail";
 	}
-	
+
 	/**
 	 *戻るボタン押して商品一覧画面に戻る
 	 * @return "list" 商品一覧画面
@@ -89,25 +92,29 @@ public class ClientItemShowController {
 	public String rollback() {
 		return"redirect:/client/item/list";
 	}
-	
-	
-		
+
 	/**
-	 * 商品新着順表示
+	 * 商品一覧表示 新着順
 	 * @param model Viewとの値受け渡し
 	 * @return "list/new/arrival"商品新着順画面
 	 * @author Tomita
 	 * @param pageable 
 	 */
-	@RequestMapping(path = "/client/item/list/1")
-	public String idSortDesc(Model model, Pageable pageable) {	
+
+
+	@RequestMapping(path = "/client/item/list")
+	public String idSortDesc(Model model, Pageable pageable) {
 		Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
 		List<Item> itemList = itemsPage.getContent();
+
 		model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
 		model.addAttribute("itemsPage", itemsPage);
 		model.addAttribute("itemList", itemList);
 		return "client/item/latest";
-		
+
 	}
+
+
+
 
 }
