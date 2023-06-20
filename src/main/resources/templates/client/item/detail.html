@@ -14,9 +14,9 @@
 <body class="user">
    <h2 class="title">商品詳細</h2>
      <div class="info_form_area" th:object="${items}">
-       <div class="item_detail_area">
+     <div class="item_detail_area">
          <div class="item_image_area">
-	       
+	     <img src = "@{/static/images/test1.jpg}">
 	     </div>
 	
          <dl class="item_detail_list">
@@ -41,15 +41,15 @@
            <dt>説明文</dt>
              <dd th:text="*{description}"></dd>
          </dl>
-      </div>
-		
+     </div>
      <div class="detail_button_area">
-        <form th:action="@{/client/basket/add}", method="post">
-            <input type="submit" value="買い物かごに入れる"/>
+        <form th:action="@{/client/basket/add/}", method="post">
+        <input type="hidden" name="id" value= "1">
+        <input type="submit" value="買い物かごに入れる" class="send_button"/>
         </form>
-   
+        
      	<form th:action="@{/client/item/list/1}" method="post">
-				<input type="submit" value="戻る" class="back_button" />
+	    <input type="submit" value="戻る" class="back_button" />
 		</form>
      </div>
 </div>
