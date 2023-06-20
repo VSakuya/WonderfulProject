@@ -10,9 +10,9 @@
 
 <body class="user">
 
-	<h2 th:class="page_title" th:text="#{login}"></h2>
-	<p th:class="description" th:text="#{msg.login.input}"></p>
-	<div class="login_form_area">
+	<div class="justify-content-center align-items-center text-center container-40">
+		<h2 th:class="page_title" th:text="#{login}"></h2>
+		<p th:class="description" th:text="#{msg.login.input}"></p>
 		<form th:action="@{/login}" method="post" class="login_form needs-validation" th:object="${loginForm}">
 			<th:block th:if="${#fields.hasErrors()}">
 				<div class="error_list alert alert-danger alert-dismissible text-center fade show">
@@ -22,42 +22,32 @@
 					<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
 				</div>
 			</th:block>
-			<div class="mb-3 mt-3">
-				<label for="email" class="form-label">メールアドレス</label>
-				<input type="text" class="form-control" th:field="*{email}" th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''" placeholder="Enter email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" required>
+
+			<div class="row mb-3 mt-3">
+				<label for="email" class="col-sm-2 col-form-label">メールアドレス</label>
+				<div class="col-sm-10">
+					<input type="email" class="form-control" th:field="*{email}" th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''" placeholder="Enter email" required>
+				</div>
 				<div class="valid-feedback">問題なし</div>
 				<div class="invalid-feedback">メールアドレスは正しい形式で入力してください。</div>
 				<div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
 			</div>
-			<div class="mb-3">
-				<label for="pwd" class="form-label">パスワード</label>
-				<input type="password" class="form-control" th:field="*{password}" placeholder="Enter password" pattern="^[a-zA-Z0-9]+$" minlength="5" maxlength="16" required>
+			<div class="row mb-3">
+				<label for="pwd" class="col-sm-2 col-form-label">パスワード</label>
+				<div class="col-sm-10">
+					<input type="password" class="form-control" th:field="*{password}" placeholder="Enter password" pattern="^[a-zA-Z0-9]+$" minlength="5" maxlength="16" required>
+				</div>
 				<div class="valid-feedback">問題なし</div>
 				<div class="invalid-feedback">パスワードは正しい形式で入力してください。</div>
 				<div class="invalid-feedback"  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
 			</div>
-			<input type="submit" class="btn btn-primary" value="ログイン"></input>
-			<!-- <table>
-				<tbody>
-					<tr>
-						<th th:class="label" th:text="#{loginForm.email}">メールアドレス</th>
-						<td class="input"><input type="text" th:field="*{email}" /></td>
-					</tr>
-					<tr>
-						<th th:class="label" th:text="#{loginForm.password}">パスワード</th>
-						<td class="input"><input type="password" th:field="*{password}" /></td>
-					</tr>
-					<tr>
-						<th class="label"></th>
-						<td class="input"><input type="submit" th:value="#{login}" /></td>
-					</tr>
-				</tbody>
-			</table> -->
+			<input type="submit" class="btn btn-dark btn-lg" value="ログイン"></input>
 		</form>
+		<form th:action="@{/}">
+			<button type="submit" class="btn btn-light btn-lg">戻る</button>
+		 </form>
 	</div>
-	<p class="complete_link">
-		<a th:href="@{/}" th:text="#{msg.back.to.top}"></a>
-	</p>
+
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
 	<script>
 		// sha256ハッシュ用のメソッド

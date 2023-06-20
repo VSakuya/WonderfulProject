@@ -1,5 +1,37 @@
+/* common elements */
 body{
     font-family: "Consolas", monospace;
+}
+
+.img-button{
+    display: block;
+    max-width: 200px;
+}
+
+.img-button img{
+
+    width: 100%;
+    height: auto;
+}
+
+.container-80{
+    max-width: 80vw;
+    margin: 0 auto;
+}
+
+.container-60{
+    max-width: 60vw;
+    margin: 0 auto;
+}
+
+.container-40{
+    max-width: 40vw;
+    margin: 0 auto;
+}
+
+.container-20{
+    max-width: 20vw;
+    margin: 0 auto;
 }
 
 /* header elements */
@@ -111,7 +143,7 @@ header{
 
 .top-page__link-image{
     width: 100%;
-    max-width: 600px;
+    max-width: 40vwl;
     object-fit: cover;
 }
 
