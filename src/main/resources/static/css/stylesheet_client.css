@@ -2,6 +2,19 @@
 body{
     font-family: "Consolas", monospace;
 }
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #1f1f1f;
+}
+
+label{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: medium;
+    font-weight: bold;
+    text-shadow: 2px;
+}
 
 .img-button{
     display: block;
@@ -16,6 +29,11 @@ body{
 
 .container-80{
     max-width: 80vw;
+    margin: 0 auto;
+}
+
+.container-70{
+    max-width: 70vw;
     margin: 0 auto;
 }
 
@@ -37,11 +55,6 @@ body{
 /* header elements */
 header{
     background: white;
-}
-
-.header-title-container{
-    max-width: 70vw;
-    margin: 0 auto;
 }
 
 .header__icon{
@@ -101,7 +114,8 @@ header{
 .header__title img{
     height: 100%;
     object-fit: cover;
-    max-height: 18vh;
+    min-width: 300px;
+    max-width: 20vw;
 }
 
 .header__nav{
