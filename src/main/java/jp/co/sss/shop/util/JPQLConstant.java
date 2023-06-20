@@ -20,6 +20,7 @@ public class JPQLConstant {
 	public static final String FIND_USERS_LIST_ORDER_BY_INSERT_DATE = "SELECT u FROM User u WHERE u.deleteFlag =:deleteFlag AND u.authority >= :authority ORDER BY u.insertDate DESC,u.id DESC";
 	
 	/** 商品情報を全権検索（新着順） client側で使用 @author Wonder Wada*/
-	public static final String FIND_DATE_FOR_NEW_SELL = "SELECT img FROM Image img INNER JOIN img.items i INNER JOIN i.category c WHERE i.deleteFlag =:deleteFlag ORDER BY i.insertDate DESC, i.id DESC "; 
 
+	public static final String FIND_DATE_FOR_NEW_SELL = "SELECT img FROM Image img INNER JOIN img.items i INNER JOIN i.category c WHERE i.deleteFlag =:deleteFlag ORDER BY i.insertDate DESC, i.id DESC ";
+			
 }
