@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{common/layout_3block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{/client/layout/layout_3block :: layout(~{::title},~{::body/content()})}">
 
 <head>
 	<meta charset="UTF-8" />
@@ -36,7 +36,7 @@
 				<div class="invalid-feedback">パスワードは正しい形式で入力してください。</div>
 				<div class="invalid-feedback"  th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
 			</div>
-			<input type="submit" class="btn btn-primary" value="Submit"></input>
+			<input type="submit" class="btn btn-primary" value="ログイン"></input>
 			<!-- <table>
 				<tbody>
 					<tr>

@@ -7,6 +7,11 @@ header{
     background: white;
 }
 
+.header-title-container{
+    max-width: 70vw;
+    margin: 0 auto;
+}
+
 .header__icon{
     display: inline-block;
     width: 60px;
@@ -53,12 +58,18 @@ header{
 }
 
 .header__title{
-    height: 170px;
+    margin: 0 auto;
+}
+
+.header__title a{
+    height: 100%;
+    max-height: 170px;
 }
 
 .header__title img{
     height: 100%;
     object-fit: cover;
+    max-height: 200px;
 }
 
 .header__nav{
@@ -87,20 +98,20 @@ header{
     margin: 0 auto;
 }
 
-.slider__container{
+.slider-container{
     width: 100%;
     margin: 0 auto;
     overflow: hidden;
     float: none;
 }
 
-.slider__container img{
+.slider-container img{
     object-fit: cover;
 }
 
 .top-page__link-image{
     width: 100%;
-    max-width: 500px;
+    max-width: 600px;
     object-fit: cover;
 }
 
