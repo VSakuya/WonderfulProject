@@ -21,7 +21,7 @@ import jp.co.sss.shop.repository.OrderRepository;
 import jp.co.sss.shop.service.BeanTools;
 import jp.co.sss.shop.service.PriceCalc;
 /**
- * 注文管理 一覧表示機能(運用管理者用)のコントローラクラス
+ * 注文管理 一覧表示機能(一般会員)のコントローラクラス
  *
  * @author SystemShared
  *
