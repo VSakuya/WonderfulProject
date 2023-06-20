@@ -33,7 +33,7 @@ public class ClientUserRegistController {
 	 */
 	@Autowired
 	HttpSession session;
-	
+
 	/**
 	 * 会員登録 入力画面表示処理
 	 * 
@@ -55,17 +55,23 @@ public class ClientUserRegistController {
 	@RequestMapping(path = "/client/user/regist/input", method = RequestMethod.POST)
 	public String doRegistUser(@Valid @ModelAttribute UserForm userForm, BindingResult result) {
 		String returnStr = "client/user/regist_input";
-		
+
 		if (result.hasErrors()) {
-			// エラーがあった場合、入力画面を表示
+			
+			// エラーがあった場合、セッションにエラー情報を保存
 			session.setAttribute("result", result);
+			
+			// 入力画面を再表示
 			returnStr = "client/user/regist_input";
 		} else {
+			
 			// セッションに入力情報を登録
 			session.setAttribute("userForm", userForm);
+			
 			// 確認画面へリダイレクト
 			returnStr = "redirect:/client/user/regist/check";
 		}
+		
 		return returnStr;
 	}
 
@@ -86,16 +92,22 @@ public class ClientUserRegistController {
 	 */
 	@RequestMapping(path = "/client/user/regist/complete")
 	public String completeRegistUser() {
+
 		// セッション保持情報から入力値再取得
 		UserForm userForm = (UserForm) session.getAttribute("userForm");
+
 		// 会員情報を生成
 		User user = new User();
+
 		// 入力フォーム情報をエンティティに設定
 		BeanUtils.copyProperties(userForm, user);
+
 		// DB登録
 		userRepository.save(user);
+
 		// セッションから入力情報削除
 		session.removeAttribute("userForm");
+
 		// 登録完了画面を表示
 		return "client/user/regist_complete";
 	}

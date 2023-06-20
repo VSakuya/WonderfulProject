@@ -19,7 +19,6 @@ public class JPQLConstant {
 	/** 会員情報を全件検索(登録降順) 管理者機能で利用*/
 	public static final String FIND_USERS_LIST_ORDER_BY_INSERT_DATE = "SELECT u FROM User u WHERE u.deleteFlag =:deleteFlag AND u.authority >= :authority ORDER BY u.insertDate DESC,u.id DESC";
 	
-
 	/** 注文された商品情報を条件検索（注文された個数が多い順）*/
 	public static final String FIND_DATA_FOR_HOT_SELL = 
 			
@@ -50,4 +49,9 @@ public class JPQLConstant {
 		    + "GROUP BY i, c.name, im.imagePath ";			
 		    + "ORDER BY SUM (oi.quantity)DESC, i.id ASC ";
 */
+
+	/** 商品情報を全権検索（新着順） client側で使用 @author Wonder Wada*/
+
+	public static final String FIND_DATE_FOR_NEW_SELL = "SELECT img FROM Image img INNER JOIN img.items i INNER JOIN i.category c WHERE i.deleteFlag =:deleteFlag ORDER BY i.insertDate DESC, i.id DESC ";
+
 }

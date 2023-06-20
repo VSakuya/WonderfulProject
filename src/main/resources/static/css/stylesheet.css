@@ -674,5 +674,9 @@ p.link_center {
 .paging a{
 	display: block;
 }
+.image{
+	width:90px;
+	height:90px;
+}
 
 

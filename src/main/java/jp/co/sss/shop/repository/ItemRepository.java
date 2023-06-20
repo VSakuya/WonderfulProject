@@ -56,8 +56,10 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	List<Item> findByCategory(Category category);
 
 	/**
-	 *@param insertDate 登録日
+	 * idで降順でソートする
+	 * @param insertDate 登録日
 	 * @return 商品エンティティのリスト
+	 * @author Tomita
 	 */
 	List<Item> findAllByOrderByIdDesc();
 	
@@ -69,5 +71,14 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 */
 	@Query(value = JPQLConstant.FIND_DATA_FOR_HOT_SELL, nativeQuery = true)
 	List<Item> findDataForHotSell();
-	
+
+	/** 
+	 * @param deleteFlag
+	 * @param pageable
+	 * @return
+	 * @author Tomita
+	 */
+	@Query(JPQLConstant.FIND_ALL_ITEMS_ORDER_BY_INSERT_DATE)
+	Page<Item> findByDeleteFlagOrderByInsertDateDescIdDescPage(@Param (value = "deleteFlag")int deleteFlag, Pageable pageable);
+
 }

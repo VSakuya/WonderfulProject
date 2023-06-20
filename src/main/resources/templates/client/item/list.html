@@ -1,92 +1,40 @@
-/**
- * 売れ筋順ページ
- * 
- * @author Inaba
- */
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta charset="UTF-8">
-        <title>売れ筋順ページ</title>
-    </head>
-        <body class="user">
-            <header>
-                <div class="container">
-                    <h1 class="site_title">WONDERMAN<h1>
-                        <div class="user_info">
-                        <!--非会員と一般会員によって「ログイン」「ログアウト」の条件分岐による表示-->
-                          <!--非会員-->
-                            <!-- ログイン画面へ遷移-->
-                            <a th:href="@{/login}">ログイン</a>
-                            <!-- 新規登録画面へ遷移-->
-                            <a th:href="@{/client/user/regist/input/init}">新規会員登録</a>
-                          <!--一般会員-->
-                            <!--会員名の表示-->
-                            <a th:href="@{client/user/detail}">
-                              
-                              
-                            </a>
-                            <!--「ログアウト」、ログイン画面に遷移-->
-                            <a th:herf="@{/logout}">
-                                ログアウト
-                            </a>
-                        </div>
-                </div>
-            </header>
-            
-            <nav class="nav_area">
-                <ul class="navMenu">
-                    <li><a th:href="@{/}">トップ</a></li>
-                    <li><a th:href="@{/client/item}">商品一覧</a></li>
-                    <li><a th:href="@{/client/basket/list}">買い物かご</a></li>
-            　　</ul>  
-            </nav> 
-            <!--カテゴリ検索-->
-            <div class="container">
-            
-                <aside class="search">
-                
-                    <div class="search_area">
-                        <h2 class="title">カテゴリ検索</h2>
-                            <!--カテゴリ名-->
-                            <div calss="form">
-                                <form th:action="@{client/item/list/}">
-                                    <select name="categoryId">
-                                        <option value="0" th:selected="${category_id==}">--指定なし--</option>
-                                        <option value="1" th:selected="${category_id==}">アウター</option>
-                                        <option value="2" th:selected="${category_id==}">トップス</option>
-                                        <!--カテゴリが決まり次第記入-->
-                                
-                                     </select>
-                                     <input type="submit" value="検索" />   
-                                </form>
-                             </div>
-                     </div>        
-                 </aside>    
-                 <!--売れ筋順-->
-                 <article class="main">
-                     <div>
-                         <h2 class="title">売れ筋商品</h2>
-                     </div>
-                     <!---売れ筋順商品の表示-->
-                     	
-                     
+<!--商品一覧画面
+ @author 株式会社WonderSystemSharing システム開発1部 Wonder Wada 
+-->
 
-                     
-                     
-                                  
-             
-             
-             
-             
-             
-             
-                  </article> 
-              </div>
-              <footer>
-                  <small class="container">
-                      Copyright(C) System Shared co., ltd, ALL Rights Reserved
-                  </small>
-              </footer>           
-         </body>
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+ th:replace="~{admin/layout/layout_5block :: layout(~{::title},~{::body/content()})}">
+<head>
+<meta charset="UTF-8">
+<title>商品一覧画面</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+</head>
+<body class="user">
+    <h2 class="title">商品一覧</h2>
+    <div class="sorted_by">
+					<span>
+						新着順
+					</span>
+					<a th:href="@{/client/item/list/2}">
+						売れ筋順
+					</a>
+				</div>
+    <table class="list_table item_list" th:if="!${#lists.isEmpty(itemList)}">
+    <tr>
+        <td>商品画像</td>
+        <td>商品名</td>
+        <td>価格</td>
+        <td>カテゴリ</td>
+    </tr>
+    <tr th:each="item : ${itemList}">
+        <td class="item_image_area"><img th:src="@{/static/images/{path}(path = ${item.imagePath})}"/></td>
+        <td><a th:href="@{/client/item/detail/{id}(id = ${item.items.id})}" th:text="${item.items.name}"></a></td>
+        <td th:text="${item.items.price}"></td>
+        <td th:text="${item.items.category.name}"></td>
+    </tr>
+    </table>
+</body>
 </html>

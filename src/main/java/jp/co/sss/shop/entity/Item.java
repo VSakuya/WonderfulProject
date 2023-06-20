@@ -1,6 +1,7 @@
 package jp.co.sss.shop.entity;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -77,7 +78,7 @@ public class Item {
 	 * 画像リスト情報
 	 */
 	@OneToMany(mappedBy = "items")
-	private List<Image> imageList;
+	private List<Image> imageList = new ArrayList<>();
 
 	/**
 	 * コンストラクタ
