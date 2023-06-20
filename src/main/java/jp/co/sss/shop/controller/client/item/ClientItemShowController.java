@@ -4,6 +4,8 @@ package jp.co.sss.shop.controller.client.item;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -38,7 +40,14 @@ public class ClientItemShowController {
 	 */
 	@Autowired
 	BeanTools beanTools;
-
+	
+	/**
+	 * 商品情報
+	 */
+	@Autowired
+	HttpSession session;
+     
+     
 	/**
 	 * トップ画面 表示処理
 	 *
@@ -73,14 +82,17 @@ public class ClientItemShowController {
 	 * @author tanaka
 	 */
 	@RequestMapping(path = "/client/item/detail/{id}", method = RequestMethod.GET)
-	public String detail(@PathVariable Integer id, Model model) {
+	public String detail(@PathVariable Integer id, Model model, HttpSession session) {
 		Item item = itemRepository.findByIdAndDeleteFlag(id, Constant.NOT_DELETED);
-		ItemBean itemBean = beanTools.copyEntityToItemBean(item);
+	    ItemBean itemBean = beanTools.copyEntityToItemBean(item);
 		if (item == null) {
 		return "redirect:/syserror";
 		}
-		model.addAttribute("items",itemBean);
+		model.addAttribute("items", itemBean);
+		
 		return"client/item/detail";
+		
+		
 	}
 
 	/**
@@ -90,7 +102,7 @@ public class ClientItemShowController {
 	 */
 	@RequestMapping(path = "/client/item/list/1", method = RequestMethod.POST)
 	public String rollback() {
-		return"redirect:/client/item/list";
+		return"redirect:/client/item/list/1";
 	}
 
 	/**
@@ -100,13 +112,14 @@ public class ClientItemShowController {
 	 * @return "list" 商品一覧画面
 	 * @author 株式会社WonderSystemSharing システム開発1部 Wonder Wada
 	 */
-	@RequestMapping(path = "/client/item/list/1")
-	public String idSortDesc(Model model) {
+	//@RequestMapping(path = "/client/item/list/1")
+	//public String idSortDesc(Model model) {
 
-		model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
-		return "client/item/latest";
+		//model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
+	//	return "client/item/latest";
 
-	}
+	//}
+	//
 
 	@RequestMapping(path="/client/item/list/1", method =  RequestMethod.GET)
 	public String list(Model model, Pageable pageable) {
@@ -114,7 +127,9 @@ public class ClientItemShowController {
 		List<Object[]> itemList = itemsPage.getContent();
 		model.addAttribute("itemsPage", itemsPage);
 		model.addAttribute("itemList", itemList );
+	
 		return"client/item/list";
+		
 	}
 
 
