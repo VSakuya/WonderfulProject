@@ -91,4 +91,19 @@ public class ClientItemShowController {
 		return "client/item/list_new_arrival";
 	}
 	
+	/**
+	 * 商品売れ筋順表示
+	 * @param model Viewとの値受け渡し
+	 * @return "ranking_list/"商品売れ筋順画面
+	 * @author Inaba
+	 */
+	@RequestMapping("/client/item/list/2")
+	public String showFindDateForRanking(Model model) {
+		System.out.println("test1!");
+		
+		model.addAttribute("ranking", itemRepository.findDataForHotSell());
+		System.out.println("test2!");
+		
+		return "client/item/hotsell";
+	}
 }

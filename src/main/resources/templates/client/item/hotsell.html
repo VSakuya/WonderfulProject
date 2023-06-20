@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+    th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+    <head>
+        <meta charset="UTF-8">
+        <title th:text="#{sort.hotsell.str}"></title>
+    </head>
+    <body>
+        <div>
+	        <h2 class="title">
+			    <span th:if="${sortType==1}" th:text="#{sort.latest.title}"></span>
+			    <span th:if="${sortType==2 || sortType==null}" th:text="#{sort.hotsell.title}"></span>
+	        </h2>
+        </div>
+             <!--売れ筋順-->
+             <article class="main">
+                 <table class="list_table item_detail">
+                     <tr>
+                         <th th:text="#{data.item.image}"></th>
+                         <th th:text="#{data.item.name}"></th>
+                         <th th:text="#{data.item.price}"></th>
+                         <th th:text="#{data.category}"></th>
+                     </tr>
+                     <tr th:each="pranking:${ranking}">
+                        <!--<td class="item_image_area"><img th:src="@{/static/images/{path}(path = ${item.imageList[0].imagePath})}"/></td>-->
+                        
+                       <!--<td th:text="${pranking.imageList[0].image_path}"></td>-->
+                        <td th:text="${pranking.name}"></td>
+                        <td th:text="${pranking.price}"></td>
+                        <td th:text="${pranking.category.name}"></td>
+                     </tr>
+                 </table>   
+              </article>          
+     </body>
+</html>

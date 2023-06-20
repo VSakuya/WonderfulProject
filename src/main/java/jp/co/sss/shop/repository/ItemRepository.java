@@ -60,4 +60,14 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @return 商品エンティティのリスト
 	 */
 	List<Item> findAllByOrderByIdDesc();
+	
+	/**
+	 * 商品ID、商品名、価格、カテゴリ名、画像パスでグループ化
+	 * 削除フラグを条件に検索
+	 * 注文された個数の合計（降順）と商品ID（昇順）で並び替え
+	 * @author inaba
+	 */
+	@Query(value = JPQLConstant.FIND_DATA_FOR_HOT_SELL, nativeQuery = true)
+	List<Item> findDataForHotSell();
+	
 }
