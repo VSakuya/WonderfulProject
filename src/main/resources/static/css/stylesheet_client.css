@@ -1,5 +1,55 @@
+/* common elements */
 body{
     font-family: "Consolas", monospace;
+}
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 500;
+    line-height: 1.1;
+    color: #1f1f1f;
+}
+
+label{
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-size: medium;
+    font-weight: bold;
+    text-shadow: 2px;
+}
+
+.img-button{
+    display: block;
+    max-width: 12vw;
+}
+
+.img-button img{
+
+    width: 100%;
+    height: auto;
+}
+
+.container-80{
+    max-width: 80vw;
+    margin: 0 auto;
+}
+
+.container-70{
+    max-width: 70vw;
+    margin: 0 auto;
+}
+
+.container-60{
+    max-width: 60vw;
+    margin: 0 auto;
+}
+
+.container-40{
+    max-width: 40vw;
+    margin: 0 auto;
+}
+
+.container-20{
+    max-width: 20vw;
+    margin: 0 auto;
 }
 
 /* header elements */
@@ -9,8 +59,8 @@ header{
 
 .header__icon{
     display: inline-block;
-    width: 60px;
-    height: 60px;
+    width: 3vw;
+    height: 3vw;
     vertical-align: middle;
     text-align: center;
     padding: 3px;
@@ -30,8 +80,8 @@ header{
 
 .header__icon-wide{
     display: inline-block;
-    width: 100px;
-    height: 60px;
+    width: 6vw;
+    height: 3vw;
     vertical-align: middle;
     text-align: center;
     padding: 3px;
@@ -53,16 +103,23 @@ header{
 }
 
 .header__title{
-    height: 170px;
+    margin: 0 auto;
+}
+
+.header__title a{
+    height: 100%;
+    max-height: 20vh;
 }
 
 .header__title img{
     height: 100%;
     object-fit: cover;
+    min-width: 300px;
+    max-width: 20vw;
 }
 
 .header__nav{
-    height: 60px;
+    height: 4vw;
     vertical-align: middle;
     text-align: center;
     padding: 3px;
@@ -80,58 +137,29 @@ header{
 }
 
 /* top page elements */
-.slider__container{
-    max-width: 90vw;
+.top-page-container{
+    position: relative;
+    max-width: 70vw;
+    height: auto;
+    margin: 0 auto;
+}
+
+.slider-container{
+    width: 100%;
     margin: 0 auto;
     overflow: hidden;
     float: none;
 }
 
-.slider__container ul{
-    display: flex;
-    flex-flow: row nowrap;
+.slider-container img{
+    object-fit: cover;
+}
+
+.top-page__link-image{
     width: 100%;
-    margin: 0;
-    padding: 0;
+    max-width: 40vwl;
+    object-fit: cover;
 }
-
-.slider__container ul:first-child{
-    animation: slider_loop_1 6s -3s linear infinite;
-    backface-visibility: hidden;
-    will-change: transform;
-}
-
-.slider__container ul + ul{
-    animation: slider_loop_2 6s linear infinite;
-}
-
-.slider__container li{
-    display: inline-block;
-    width: calc(100vw /2);
-    min-width: 150px;
-    margin: 0 20px 0 0;
-    list-style: none;
-    text-align: center;
-}
-
-@keyframes slider_loop_1 {
-    0%{
-        transform: translateX(100%);
-    }
-    to{
-        transform: translateX(-100%);
-    }
-}
-
-@keyframes slider_loop_2 {
-    0%{
-        transform: translateX(0);
-    }
-    to{
-        transform: translateX(-200%);
-    }
-}
-
 
 /* footer elements */
 footer{

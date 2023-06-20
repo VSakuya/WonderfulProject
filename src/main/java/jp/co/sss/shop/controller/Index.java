@@ -27,6 +27,10 @@ import jp.co.sss.shop.util.Constant;
 @Controller
 public class Index {
 
+
+	/**
+	 * スライダーフォルダの中のファイルの配列
+	 */
 	@Value("classpath:static" + Constant.SLIDER_IMAGE_FOLDER + "*")
 	private Resource[] sliderImgs;
 

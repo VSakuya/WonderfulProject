@@ -1,6 +1,5 @@
 package jp.co.sss.shop.controller.client.favorite;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -52,57 +51,36 @@ public class ClientFavoriteController {
 	
 	/**
 	 * お気に入り一覧
+	 * 削除フラグのチェックも行う
 	 * 
 	 * @return　client/favorite/listに遷移
 	 */
 	@RequestMapping(path = "/client/favorite/list", method = RequestMethod.GET)
 	public String showFavorite(Model model) {
 		
-		
-		
 		List<Favorite> list = favoriteRepository.findAll();
 		
-		for (int i = 0; i < list.size(); i++) {
+		for (int i = 0; i < list.size(); i++) {														//削除フラグチェック
 			
 			Item favoritedItem = (list.get(i)).getItem();
 			
-			List<Image> imageInfo = favoritedItem.getImageList();
-			
-			for (int j = 0; j < imageInfo.size(); j++) {
-				
-				if(model.getAttribute("imagePath") == null) {
-					
-					List<String> imagePath = new ArrayList<>();
-					imagePath.add((imageInfo.get(j)).getImagePath());
-					model.addAttribute("imagePath", imagePath);
-					
-				}
-				
-				
-				
-				
-//				List<String> imagePath = new ArrayList<>();
-//				imagePath.add((imageInfo.get(j)).getImagePath());
-//				model.addAttribute("imagePath", imagePath);
-				
+			if (itemRepository.findByIdAndDeleteFlag(favoritedItem.getId(), 1) == favoritedItem) {
+				list.remove(i);
 			}
 		}
 		
-		
-		
-		
 		model.addAttribute("items", list);
-		
-		
 		
 		return "client/favorite/list";
 	}
 	
 	
-	
-	
-	
-	
+	/**
+	 * お気に入りのオンオフ
+	 * @param session　セッションスコープ
+	 * @param id　商品ID
+	 * @return　商品詳細画面にリダイレクト
+	 */
 	
 	@RequestMapping(path = "/client/favorite/switch", method = RequestMethod.GET)
 	public String switchFavorite(HttpSession session, int id) {
@@ -127,7 +105,7 @@ public class ClientFavoriteController {
 			BeanUtils.copyProperties(user, favorite);
 			BeanUtils.copyProperties(item, favorite);
 			
-			favorite=favoriteRepository.save(favorite);
+			favorite = favoriteRepository.save(favorite);
 			
 			return "redirect:/client/item/detail/{id}";
 		}

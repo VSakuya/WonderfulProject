@@ -108,9 +108,9 @@ public class ClientItemShowController {
 	/**
 	 * 商品一覧表示 新着順
 	 * @param model Viewとの値受け渡し
-	 * @param pageable ページ表示
-	 * @return "list" 商品一覧画面
-	 * @author 株式会社WonderSystemSharing システム開発1部 Wonder Wada
+	 * @return "list/new/arrival"商品新着順画面
+	 * @author Tomita
+	 * @param pageable 
 	 */
 	//@RequestMapping(path = "/client/item/list/1")
 	//public String idSortDesc(Model model) {
@@ -118,8 +118,22 @@ public class ClientItemShowController {
 		//model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
 	//	return "client/item/latest";
 
-	//}
+
+
+	//@RequestMapping(path = "/client/item/list")
+	//public String idSortDesc(Model model, Pageable pageable) {
+		//Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
+//		List<Item> itemList = itemsPage.getContent();
+//
+//		model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
+//		model.addAttribute("itemsPage", itemsPage);
+//		model.addAttribute("itemList", itemList);
+//		return "client/item/latest";
+//
+//
+//	}
 	//
+
 
 	@RequestMapping(path="/client/item/list/1", method =  RequestMethod.GET)
 	public String list(Model model, Pageable pageable) {
@@ -131,6 +145,5 @@ public class ClientItemShowController {
 		return"client/item/list";
 		
 	}
-
 
 }
