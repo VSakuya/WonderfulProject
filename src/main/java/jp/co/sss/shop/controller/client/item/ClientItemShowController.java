@@ -109,10 +109,10 @@ public class ClientItemShowController {
 	 * @return "list" 商品一覧画面
 	 * @author tanaka
 	 */
-	@RequestMapping(path = "/client/item/list/1", method = RequestMethod.POST)
-	public String rollback() {
-		return"redirect:/client/item/list/1";
-	}
+//	@RequestMapping(path = "/client/item/list/1", method = RequestMethod.POST)
+//	public String rollback() {
+//		return"redirect:/client/item/list/1";
+//	}
 
 	/**
 	 * 商品一覧表示 新着順
@@ -129,7 +129,7 @@ public class ClientItemShowController {
 
 
 
-	@RequestMapping(path = "/client/item/list/1")
+	@RequestMapping(path = "/client/item/list")
 	public String idSortDesc(Model model, Pageable pageable) {
 		Page<Object[]> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
 		List<Object[]> itemList = itemsPage.getContent();
@@ -159,10 +159,11 @@ public class ClientItemShowController {
 	public String list(Model model, Pageable pageable) {
 		Page<Object[]> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
 		List<Object[]> itemList = itemsPage.getContent();
+
 		model.addAttribute("itemsPage", itemsPage);
 		model.addAttribute("itemList", itemList );
 	
-		return"client/item/list";
+		return"client/item/new_arrival";
 
 	}
 
