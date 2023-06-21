@@ -1,5 +1,6 @@
 package jp.co.sss.shop.controller.client.item;
 
+
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -85,11 +86,12 @@ public class ClientItemShowController {
 	 * @author tanaka
 	 */
 	@RequestMapping(path = "/client/item/detail/{id}", method = RequestMethod.GET)
-	public String detail(@PathVariable Integer id, Model model, HttpSession session) {
-		Item item = itemRepository.findByIdAndDeleteFlag(id, Constant.NOT_DELETED);
+	public String detail(@PathVariable Integer id, Model model) {
+		Item item = itemRepository.getReferenceById(id);
 	    ItemBean itemBean = beanTools.copyEntityToItemBean(item);
 	    itemBean.setImage(item.getImageList().get(0).getImagePath());
 	    
+
 		model.addAttribute("items", itemBean);
 		return"client/item/detail";
 		
@@ -113,12 +115,7 @@ public class ClientItemShowController {
 	 * @author Tomita
 	 * @param pageable 
 	 */
-	//@RequestMapping(path = "/client/item/list/1")
-	//public String idSortDesc(Model model) {
-
-		//model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
-	//	return "client/item/latest";
-
+	
 
 
 //	@RequestMapping(path = "/client/item/list")
@@ -132,9 +129,9 @@ public class ClientItemShowController {
 //		model.addAttribute("itemList", itemList);
 //		return "client/item/list";
 //	}
-	//@RequestMapping(path = "/client/item/list")
-	//public String idSortDesc(Model model, Pageable pageable) {
-		//Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
+//	@RequestMapping(path = "/client/item/list")
+//	public String idSortDesc(Model model, Pageable pageable) {
+//		Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
 //		List<Item> itemList = itemsPage.getContent();
 //
 //		model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
@@ -144,7 +141,8 @@ public class ClientItemShowController {
 //
 //
 //	}
-	//
+	
+
 
 
 	@RequestMapping(path="/client/item/list", method =  RequestMethod.GET)
@@ -156,8 +154,8 @@ public class ClientItemShowController {
 		model.addAttribute("itemList", itemList );
 	
 		return"client/item/new_arrival";
-
 	}
+
 
 	
 	/**

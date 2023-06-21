@@ -18,9 +18,13 @@ import jp.co.sss.shop.repository.ItemRepository;
 
 /**
  *  買い物かご管理　買い物かご関連機能（一般会員用）コントローラクラス
+ *  
+ * 　showCart() 買い物かご一覧機能
+ * 　addToCart() 買い物かごに商品を追加
+ * 　deleteItem() 買い物かご内の商品を減らす
+ * 　deleteAll() 買い物かご内の商品をすべて削除する
  * 
  * @author Wada
- *
  */
 @Controller
 public class ClientBasketController {
@@ -31,6 +35,9 @@ public class ClientBasketController {
 	@Autowired
 	ItemRepository itemRepository;
 	
+	/**
+	 * 買い物かご用インターフェース
+	 */
 	@Autowired
 	HttpSession session;
 
@@ -45,23 +52,6 @@ public class ClientBasketController {
 	 */
 	@RequestMapping(path = "/client/basket/list", method = RequestMethod.GET)
 	public String showCart(Model model) {
-		
-		List<BasketBean> basketLis = new ArrayList<BasketBean>();
-		BasketBean basketBean = new BasketBean(1, "ここから商品詳細 itemId = 1", 0, 20);
-		basketLis.add(basketBean);
-		session.setAttribute("baskets", basketLis);
-		
-		@SuppressWarnings("unchecked")
-		List<BasketBean> ba= (List<BasketBean>) session.getAttribute("baskets");
-		BasketBean bas = new BasketBean(2, "ここから商品詳細 itemId = 2", 302);
-		ba.add(bas);
-		session.setAttribute("baskets", ba);
-		
-		@SuppressWarnings("unchecked")
-		List<BasketBean> bask = (List<BasketBean>) session.getAttribute("baskets");
-		BasketBean baske = new BasketBean(3, "ここから商品詳細 itemId = 3", 30123);
-		bask.add(baske);
-		session.setAttribute("baskets", bask);
 		
 		if(session.getAttribute("baskets") == null) {							//買い物かごに商品が存在しない場合
 			
@@ -136,7 +126,7 @@ public class ClientBasketController {
 			@SuppressWarnings("unchecked")
 			List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("baskets");
 			
-			Item		item = itemRepository.getReferenceById(id);
+			Item item = itemRepository.getReferenceById(id);
 			
 			for (int i = 0; i < basketList.size(); i++) {		//買い物かご内の重複チェック
 				
@@ -147,7 +137,7 @@ public class ClientBasketController {
 						basketItem = basketList.get(i);
 						int orderNum = basketItem.getOrderNum();
 						basketItem.setOrderNum(orderNum += 1);
-						basketList.add(i, basketItem);
+						basketList.set(i, basketItem);
 						session.setAttribute("baskets", basketList);
 						
 						return "redirect:/client/basket/list";
@@ -168,13 +158,13 @@ public class ClientBasketController {
 	/**
 	 * 注文数を減らす
 	 * 
-	 * @param session　買い物かご用
-	 * @param count		添字用の数値
+	 * @param session　	買い物かご用
+	 * @param index		添字用の数値
 	 * 
 	 * @return			買い物かご一覧(showCart())へリダイレクト
 	 */
 	@RequestMapping(path = "/client/basket/delete", method = RequestMethod.POST)
-	public String deleteItem(int index) {
+	public String deleteItem(Integer index) {
 		
 		int listNum = index;
 		
@@ -185,7 +175,13 @@ public class ClientBasketController {
 		
 		int orderNum = basketItem.getOrderNum();
 		
+		
 		if (orderNum == 1) {								//注文数が１つの場合　買い物かごから削除
+			
+			if (basketList.size() == 1) {
+				session.removeAttribute("baskets");
+				return "redirect:/client/basket/list";
+			}
 			
 			basketList.remove(listNum);
 			session.setAttribute("baskets", basketList);
@@ -193,7 +189,7 @@ public class ClientBasketController {
 		} else {
 			
 			basketItem.setOrderNum(orderNum -= 1);			//注文数が２つ以上の場合
-			basketList.add(listNum, basketItem);
+			basketList.set(listNum, basketItem);
 			session.setAttribute("baskets", basketList);
 			
 		}
