@@ -9,7 +9,7 @@
 
 <body class="user index">
 	<div class="top-page-container">
-		<div id="carouselId" class="carousel slide slider__container py-4" data-bs-ride="carousel">
+		<div id="carouselId" class="carousel slide slider-container py-4" data-bs-ride="carousel">
 			<div class="carousel-inner" role="listbox">
 				<div th:each="img, imgStat : ${sliderImgs}"   class="carousel-item" th:classappend="${imgStat.index == 0} ? 'active' : ''">
 					<img th:src="@{${img}}" class="w-100 d-block" >

@@ -13,7 +13,6 @@
 	<!--   お気に入り登録した商品が存在する場合   -->
 	<th:block th:if="${items != null}">
 		<table class="list_table item_detail">
-		
 			<tr>
 				<th th:text="#{data.item.image}">
 				</th>
@@ -24,24 +23,19 @@
 				<th th:text="#{data.category}">
 				</th>
 			</tr>
-			
-			<tr th:each="item: ${items}">
-				
-				<td th:each="imagepath: ${imagePath}">
-					<img th:src="@{/static/images/{image}(image=${imagepath})}" th:if="${imagepath != null}" />
-					<img th:src="@{/images/common/no_image.jpg}" th:if="${imagepath == null}" />
-				</td>
-				
-				
+			<tr th:each="item, stat: ${items}">
 				<td>
-				<a th:href="@{/client/item/detail/{id}(id=${item.id})}" th:text="${item.item.name}"> </a>
+					<img th:src="@{/static/images/} + ${item.item.imageList[0].imagePath}" th:if="${item.item.imageList[0].imagePath != null}" />
+					<img th:src="@{/images/common/no_image.jpg}" th:if="${item.item.imageList[0].imagePath == null}" />
+				</td>
+				<td>
+				<a th:href="@{/client/item/detail/{id}(id=${item.item.id})}" th:text="${item.item.name}"> </a>
 				</td>
 				<td th:text="${item.item.price}">
 				</td>
 				<td th:text="${item.item.category.name}">
 				</td>
 			</tr>
-						
 		</table>
 	<th:block>
 </body>

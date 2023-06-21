@@ -14,7 +14,7 @@
 </head>
 <body class="user">
     <h2 class="title">商品一覧</h2>
-    <div class="sorted_by">
+      <div class="sorted_by">
 					<span>
 						新着順
 					</span>
@@ -22,19 +22,24 @@
 						売れ筋順
 					</a>
 				</div>
-    <table class="list_table item_list" th:if="!${#lists.isEmpty(itemList)}">
+    <div class="user_info_form_area">
+    
+    <table class="list_table item_detail" th:if="!${#lists.isEmpty(itemList)}">
     <tr>
-        <td>商品画像</td>
+        <td>商品画像1</td>
         <td>商品名</td>
         <td>価格</td>
         <td>カテゴリ</td>
     </tr>
-    <tr th:each="item : ${itemList}">
-        <td class="item_image_area"><img th:src="@{/static/images/{path}(path = ${item.imagePath})}"/></td>
-        <td><a th:href="@{/client/item/detail/{id}(id = ${item.items.id})}" th:text="${item.items.name}"></a></td>
-        <td th:text="${item.items.price}"></td>
-        <td th:text="${item.items.category.name}"></td>
+    <tr th:each="item : ${session.itemList}">
+        <div class="item_image_area">
+        <td><img th:src="@{/static/images/{path}(path = ${item.imagePath})}"/></td>
+        </div>
+        <td><a th:href="@{/client/item/detail/{id}(id = ${session.item.items.id})}" th:text="${session.item.items.name}"></a></td>
+        <td th:text="${session.item.items.price}"></td>
+        <td th:text="${session.item.items.category.name}"></td>
     </tr>
     </table>
+    </div>
 </body>
 </html>

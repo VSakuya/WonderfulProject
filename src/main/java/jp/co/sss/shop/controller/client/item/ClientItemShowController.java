@@ -1,8 +1,10 @@
 package jp.co.sss.shop.controller.client.item;
 
 
-
+import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -38,7 +40,14 @@ public class ClientItemShowController {
 	 */
 	@Autowired
 	BeanTools beanTools;
-
+	
+	/**
+	 * 商品情報
+	 */
+	@Autowired
+	HttpSession session;
+     
+     
 	/**
 	 * トップ画面 表示処理
 	 *
@@ -74,13 +83,23 @@ public class ClientItemShowController {
 	 */
 	@RequestMapping(path = "/client/item/detail/{id}", method = RequestMethod.GET)
 	public String detail(@PathVariable Integer id, Model model) {
-		Item item = itemRepository.findByIdAndDeleteFlag(id, Constant.NOT_DELETED);
-		ItemBean itemBean = beanTools.copyEntityToItemBean(item);
+		List<ItemBean> itemList = new ArrayList<ItemBean>();
+		Item item = itemRepository.getReferenceById(id);
+	    ItemBean itemBean = beanTools.copyEntityToItemBean(item);
+	    
 		if (item == null) {
 		return "redirect:/syserror";
 		}
-		model.addAttribute("items",itemBean);
+		
+		
+		itemList.add(itemBean);
+		
+		
+		session.setAttribute("items", itemBean);
+	
 		return"client/item/detail";
+		
+		
 	}
 
 	/**
@@ -90,7 +109,7 @@ public class ClientItemShowController {
 	 */
 	@RequestMapping(path = "/client/item/list/1", method = RequestMethod.POST)
 	public String rollback() {
-		return"redirect:/client/item/list";
+		return"redirect:/client/item/list/1";
 	}
 
 	/**
@@ -100,21 +119,55 @@ public class ClientItemShowController {
 	 * @author Tomita
 	 * @param pageable 
 	 */
+	//@RequestMapping(path = "/client/item/list/1")
+	//public String idSortDesc(Model model) {
+
+		//model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
+	//	return "client/item/latest";
 
 
-	@RequestMapping(path = "/client/item/list")
-	public String idSortDesc(Model model, Pageable pageable) {
-		Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
-		List<Item> itemList = itemsPage.getContent();
+	//@RequestMapping(path = "/client/item/list")
+	//public String idSortDesc(Model model, Pageable pageable) {
+		//Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
+//		List<Item> itemList = itemsPage.getContent();
+//
+//		model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
+//		model.addAttribute("itemsPage", itemsPage);
+//		model.addAttribute("itemList", itemList);
+//		return "client/item/latest";
+//
+//
+//	}
+	//
 
-		model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
+
+	@RequestMapping(path="/client/item/list/1", method =  RequestMethod.GET)
+	public String list(Model model, Pageable pageable) {
+		Page<Object[]> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
+		List<Object[]> itemList = itemsPage.getContent();
+		
 		model.addAttribute("itemsPage", itemsPage);
-		model.addAttribute("itemList", itemList);
-		return "client/item/latest";
-
+		session.setAttribute("itemList", itemList );
+	
+		return"client/item/list";
+		
 	}
 
-
-
+	
+	/**
+	 * 商品売れ筋順表示
+	 * @param model Viewとの値受け渡し
+	 * @return "ranking_list/"商品売れ筋順画面
+	 * @author Inaba
+	 */
+	@RequestMapping("/client/item/list/2")
+	public String showFindDateForRanking(Model model) {
+		System.out.println("test1!");
+		
+		model.addAttribute("ranking", itemRepository.findDataForHotSell());
+		System.out.println("test2!");
+		
+		return "client/item/hotsell";
+	}
 
 }

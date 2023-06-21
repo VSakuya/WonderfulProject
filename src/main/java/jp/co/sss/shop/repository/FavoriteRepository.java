@@ -13,10 +13,10 @@ import jp.co.sss.shop.entity.User;
  * categoriesテーブル用リポジトリ
  *
  * @author System Shared
+ * 			Wada
  */
 @Repository
 public interface FavoriteRepository extends JpaRepository<Favorite, Integer> {
-	
-	
-	List<Favorite> findByItemAndUser(Item item, User user);
+	List<Favorite> findByUser(User user);
+	Favorite findByItemAndUser(Item item, User user);
 }
