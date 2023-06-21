@@ -1,0 +1,45 @@
+<!--商品一覧画面
+ @author 株式会社WonderSystemSharing システム開発1部 Wonder Wada 
+-->
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+ th:replace="~{admin/layout/layout_5block :: layout(~{::title},~{::body/content()})}">
+<head>
+<meta charset="UTF-8">
+<title>商品一覧画面</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" type="text/css" href="css/stylesheet.css">
+</head>
+<body class="user">
+    <h2 class="title">商品一覧</h2>
+      <div class="sorted_by">
+					<span>
+						新着順
+					</span>
+					<a th:href="@{/client/item/list/2}">
+						売れ筋順
+					</a>
+				</div>
+    <div class="user_info_form_area">
+    
+    <table class="list_table item_detail" th:if="!${#lists.isEmpty(itemList)}">
+    <tr>
+        <td>商品画像1</td>
+        <td>商品名</td>
+        <td>価格</td>
+        <td>カテゴリ</td>
+    </tr>
+    <tr th:each="item : ${session.itemList}">
+        <div class="item_image_area">
+        <td><img th:src="@{/static/images/{path}(path = ${item.imagePath})}"/></td>
+        </div>
+        <td><a th:href="@{/client/item/detail/{id}(id = ${session.item.items.id})}" th:text="${session.item.items.name}"></a></td>
+        <td th:text="${session.item.items.price}"></td>
+        <td th:text="${session.item.items.category.name}"></td>
+    </tr>
+    </table>
+    </div>
+</body>
+</html>
