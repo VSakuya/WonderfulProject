@@ -1,6 +1,6 @@
 <!--
 商品詳細画面
-@author Wonder Wada
+@author tanaka
 -->
 
 <!DOCTYPE html>
@@ -13,41 +13,51 @@
 </head>
 <body class="user">
    <h2 class="title">商品詳細</h2>
-     <div class="info_form_area" th:object="${items}">
+     <div class="info_form_area">
      <div class="item_detail_area">
          <div class="item_image_area">
-	     <img src = "@{/static/images/test1.jpg}">
+
+        	<img th:src="@{session.image}"></div>  
+
+	     <img th:src = "@{/static/images/} + ${items.image}"/>
+
 	     </div>
 	
          <dl class="item_detail_list">
            <dt>商品名</dt>
-             <dd th:text="${session.items.name}"></dd>
+             <dd th:text="${items.name}"></dd>
            <dt>価格</dt>
-             <dd th:text="${session.items.price}"></dd>
+             <dd th:text="${items.price}"></dd>
            <dt>在庫数</dt>
-             <div th:if="${session.items.stock >= 6}">在庫あり</div>
-             <th:block th:if="${session.items.stock le 5 && session.items.stock ge 1}">
-               <dd th:text="${session.items.stock}"></dd>
+             <div th:if="${items.stock >= 6}">在庫あり</div>
+             <th:block th:if="${items.stock le 5 && items.stock ge 1}">
+               <dd th:text="${items.stock}"></dd>
              </th:block>
              
-             <th:block th:if="${session.items.stock == 0}">
+             <th:block th:if="${items.stock == 0}">
                <p>在庫なし</p>
              </th:block>
            <dt>カテゴリ</dt>
-             <dd th:text="${session.items.categoryName}"></dd>
+             <dd th:text="${items.categoryName}"></dd>
            <dt>説明文</dt>
-             <dd th:text="${session.items.description}"></dd>
+             <dd th:text="${items.description}"></dd>
          </dl>
-     </div>
+      </div>
+
      <div class="detail_button_area">
         <form th:action="@{/client/basket/add}", method="post">
-        <input type="hidden" name="id" value= "${session.items.id}">
+        <input type="hidden" name="id" th:value= "${items.id}">
         <input type="submit" value="買い物かごに入れる" class="send_button"/>
         </form>
         
-     	<form th:action="@{/client/item/list/1}" method="post">
+     	<form th:action="@{/client/item/new_arrival/back}" method="post">
 	    <input type="submit" value="戻る" class="back_button" />
 		</form>
+		
+		<form th:action="@{/client/favorite/switch}", method="post">
+        <input type="hidden" name="id" th:value= "${items.id}">
+        <input type="submit" value="fav" class="send_button"/>
+        </form>
      </div>
 </div>
 </body>

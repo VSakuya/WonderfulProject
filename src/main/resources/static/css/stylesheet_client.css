@@ -190,17 +190,6 @@ header{
     margin: 0 auto;
 }
 
-.slider-container{
-    width: 100%;
-    margin: 0 auto;
-    overflow: hidden;
-    float: none;
-}
-
-.slider-container img{
-    object-fit: cover;
-}
-
 .top-page__link-image{
     width: 100%;
     max-width: 40vwl;

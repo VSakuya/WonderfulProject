@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+      th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+<head>
+	<meta charset="UTF-8">
+	<title th:text="#{top}+' | '+ #{shop.title}"></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body class="user">
+	<h2 class="title">商品一覧</h2>
+	<br/>
+	<!-- 
+		商品画像、商品名、価格　カテゴリ
+	-->
+		 <table border="1">
+			 <tr>
+				<th th:text="#{data.item.image}"></th>
+			 	<th th:text="#{itemForm.name}"></th>
+				<th th:text="#{itemForm.price}"></th>
+				<th th:text="#{data.category}"></th>
+			 </tr>
+	<!--
+			 <tr th:each="item: ${items}">
+				<td th:text="${item.id}"></td>
+				<td th:text="${item.name}"></td>
+				<td th:text="${item.price}"></td>
+				<td th:text="${item.description}"></td>
+				<td th:text="${item.stock}"></td>
+				<td th:text="${item.insertDate}"></td>
+			 </tr>
+	-->
+	
+			<tr th:each="item: ${itemList}">
+			<td><img th:src="${item.imageList[0]}"></td>
+				<td th:text="${item.name}"></td>
+				<td th:text="${item.price}"></td>
+				<td th:text="${item.category.name}"></td>
+			 </tr>
+		
+		 </table>
+		 
+		
+		 
+</body>
+</html>
