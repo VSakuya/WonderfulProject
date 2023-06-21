@@ -31,7 +31,7 @@ public class ClientUserUpdateController {
 	@Autowired
 	UserRepository userRepository;
 
-	/**[
+	/**
 	 * セッション
 	 */
 	@Autowired
@@ -133,6 +133,7 @@ public class ClientUserUpdateController {
 
 	@RequestMapping(path = "/client/user/update/check", method = RequestMethod.GET)
 	public String updateCheck(Model model) {
+		
 		//セッションから入力フォーム情報取得
 		UserForm userForm = (UserForm) session.getAttribute("userForm");
 		if (userForm == null) {
@@ -186,15 +187,16 @@ public class ClientUserUpdateController {
 
 		user.setPhoneNumber(userForm.getPhoneNumber());
 
-		// 情報を保存
+		// 情報をDBに登録
 		userRepository.save(user);
 
 		// ログインユーザ情報変更の場合、セッション保存ユーザ情報を更新
 		UserBean loginUser = (UserBean) session.getAttribute("user");
 		loginUser.setName(userForm.getName());
 
-		// セッション情報の削除
-		session.invalidate();
+		// セッションから情報を削除
+		session.removeAttribute("user");
+		session.removeAttribute("userForm");
 
 		// ユーザー情報をセッションに登録
 		session.setAttribute("user", loginUser);
