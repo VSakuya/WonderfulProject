@@ -48,6 +48,13 @@
      	<form th:action="@{/client/item/list/1}" method="post">
 	    <input type="submit" value="戻る" class="back_button" />
 		</form>
+		
+		<form th:action="@{/client/favorite/switch}", method="post">
+        <input type="hidden" name="id" th:value= "${session.items.id}">
+        <input type="submit" value="fav" class="send_button"/>
+        </form>
+		
+		
      </div>
 </div>
 </body>
