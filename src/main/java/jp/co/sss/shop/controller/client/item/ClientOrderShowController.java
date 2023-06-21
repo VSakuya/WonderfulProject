@@ -88,6 +88,30 @@ public class ClientOrderShowController {
 		model.addAttribute("pages", orderList);
 		model.addAttribute("orders", orderBeanList);
 
+//		//全ての注文情報を取得（注文日降順）
+//		Page<Order> orderList = orderRepository.findAllOrderByInsertdateDescIdDesc(pageable);
+//
+//		//注文情報リストを生成
+//		List<OrderBean> orderItemList = new ArrayList<OrderBean>();
+//		for(Order order : orderList) {
+//			//表示する注文を生成
+//			OrderBean orderBean = beanTools.copyEntityToOrderBean(order);
+//
+//			//orderレコードから紐づくOrderItemのListを取り出す
+//			List<OrderItem> orderItemList = order.getOrderItemsList();
+//			//合計金額の産出
+//			int total = priceCalc.orderItemPriceTotal( orderItemList);
+//
+//			//合計金額のセット
+//			orderBean.setTotal(total);
+//
+//			orderBeanList.add(orderBean);
+//
+//		}
+//		//注文情報リストをViewへ渡す
+//		model.addAttribute("pages", orderList);
+//		model.addAttribute("orders", orderBeanList);
+
 		return "client/order/list";
 	}
 }

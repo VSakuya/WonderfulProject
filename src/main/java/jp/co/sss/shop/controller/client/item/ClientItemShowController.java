@@ -1,7 +1,6 @@
 package jp.co.sss.shop.controller.client.item;
 
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -127,7 +126,6 @@ public class ClientItemShowController {
 	//	return "client/item/latest";
 
 
-
 	//@RequestMapping(path = "/client/item/list")
 	//public String idSortDesc(Model model, Pageable pageable) {
 		//Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
@@ -153,6 +151,23 @@ public class ClientItemShowController {
 	
 		return"client/item/list";
 		
+	}
+
+	
+	/**
+	 * 商品売れ筋順表示
+	 * @param model Viewとの値受け渡し
+	 * @return "ranking_list/"商品売れ筋順画面
+	 * @author Inaba
+	 */
+	@RequestMapping("/client/item/list/2")
+	public String showFindDateForRanking(Model model) {
+		System.out.println("test1!");
+		
+		model.addAttribute("ranking", itemRepository.findDataForHotSell());
+		System.out.println("test2!");
+		
+		return "client/item/hotsell";
 	}
 
 }
