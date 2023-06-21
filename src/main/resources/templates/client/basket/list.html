@@ -12,16 +12,15 @@
 	<div th:if="${session.baskets == null}" th:text="#{msg.basket.list.none}">
 	</div>
 	<!--  商品の在庫がない場合のメッセージ    -->
-	<div th:if="${stockNone != null}" th:field="*{basket.name}">
-	<span th:text="#{msg.basket.stock.none}"></span>
+	<div th:if="${stockNone != null}">
+	<span th:text="#{msg.basket.stock.none(${stockNone})}"></span>
 	</div>
 	<!--  商品の注文数が在庫を超えた場合のメッセージ    -->
-	<div th:if="${stockShort != null}" th:field="*{basket.name}">
-	<span th:text="#{msg.basket.stock.short}"></span>
+	<div th:if="${stockShort != null}">
+	<span th:text="#{msg.basket.stock.short(${stockShort})}"></span>
 	</div>
 	<!--  買い物かご一覧    -->
 	<th:block th:if="${session.baskets != null}">
-	
 		<table class="list_table basket">
 			<tr>
 				<th th:text="#{data.basket.item.name}">
@@ -33,7 +32,6 @@
 				<th th:text="#{data.basket.stock.status}">
 				</th>
 			</tr>
-	
 			<tr th:each="basket, st: ${session.baskets}">
 				<td>
 					<a th:href="@{/client/item/detail/{id}(id=${basket.id})}" th:text="${basket.name}"> </a>
@@ -42,7 +40,7 @@
 				</td>
 				<td>
 					<form action="/shared_shop/client/basket/delete" method="post">
-						<input type="hidden" name="id" value="${st.count}" />
+						<input type="hidden" name="index" th:value="${st.index}" />
 						<input type="submit" value="１つ減らす" class="delete"/>
 					</form>
 				</td>
@@ -50,24 +48,15 @@
 				</td>
 			</tr>
 		</table>
-					
 			<div th:text="${session.id}"></div>
-			
-			
 			<div class="user_info_form_area  shopping_button">
-				<form action="/client/order/address/input" method="post">
+				<form action="/shared_shop/client/order/address/input" method="post">
 					<input type="submit" value="ご注文のお手続き" />
 				</form>
-				<form action="/client/basket/deleteAll" method="post">
+				<form action="/shared_shop/client/basket/deleteAll" method="post">
 					<input type="submit" value="買い物かごを空にする" class="delete" />
 				</form>
 			</div>
-					
-					
-					
 	</th;block>
-				
-				
-				
 </body>
 </html>
