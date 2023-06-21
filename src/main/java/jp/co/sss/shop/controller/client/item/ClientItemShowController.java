@@ -4,6 +4,8 @@ package jp.co.sss.shop.controller.client.item;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,6 +34,12 @@ public class ClientItemShowController {
 	 */
 	@Autowired
 	ItemRepository itemRepository;
+	
+	/**
+	 * セッション
+	 */
+	@Autowired
+	HttpSession session;
 
 	/**
 	 * Entity、Form、Bean間のデータコピーサービス
@@ -79,6 +87,8 @@ public class ClientItemShowController {
 		if (item == null) {
 		return "redirect:/syserror";
 		}
+//		session.setAttribute("image", item);
+		session.setAttribute("id", id);
 		model.addAttribute("items",itemBean);
 		return"client/item/detail";
 	}
@@ -102,15 +112,16 @@ public class ClientItemShowController {
 	 */
 
 
-	@RequestMapping(path = "/client/item/list")
+	@RequestMapping(path = "/client/item/list/1")
 	public String idSortDesc(Model model, Pageable pageable) {
-		Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
-		List<Item> itemList = itemsPage.getContent();
-
+		Page<Object[]> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
+		List<Object[]> itemList = itemsPage.getContent();
+		
+		
 		model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
 		model.addAttribute("itemsPage", itemsPage);
 		model.addAttribute("itemList", itemList);
-		return "client/item/latest";
+		return "client/item/list";
 
 	}
 

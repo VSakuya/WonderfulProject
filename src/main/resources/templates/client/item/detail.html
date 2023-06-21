@@ -16,7 +16,9 @@
      <div class="info_form_area" th:object="${items}">
        <div class="item_detail_area">
          <div class="item_image_area">
-	       
+        	<img th:src="@{session.image}"></div>  
+  <!--      		<img src="Ninja400 tachometer.png" /> -->
+
 	     </div>
 	
          <dl class="item_detail_list">
@@ -42,9 +44,10 @@
              <dd th:text="*{description}"></dd>
          </dl>
       </div>
-		
+
      <div class="detail_button_area">
         <form th:action="@{/client/basket/add}", method="post">
+        <input type="hidden" name="id" value="${session.id}">
             <input type="submit" value="買い物かごに入れる"/>
         </form>
    
