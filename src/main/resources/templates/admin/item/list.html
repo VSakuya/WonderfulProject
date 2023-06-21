@@ -15,7 +15,7 @@
 	</form>
 	<!-- /*追加登録不可メッセージ */-->
 	<ul class="error_message" th:unless="${registrable}">
-	<br/>
+		<br />
 		<li class="error_msg">
 			<span th:text="#{msg.admin.cannot.regist(#{item})}"></span>
 		</li>
@@ -28,6 +28,7 @@
 	<table class="list_table item_list" th:if="!${#lists.isEmpty(items)}">
 		<tr>
 			<th>[[#{data.id}]]</th>
+			<th>[[#{data.item.image}]]</th>
 			<th>[[#{itemForm.name}]]</th>
 			<th>[[#{itemForm.price}]]</th>
 			<th>[[#{data.category}]]</th>
@@ -36,6 +37,11 @@
 		<!--/* 商品情報 */-->
 		<tr th:each="item: ${items}">
 			<td th:text="${item.id}"></td>
+			<td>
+				<img th:src="@{/static/images/} + ${item.imageList[0].imagePath}"
+					th:if="${item.imageList[0].imagePath != null}">
+				<img th:src="@{/images/common/no_image.jpg}" th:if="${item.imageList[0].imagePath == null}" />
+			</td>
 			<td><a th:href="@{/admin/item/detail/{id}(id=${item.id})}" th:text="${item.name}"></a></td>
 			<td th:text="${item.price}"></td>
 			<td th:text="${item.category.name}"></td>

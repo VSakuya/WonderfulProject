@@ -22,8 +22,12 @@ public class JPQLConstant {
 	/** 注文された商品情報を条件検索（注文された個数の合計が多い順） @author inaba*/
 	public static final String FIND_DATA_FOR_HOT_SELL = "SELECT i.*, c.name, im.image_path FROM items i JOIN (SELECT item_id, SUM(quantity) AS total_quantity FROM order_items GROUP BY item_id) o ON i.id = o.item_id JOIN categories c on i.category_id = c.id JOIN images im ON i.id = im.item_id WHERE i.delete_flag = 0 ORDER BY o.total_quantity DESC ";
 
-	/** 商品情報を全権検索（新着順） client側で使用 @author Wonder Wada*/
+	/** 商品情報を全権検索（新着順） client側で使用 @author tanaka*/
 
+	//public static final String FIND_DATE_FOR_NEW_SELLS = "SELECT img FROM Image img INNER JOIN img.items i INNER JOIN i.category c WHERE i.deleteFlag =:deleteFlag ORDER BY i.insertDate DESC, i.id DESC ";
+	
+	//public static final String FIND_DATE_FOR_NEW_SELLS = "SELECT i FROM Item i INNER JOIN i.imageList il WHERE i.deleteFlag =:deleteFlag ORDER BY i.insertDate DESC, i.id DESC ";
+	
 	public static final String FIND_DATE_FOR_NEW_SELL = "SELECT img FROM Image img INNER JOIN img.items i INNER JOIN i.category c WHERE i.deleteFlag =:deleteFlag ORDER BY i.insertDate DESC, i.id DESC ";
 
 }

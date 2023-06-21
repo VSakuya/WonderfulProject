@@ -79,8 +79,42 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @return
 	 * @author Tomita
 	 */
-	@Query(JPQLConstant.FIND_ALL_ITEMS_ORDER_BY_INSERT_DATE)
+
+
+//	@Query(JPQLConstant.FIND_ALL_ITEMS_ORDER_BY_INSERT_DATE)
+//	Page<Item> findByDeleteFlagOrderByInsertDateDescIdDescPage(@Param (value = "deleteFlag")int deleteFlag, Pageable pageable);
+
+	
+	/**
+	 * Itemの情報を登録日付順に所得
+	 * @param deleteFlag 削除フラグ
+	 * @param pageable
+	 * @return 商品エンティティ
+	 * @author Tomita
+	 */
+	
+	@Query(JPQLConstant.FIND_DATE_FOR_NEW_SELL)
 	Page<Object[]> findByDeleteFlagOrderByInsertDateDescIdDescPage(@Param (value = "deleteFlag")int deleteFlag, Pageable pageable);
+
+
+	//@Query(JPQLConstant.FIND_DATE_FOR_NEW_SELLS)
+	//Page<Item> findByDeleteFlagOrderByInsertDateDescIdDescPage(@Param (value = "deleteFlag")int deleteFlag, Pageable pageable);
+	
+//	@Query(JPQLConstant.FIND_DATE_FOR_NEW_SELL)
+//	Page<Object[]> findByDeleteFlagOrderByInsertDateDescPages(
+//			 @Param(value = "deleteFlag") int deleteFlag, Pageable pageable);
+	
+	/**
+	 * 商品idで条件検索
+	 * @param id 商品id
+	 * @return 商品エンティティ
+	 * @author tanaka
+	 */
+	//@Query("SELECT i FROM Item i WHERE i.id = :id")
+	//public List<Item> findByIdQuery(@Param("id") Integer id);
+	
+	
+
 	
 }
 

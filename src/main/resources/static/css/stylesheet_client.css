@@ -165,3 +165,7 @@ header{
 footer{
     background: white;
 }
+
+di{
+	display: flex;
+}
