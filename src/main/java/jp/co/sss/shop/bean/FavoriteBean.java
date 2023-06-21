@@ -7,7 +7,7 @@ import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.User;
 
 /**
- * 注文情報のエンティティクラス
+ * お気に入り情報クラス
  *
  * @author Wada
  */
