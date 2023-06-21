@@ -31,79 +31,95 @@ public class ClientBasketController {
 	@Autowired
 	ItemRepository itemRepository;
 	
-	
+	@Autowired
+	HttpSession session;
+
 	/**
 	 * 買い物かご一覧
-	 * 在庫チェックもこのページで行う
+	 * 削除フラグチェックと在庫チェックも行う
 	 * 
-	 * @return list.htmlに遷移
+	 * @param session　買い物かご
+	 * @param model 在庫不足や在庫切れの場合
+	 * 
+	 * @return 買い物かご一覧画面に遷移
 	 */
-	
 	@RequestMapping(path = "/client/basket/list", method = RequestMethod.GET)
-	public String showCart(HttpSession session, Model model) {
+	public String showCart(Model model) {
 		
-//		List<BasketBean> basketList = new ArrayList<BasketBean>();
-//		BasketBean basketBean = new BasketBean(1, "ここから商品詳細 itemId = 1", 30, 20);
-//		basketList.add(basketBean);
-//		session.setAttribute("baskets", basketList);
-//		
-//		@SuppressWarnings("unchecked")
-//		List<BasketBean> ba= (List<BasketBean>) session.getAttribute("baskets");
-//		BasketBean bas = new BasketBean(2, "ここから商品詳細 itemId = 2", 302);
-//		ba.add(bas);
-//		session.setAttribute("baskets", ba);
-//		
-//		@SuppressWarnings("unchecked")
-//		List<BasketBean> bask = (List<BasketBean>) session.getAttribute("baskets");
-//		BasketBean baske = new BasketBean(3, "ここから商品詳細 itemId = 3", 30123);
-//		bask.add(baske);
-//		session.setAttribute("baskets", bask);												テスト用データ
+		List<BasketBean> basketLis = new ArrayList<BasketBean>();
+		BasketBean basketBean = new BasketBean(1, "ここから商品詳細 itemId = 1", 0, 20);
+		basketLis.add(basketBean);
+		session.setAttribute("baskets", basketLis);
 		
-		if(session.getAttribute("baskets") == null) {					//買い物かごに商品が存在しない場合
+		@SuppressWarnings("unchecked")
+		List<BasketBean> ba= (List<BasketBean>) session.getAttribute("baskets");
+		BasketBean bas = new BasketBean(2, "ここから商品詳細 itemId = 2", 302);
+		ba.add(bas);
+		session.setAttribute("baskets", ba);
+		
+		@SuppressWarnings("unchecked")
+		List<BasketBean> bask = (List<BasketBean>) session.getAttribute("baskets");
+		BasketBean baske = new BasketBean(3, "ここから商品詳細 itemId = 3", 30123);
+		bask.add(baske);
+		session.setAttribute("baskets", bask);
+		
+		if(session.getAttribute("baskets") == null) {							//買い物かごに商品が存在しない場合
 			
 			return "client/basket/list";
 			
-		} else {														//買い物かごに商品が存在する場合
-			
-//			@SuppressWarnings("unchecked")
-//			List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("baskets");
-//			session.setAttribute("baskets", basketList);
-			
+		} else {																//買い物かごに商品が存在する場合
 			
 			@SuppressWarnings("unchecked")
 			List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("baskets");
 			
 			BasketBean	basketItem;
 			
+			for (int i = 0; i < basketList.size(); i++) {						//買い物かご内商品の削除フラグチェック
+				
+				basketItem = basketList.get(i);
+				int itemId = basketItem.getId();
+				
+				Item item = itemRepository.getReferenceById(itemId);
+				
+				if(item.getDeleteFlag() == 1) {
+					basketList.remove(i);
+				}
+			}
 			
-			for (int i = 0; i < basketList.size(); i++) {
+			for (int i = 0; i < basketList.size(); i++) {						//買い物かご内商品のチェック
 				
 				basketItem = basketList.get(i);
 				
-				if (basketItem.getOrderNum() > basketItem.getStock()) {
-					model.addAttribute("stockNone","在庫切れ");
-				} else if (basketItem.getOrderNum() == basketItem.getStock()) {
-					model.addAttribute("stockShort", "在庫不足");
+				if (basketItem.getStock() == 0) {								//在庫切れの場合
+					
+					basketList.remove(i);
+					session.setAttribute("baskets", basketList);
+					model.addAttribute("stockNone", basketItem.getName());
+					
+				} else if (basketItem.getOrderNum() > basketItem.getStock()) {	//注文数が在庫を超えている場合
+					
+					basketItem.setOrderNum(basketItem.getStock());
+					basketList.set(i, basketItem);
+					session.setAttribute("baskets", basketList);
+					model.addAttribute("stockShort", basketItem.getName());
+					
 				}
-				
 			}
-			
+			return "client/basket/list";	
 		}
-		
-		return "client/basket/list";
 	}
 	
 	
-	
 	/**
-	 * 買い物かごへ追加ボタン
+	 * 商品を買い物かごに追加
 	 * 
-	 * @return "/client/basket/list"へリダイレクト
+	 * @param session　買い物かご
+	 * @param id 商品詳細ページから受け取った商品のID
+	 * 
+	 * @return 買い物かご一覧(showCart())へリダイレクト
 	 */
-	
-	
 	@RequestMapping(path = "/client/basket/add", method = RequestMethod.POST)
-	public String addToCart(HttpSession session,Model model, int id) {
+	public String addToCart(int id) {
 		
 		if (session.getAttribute("baskets") == null) {			//買い物かごに商品がない場合　リストの生成
 			
@@ -121,11 +137,10 @@ public class ClientBasketController {
 			List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("baskets");
 			
 			Item		item = itemRepository.getReferenceById(id);
-			BasketBean	basketItem = null;
 			
 			for (int i = 0; i < basketList.size(); i++) {		//買い物かご内の重複チェック
 				
-				basketItem = basketList.get(i);
+				BasketBean basketItem = basketList.get(i);
 				
 				if (basketItem.getId() == id) {					//買い物かごに追加したい商品が存在する場合
 						
@@ -139,9 +154,7 @@ public class ClientBasketController {
 						
 				}
 			}
-			
 														//買い物かごに追加したい商品が存在しない場合
-			
 			BasketBean basketBean = new BasketBean(item.getId(), item.getName(), item.getStock());
 			basketList.add(basketBean);
 			session.setAttribute("baskets", basketList);
@@ -153,14 +166,17 @@ public class ClientBasketController {
 	
 	
 	/**
-	 * 削除ボタン
+	 * 注文数を減らす
 	 * 
-	 * @return "/client/basket/list"へリダイレクト
+	 * @param session　買い物かご用
+	 * @param count		添字用の数値
+	 * 
+	 * @return			買い物かご一覧(showCart())へリダイレクト
 	 */
-	@RequestMapping(path = "/client/basket/delete/{id}", method = RequestMethod.POST)
-	public String deleteItem(HttpSession session,int count) {
+	@RequestMapping(path = "/client/basket/delete", method = RequestMethod.POST)
+	public String deleteItem(int index) {
 		
-		int listNum = count - 1;
+		int listNum = index;
 		
 		@SuppressWarnings("unchecked")
 		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("baskets");
@@ -169,29 +185,29 @@ public class ClientBasketController {
 		
 		int orderNum = basketItem.getOrderNum();
 		
-		if (orderNum == 1) {
+		if (orderNum == 1) {								//注文数が１つの場合　買い物かごから削除
 			
 			basketList.remove(listNum);
+			session.setAttribute("baskets", basketList);
 			
 		} else {
 			
-			basketItem.setOrderNum(orderNum -= 1);
+			basketItem.setOrderNum(orderNum -= 1);			//注文数が２つ以上の場合
 			basketList.add(listNum, basketItem);
 			session.setAttribute("baskets", basketList);
 			
 		}
-		
 		return "redirect:/client/basket/list";
 	}
 	
 	/**
 	 * 買い物かごを空にするボタン
-	 * basketsの破棄
+	 * ・スコープ変数basketsの破棄
 	 * 
-	 * @return　"/client/basket/list"へリダイレクト
+	 * @return　買い物かご一覧(showCart())へリダイレクト
 	 */
 	@RequestMapping(path = "/client/basket/deleteAll", method = RequestMethod.POST)
-	public String deleteAll(HttpSession session) {
+	public String deleteAll() {
 		
 		session.removeAttribute("baskets");
 		
