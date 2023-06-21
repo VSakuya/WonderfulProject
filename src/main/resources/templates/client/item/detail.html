@@ -41,7 +41,7 @@
      </div>
      <div class="detail_button_area">
         <form th:action="@{/client/basket/add}", method="post">
-        <input type="hidden" name="id" value= "${session.items.id}">
+        <input type="hidden" name="id" th:value= "${session.items.id}">
         <input type="submit" value="買い物かごに入れる" class="send_button"/>
         </form>
         
