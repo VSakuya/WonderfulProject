@@ -70,7 +70,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @author inaba
 	 */
 	@Query(value = JPQLConstant.FIND_DATA_FOR_HOT_SELL, nativeQuery = true)
-	List<Item> findDataForHotSell();
+	Page<Item> findDataForHotSell(Pageable pageable);
 
 	/** 
 	 * 

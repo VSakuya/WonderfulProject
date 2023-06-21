@@ -145,18 +145,18 @@ public class ClientItemShowController {
 
 	
 	/**
-	 * 商品売れ筋順表示
+	 * 商品売れ筋表示
 	 * @param model Viewとの値受け渡し
-	 * @return "ranking_list/"商品売れ筋順画面
+	 * @return "hotsell"商品売れ筋画面
 	 * @author Inaba
 	 */
 	@RequestMapping("/client/item/list/2")
-	public String showFindDateForRanking(Model model) {
-		System.out.println("test1!");
-		
-		model.addAttribute("ranking", itemRepository.findDataForHotSell());
-		System.out.println("test2!");
-		
+	public String showFindDateForRanking(Model model, Pageable pageable) {
+		Page<Item> pageList = itemRepository.findDataForHotSell(pageable);
+		List<Item> itemList = pageList.getContent();
+		model.addAttribute("pageList", pageList);
+		model.addAttribute("itemList", itemList);
+		model.addAttribute("ranking", itemRepository.findDataForHotSell(pageable));
 		return "client/item/hotsell";
 	}
 
