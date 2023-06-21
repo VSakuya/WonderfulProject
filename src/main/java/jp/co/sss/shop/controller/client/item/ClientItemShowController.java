@@ -40,14 +40,14 @@ public class ClientItemShowController {
 	 */
 	@Autowired
 	BeanTools beanTools;
-	
+
 	/**
 	 * 商品情報
 	 */
 	@Autowired
 	HttpSession session;
-     
-     
+
+
 	/**
 	 * トップ画面 表示処理
 	 *
@@ -66,10 +66,10 @@ public class ClientItemShowController {
 	 * @return "list" 商品一覧画面
 	 */
 	@RequestMapping(path = "/client/item/list/{sortType}", method = RequestMethod.GET)
-	public String category(@PathVariable Integer categoryId, Model model) {
+	public String category(@PathVariable Integer categoryId, Model model, Pageable pageable) {
 		Category category = new Category();
 		category.setId(categoryId);
-		List<Item> items = itemRepository.findByCategory(category);
+		Page<Item> items = itemRepository.findByCategory(category, pageable);
 		model.addAttribute("items", items);
 		return"client/item/list";
 	}
@@ -86,20 +86,20 @@ public class ClientItemShowController {
 		List<ItemBean> itemList = new ArrayList<ItemBean>();
 		Item item = itemRepository.getReferenceById(id);
 	    ItemBean itemBean = beanTools.copyEntityToItemBean(item);
-	    
+
 		if (item == null) {
 		return "redirect:/syserror";
 		}
-		
-		
+
+
 		itemList.add(itemBean);
-		
-		
+
+
 		session.setAttribute("items", itemBean);
-	
+
 		return"client/item/detail";
-		
-		
+
+
 	}
 
 	/**
@@ -117,7 +117,7 @@ public class ClientItemShowController {
 	 * @param model Viewとの値受け渡し
 	 * @return "list/new/arrival"商品新着順画面
 	 * @author Tomita
-	 * @param pageable 
+	 * @param pageable
 	 */
 	//@RequestMapping(path = "/client/item/list/1")
 	//public String idSortDesc(Model model) {
@@ -145,15 +145,15 @@ public class ClientItemShowController {
 	public String list(Model model, Pageable pageable) {
 		Page<Object[]> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
 		List<Object[]> itemList = itemsPage.getContent();
-		
+
 		model.addAttribute("itemsPage", itemsPage);
 		session.setAttribute("itemList", itemList );
-	
+
 		return"client/item/list";
-		
+
 	}
 
-	
+
 	/**
 	 * 商品売れ筋順表示
 	 * @param model Viewとの値受け渡し
@@ -163,10 +163,10 @@ public class ClientItemShowController {
 	@RequestMapping("/client/item/list/2")
 	public String showFindDateForRanking(Model model) {
 		System.out.println("test1!");
-		
+
 		model.addAttribute("ranking", itemRepository.findDataForHotSell());
 		System.out.println("test2!");
-		
+
 		return "client/item/hotsell";
 	}
 

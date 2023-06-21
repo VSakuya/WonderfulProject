@@ -53,7 +53,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @return 商品エンティティ
 	 * @author tanaka
 	 */
-	List<Item> findByCategory(Category category);
+	Page<Item> findByCategory(Category category, Pageable pageable);
 
 	/**
 	 * idで降順でソートする
@@ -62,7 +62,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @author Tomita
 	 */
 	List<Item> findAllByOrderByIdDesc();
-	
+
 	/**
 	 * 商品ID、商品名、価格、カテゴリ名、画像パスでグループ化
 	 * 削除フラグを条件に検索
@@ -72,8 +72,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	@Query(value = JPQLConstant.FIND_DATA_FOR_HOT_SELL, nativeQuery = true)
 	List<Item> findDataForHotSell();
 
-	/** 
-	 * 
+	/**
+	 *
 	 * @param deleteFlag
 	 * @param pageable
 	 * @return
@@ -81,6 +81,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 */
 	@Query(JPQLConstant.FIND_DATE_FOR_NEW_SELL)
 	Page<Object[]> findByDeleteFlagOrderByInsertDateDescIdDescPage(@Param (value = "deleteFlag")int deleteFlag, Pageable pageable);
-	
+
+
 }
 
