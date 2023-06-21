@@ -72,4 +72,8 @@ public class SharedShopConfig implements WebMvcConfigurer {
 	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
 		configurer.enable(); // デフォルトサーブレットへの転送機能を有効化
 	}
+	
+	
+
+
 }

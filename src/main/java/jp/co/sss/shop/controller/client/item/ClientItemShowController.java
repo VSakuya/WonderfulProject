@@ -88,17 +88,9 @@ public class ClientItemShowController {
 	public String detail(@PathVariable Integer id, Model model, HttpSession session) {
 		Item item = itemRepository.findByIdAndDeleteFlag(id, Constant.NOT_DELETED);
 	    ItemBean itemBean = beanTools.copyEntityToItemBean(item);
-		if (item == null) {
-		return "redirect:/syserror";
-		}
-
-//		session.setAttribute("image", item);
-		session.setAttribute("id", id);
-		model.addAttribute("items",itemBean);
-
+	    itemBean.setImage(item.getImageList().get(0).getImagePath());
+	    
 		model.addAttribute("items", itemBean);
-		
-
 		return"client/item/detail";
 		
 		
@@ -109,10 +101,10 @@ public class ClientItemShowController {
 	 * @return "list" 商品一覧画面
 	 * @author tanaka
 	 */
-//	@RequestMapping(path = "/client/item/list/1", method = RequestMethod.POST)
-//	public String rollback() {
-//		return"redirect:/client/item/list/1";
-//	}
+	@RequestMapping(path = "/client/item/new_arrival/back", method = RequestMethod.POST)
+	public String rollback() {
+		return"redirect:/client/item/new_arrival";
+	}
 
 	/**
 	 * 商品一覧表示 新着順
@@ -129,17 +121,17 @@ public class ClientItemShowController {
 
 
 
-	@RequestMapping(path = "/client/item/list")
-	public String idSortDesc(Model model, Pageable pageable) {
-		Page<Object[]> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
-		List<Object[]> itemList = itemsPage.getContent();
-		
-		
-		model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
-		model.addAttribute("itemsPage", itemsPage);
-		model.addAttribute("itemList", itemList);
-		return "client/item/list";
-	}
+//	@RequestMapping(path = "/client/item/list")
+//	public String idSortDesc(Model model, Pageable pageable) {
+//		Page<Object[]> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
+//		List<Object[]> itemList = itemsPage.getContent();
+//		
+//		
+//		model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
+//		model.addAttribute("itemsPage", itemsPage);
+//		model.addAttribute("itemList", itemList);
+//		return "client/item/list";
+//	}
 	//@RequestMapping(path = "/client/item/list")
 	//public String idSortDesc(Model model, Pageable pageable) {
 		//Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
@@ -155,8 +147,8 @@ public class ClientItemShowController {
 	//
 
 
-	@RequestMapping(path="/client/item/list/1", method =  RequestMethod.GET)
-	public String list(Model model, Pageable pageable) {
+	@RequestMapping(path="/client/item/list", method =  RequestMethod.GET)
+	public String newArrival(Model model, Pageable pageable) {
 		Page<Object[]> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
 		List<Object[]> itemList = itemsPage.getContent();
 
