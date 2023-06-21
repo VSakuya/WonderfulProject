@@ -2,6 +2,7 @@ package jp.co.sss.shop.controller.client.item;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -82,14 +83,21 @@ public class ClientItemShowController {
 	 * @author tanaka
 	 */
 	@RequestMapping(path = "/client/item/detail/{id}", method = RequestMethod.GET)
-	public String detail(@PathVariable Integer id, Model model, HttpSession session) {
-		Item item = itemRepository.findByIdAndDeleteFlag(id, Constant.NOT_DELETED);
+	public String detail(@PathVariable Integer id, Model model) {
+		List<ItemBean> itemList = new ArrayList<ItemBean>();
+		Item item = itemRepository.getReferenceById(id);
 	    ItemBean itemBean = beanTools.copyEntityToItemBean(item);
+	    
 		if (item == null) {
 		return "redirect:/syserror";
 		}
-		model.addAttribute("items", itemBean);
 		
+		
+		itemList.add(itemBean);
+		
+		
+		session.setAttribute("items", itemBean);
+	
 		return"client/item/detail";
 		
 		
@@ -139,8 +147,9 @@ public class ClientItemShowController {
 	public String list(Model model, Pageable pageable) {
 		Page<Object[]> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
 		List<Object[]> itemList = itemsPage.getContent();
+		
 		model.addAttribute("itemsPage", itemsPage);
-		model.addAttribute("itemList", itemList );
+		session.setAttribute("itemList", itemList );
 	
 		return"client/item/list";
 		
