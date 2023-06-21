@@ -50,8 +50,12 @@ public class JPQLConstant {
 		    + "ORDER BY SUM (oi.quantity)DESC, i.id ASC ";
 */
 
-	/** 商品情報を全権検索（新着順） client側で使用 @author Wonder Wada*/
+	/** 商品情報を全権検索（新着順） client側で使用 @author tanaka*/
 
-	public static final String FIND_DATE_FOR_NEW_SELL = "SELECT img FROM Image img INNER JOIN img.items i INNER JOIN i.category c WHERE i.deleteFlag =:deleteFlag ORDER BY i.insertDate DESC, i.id DESC ";
+	//public static final String FIND_DATE_FOR_NEW_SELLS = "SELECT img FROM Image img INNER JOIN img.items i INNER JOIN i.category c WHERE i.deleteFlag =:deleteFlag ORDER BY i.insertDate DESC, i.id DESC ";
+	
+	public static final String FIND_DATE_FOR_NEW_SELL = "SELECT i FROM Item i INNER JOIN i.imageList il WHERE i.deleteFlag =:deleteFlag ORDER BY i.insertDate DESC, i.id DESC ";
+	
+
 
 }
