@@ -20,7 +20,8 @@ public class JPQLConstant {
 	public static final String FIND_USERS_LIST_ORDER_BY_INSERT_DATE = "SELECT u FROM User u WHERE u.deleteFlag =:deleteFlag AND u.authority >= :authority ORDER BY u.insertDate DESC,u.id DESC";
 	
 	/** 注文された商品情報を条件検索（注文された個数の合計が多い順） @author inaba*/
-	public static final String FIND_DATA_FOR_HOT_SELL = "SELECT i.*, c.name, im.image_path FROM items i JOIN (SELECT item_id, SUM(quantity) AS total_quantity FROM order_items GROUP BY item_id) o ON i.id = o.item_id JOIN categories c on i.category_id = c.id JOIN images im ON i.id = im.item_id WHERE i.delete_flag = 0 ORDER BY o.total_quantity DESC ";
+	public static final String FIND_DATA_FOR_HOT_SELL =
+			"SELECT i.* FROM items i JOIN (SELECT item_id, SUM(quantity) AS total_quantity FROM order_items GROUP BY item_id) o ON i.id = o.item_id WHERE i.delete_flag = 0 ORDER BY o.total_quantity DESC ";
 
 	/** 商品情報を全権検索（新着順） client側で使用 @author tanaka*/
 
