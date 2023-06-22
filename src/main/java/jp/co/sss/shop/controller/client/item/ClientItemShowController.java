@@ -138,7 +138,7 @@ public class ClientItemShowController {
 	 * @return "hot_seller"商品売れ筋画面
 	 * @author Inaba
 	 */
-	@RequestMapping("/client/item/list/2")
+	@RequestMapping("/client/item/hot_seller")
 	public String showFindDateForRanking(Model model) {
 		List<Item> itemList = itemRepository.findDataForHotSell();
 		model.addAttribute("items", itemList);
