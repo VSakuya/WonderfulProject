@@ -112,7 +112,7 @@ public class URLCheck {
 		if (!URLCheck.isURLForStaticFile(requestURL)
 				&& !requestURL.endsWith("/login")
 				&& !requestURL.endsWith(contextPath + "/")
-				&& requestURL.indexOf("/client/item/list/") == -1
+				&& requestURL.indexOf("/client/item/list/") != -1
 				&& requestURL.indexOf("/client/item/detail/") == -1
 				&& requestURL.indexOf("/client/user/delete/") == -1
 				&& !requestURL.endsWith("/client/user/regist/input/init")
@@ -168,4 +168,5 @@ public class URLCheck {
 		return isCheckURLOK;
 
 	}
+
 }
