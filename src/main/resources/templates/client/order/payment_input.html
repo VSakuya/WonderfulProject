@@ -19,7 +19,7 @@
 					<br />
 				</th:block>-->
 							
-					<li th:if="${session.order.paymethod == 0 or session.user.paymethod == 1}">-->
+					<!--<li th:if="${session.order.paymethod == 0 or session.user.paymethod == 1}">-->
 					<!--/* TIPS ラジオボタンの処理の記述について
 					 th:objectとth:fieldを組み合わせて下記のように、"*{authority}"の値とvalueの値が一致する場合checked属性も自動生成されます。
 					 <input type="radio" th:field="*{authority}" value="0" />[[#{auth.system.str}]] */-->
@@ -38,7 +38,7 @@
 				<th:block th:if="${session.order.paymethod == 1}">
 						<span class="input_value">[[#{paymethod.bank.str}]]</span>
 					</th:block>
-				</li>
+				<!--</li>-->
 			<input type="submit" value="次へ" class="next_button" />
 			
 		<form th:action="@{/client/order/address/input}" method="post" class="payment_input_button_area">
