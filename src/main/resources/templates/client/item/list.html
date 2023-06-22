@@ -10,11 +10,14 @@
 <body class="user index">
 	<h1>商品一覧</h1>
 	
-	<button type="button" class="btn btn-light" data-bs-toggle="collapse" data-bs-target="#filter-container">絞り込み</button>
-	<div class="collapse p-4" id="filter-container">
+	<button type="button" class="btn btn-light m-4" data-bs-toggle="collapse" data-bs-target="#filter-container">絞り込み</button>
+	<div class="collapse m-4" id="filter-container">
 		<form th:action="@{/client/item/list}" th:object="${listForm}">
+			<label for="searchStr">文字検索：</label>
 			<input type="text" th:field="*{searchStr}">
+			<label for="minPrice">最小価格：</label>
 			<input type="number" th:field="*{minPrice}">
+			<label for="maxPrice">最大価格：</label>
 			<input type="number" th:field="*{maxPrice}">
 			<input class="btn btn-dark" type="submit" value="確認">
 		</form>
