@@ -12,6 +12,7 @@
 	<form th:action="@{/client/item/list}" th:object="${listForm}">
 		<input type="number" th:field="*{minPrice}">
 		<input type="number" th:field="*{maxPrice}">
+		<input class="btn btn-dark" type="submit" value="絞り込み">
 	</form>
 	<div class="" th:if="${#lists.size(items) le 0}">
 		<br>

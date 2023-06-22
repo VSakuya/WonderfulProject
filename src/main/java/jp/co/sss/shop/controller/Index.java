@@ -51,6 +51,10 @@ public class Index {
 	@Value("classpath:static" + Constant.SLIDER_IMAGE_FOLDER + "*")
 	private Resource[] sliderImgs;
 
+    /**
+     * Thymeleafに定数を読めるようにメソッド
+     * @return 定数の実体
+     */
     @ModelAttribute("constants")
     public Constant appConstants() {
         return new Constant();
@@ -95,10 +99,10 @@ public class Index {
 		if (categoryId != -1) {
 			Category category = new Category();
 			category.setId(categoryId);
-			pageItems = itemRepository.findByCategory(category, pageable);
+			pageItems = itemRepository.findByCategoryAndDeleteFlag(category, 0, pageable);
 		}
 		else {
-			pageItems = itemRepository.findAll(pageable);
+			pageItems = itemRepository.findByStrAndPriceRange(searchStr, minPrice, maxPrice, 0, pageable);
 		}
 		rtItems = pageItems.getContent();
 
