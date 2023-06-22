@@ -35,7 +35,7 @@ public class ClientOrderShowController {
 	@Autowired
 	OrderRepository orderRepository;
 	/**
-	 * セッション
+	 *  セッション
 	 */
 	@Autowired
 	HttpSession session;
