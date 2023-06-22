@@ -16,8 +16,15 @@
      <div class="info_form_area">
      <div class="item_detail_area">
          <div class="item_image_area">
+
+
+	     <img th:src = "@{/static/images/} + ${items.image}"/>
+
+	     </div>
+
 	       <img th:src = "@{/static/images/} + ${items.image}"/>
          </div>
+
 	
          <dl class="item_detail_list">
            <dt>商品名</dt>
@@ -53,8 +60,21 @@
 		<form th:action="@{/client/favorite/switch}", method="post">
         <input type="hidden" name="id" th:value= "${items.id}">
         <input type="submit" value="fav" class="send_button"/>
+        <th:block th:if="${favorite.item.id == favorite.user.id}">
+        	<a th:href="@{/shared_shop/client/item/detail/1}">
+        	<img th:src="@{/static/images/web_images/button/like1_i .png}" width="7%"/>
+        	 </a>
+        </th:block>
+        <th:block th:if="${favorite.item.id != favorite.user.id}">
+        	<a th:href="@{/shared_shop/client/item/detail/1}">
+       		<img th:src="@{/static/images/web_images/button/like1_i .png}" width="7%"/>
+       		 </a>
+		 </th:block>
+       
+
         </form>
      </div>
+
 </div>
 </body>
 
