@@ -10,7 +10,26 @@
 			<div class="col-1 d-none d-xl-block"></div>
 			<div class="col-1 d-none d-xl-block">
 				<div class="header__icon">
-					<img th:src="@{/static/images/web_images/header/search_i.png}" alt="">
+					<a data-bs-toggle="collapse" data-bs-target="#search-box">
+						<img th:src="@{/static/images/web_images/header/search_i.png}" alt="">
+					</a>
+					<div class="container-fluid floating-container snap-top collapse" id="search-box">
+						<div class="justify-content-end d-flex p-4">
+							<button type="button" class="btn-close" data-bs-toggle="collapse" data-bs-target="#search-box"></button>
+						</div>
+						<div class="align-self-stretch">
+							<form th:action="@{/client/item/list}">
+								<div class="row container-40 p-4">
+									<div class="col-9">
+										<input class="form-control" type="text" name="searchStr">
+									</div>
+									<div class="col-3">
+										<input class="form-control btn btn-dark" type="submit" value="確認">
+									</div>
+								</div>
+							</form>
+						</div>
+					</div>
 				</div>
 			</div>
 			<div class="col-1 d-none d-xl-block"></div>
