@@ -10,9 +10,16 @@
 
 <body class="client order_regist_input_client">
 	<h2 th:class="title" th:text="#{order}+#{title.order.payment.input}"></h2>
-	<p th:class="input_message" th:text="#{msg.order.payment.input}"></p>
-	
-	<li th:if="${session.order.paymethod == 0 or session.order.paymethod == 1}">
+		<p th:class="input_message" th:text="#{msg.order.payment.input}"></p>
+			<form th:action="@{/client/order//payment/input}" method="post" class="user_info_form" th:object="${orderForm}">
+					<!--<th:block th:if="${#fields.hasErrors()}">
+						<ul class="error_list">
+							<li th:each="err:${#fields.detailedErrors()}" th:text="${err.message}"></li>
+						</ul>
+					<br />
+				</th:block>-->
+							
+					<li th:if="${session.order.paymethod == 0 or session.user.paymethod == 1}">-->
 					<!--/* TIPS ラジオボタンの処理の記述について
 					 th:objectとth:fieldを組み合わせて下記のように、"*{authority}"の値とvalueの値が一致する場合checked属性も自動生成されます。
 					 <input type="radio" th:field="*{authority}" value="0" />[[#{auth.system.str}]] */-->
@@ -31,7 +38,7 @@
 				<th:block th:if="${session.order.paymethod == 1}">
 						<span class="input_value">[[#{paymethod.bank.str}]]</span>
 					</th:block>
-				</li>-->
+				</li>
 			<input type="submit" value="次へ" class="next_button" />
 			
 		<form th:action="@{/client/order/address/input}" method="post" class="payment_input_button_area">
