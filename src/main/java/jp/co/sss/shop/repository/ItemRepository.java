@@ -53,7 +53,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @return 商品エンティティ
 	 * @author tanaka
 	 */
-	List<Item> findByCategory(Category category);
+	Page<Item> findByCategoryAndDeleteFlag(Category category, Integer deleteFlag, Pageable pageable);
 
 	/**
 	 * idで降順でソートする
@@ -62,7 +62,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @author Tomita
 	 */
 	List<Item> findAllByOrderByIdDesc();
-	
+
 	/**
 	 * 商品ID、商品名、価格、カテゴリ名、画像パスでグループ化
 	 * 削除フラグを条件に検索
@@ -72,8 +72,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	@Query(value = JPQLConstant.FIND_DATA_FOR_HOT_SELL, nativeQuery = true)
 	List<Item> findDataForHotSell();
 
-	/** 
-	 * 
+	/**
+	 *
 	 * @param deleteFlag
 	 * @param pageable
 	 * @return
@@ -84,7 +84,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 //	@Query(JPQLConstant.FIND_ALL_ITEMS_ORDER_BY_INSERT_DATE)
 //	Page<Item> findByDeleteFlagOrderByInsertDateDescIdDescPage(@Param (value = "deleteFlag")int deleteFlag, Pageable pageable);
 
-	
+
 	/**
 	 * Itemの情報を登録日付順に所得
 	 * @param deleteFlag 削除フラグ
@@ -92,18 +92,16 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @return 商品エンティティ
 	 * @author Tomita
 	 */
-	
 	@Query(JPQLConstant.FIND_DATE_FOR_NEW_SELL)
 	Page<Object[]> findByDeleteFlagOrderByInsertDateDescIdDescPage(@Param (value = "deleteFlag")int deleteFlag, Pageable pageable);
 
-
 	//@Query(JPQLConstant.FIND_DATE_FOR_NEW_SELLS)
 	//Page<Item> findByDeleteFlagOrderByInsertDateDescIdDescPage(@Param (value = "deleteFlag")int deleteFlag, Pageable pageable);
-	
+
 //	@Query(JPQLConstant.FIND_DATE_FOR_NEW_SELL)
 //	Page<Object[]> findByDeleteFlagOrderByInsertDateDescPages(
 //			 @Param(value = "deleteFlag") int deleteFlag, Pageable pageable);
-	
+
 	/**
 	 * 商品idで条件検索
 	 * @param id 商品id
@@ -112,9 +110,11 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 */
 	//@Query("SELECT i FROM Item i WHERE i.id = :id")
 	//public List<Item> findByIdQuery(@Param("id") Integer id);
-	
-	
 
-	
+	@Query(JPQLConstant.FIND_BY_STR_AND_PRICE_RANGE)
+	Page<Item> findByStrAndPriceRange(String searchStr, Integer minPrice, Integer maxPrice, Integer deleteFlag, Pageable pageable);
+
+
+
 }
 
