@@ -14,38 +14,33 @@
 <body class="user">
    <h2 class="title">商品詳細</h2>
      <div class="info_form_area">
-     <div class="item_detail_area">
-         <div class="item_image_area">
-
-
-	     <img th:src = "@{/static/images/} + ${items.image}"/>
-
-	     </div>
-
-	       <img th:src = "@{/static/images/} + ${items.image}"/>
-         </div>
-
+	     <div class="item_detail_area">
+	         <div class="item_image_area">
+		     <img th:src = "@{/static/images/} + ${items.image}"/>
+		     </div>
 	
-         <dl class="item_detail_list">
-           <dt>商品名</dt>
-             <dd th:text="${items.name}"></dd>
-           <dt>価格</dt>
-             <dd th:text="${items.price}"></dd>
-           <dt>在庫数</dt>
-             <div th:if="${items.stock >= 6}">在庫あり</div>
-             <th:block th:if="${items.stock le 5 && items.stock ge 1}">
-               <dd th:text="${items.stock}"></dd>
-             </th:block>
-             
-             <th:block th:if="${items.stock == 0}">
-               <p>在庫なし</p>
-             </th:block>
-           <dt>カテゴリ</dt>
-             <dd th:text="${items.categoryName}"></dd>
-           <dt>説明文</dt>
-             <dd th:text="${items.description}"></dd>
-         </dl>
-      </div>
+	
+		
+	         <dl class="item_detail_list">
+	           <dt>商品名</dt>
+	             <dd th:text="${items.name}"></dd>
+	           <dt>価格</dt>
+	             <dd th:text="${items.price}"></dd>
+	           <dt>在庫数</dt>
+	             <div th:if="${items.stock >= 6}">在庫あり</div>
+	             <th:block th:if="${items.stock le 5 && items.stock ge 1}">
+	               <dd th:text="${items.stock}"></dd>
+	             </th:block>
+	             
+	             <th:block th:if="${items.stock == 0}">
+	               <p>在庫なし</p>
+	             </th:block>
+	           <dt>カテゴリ</dt>
+	             <dd th:text="${items.categoryName}"></dd>
+	           <dt>説明文</dt>
+	             <dd th:text="${items.description}"></dd>
+	         </dl>
+	      </div>
 
      <div class="detail_button_area">
         <form th:action="@{/client/basket/add}", method="post">
@@ -60,7 +55,8 @@
 		<form th:action="@{/client/favorite/switch}", method="post">
         <input type="hidden" name="id" th:value= "${items.id}">
         <input type="submit" value="fav" class="send_button"/>
-        <th:block th:if="${favorite.item.id == favorite.user.id}">
+        <!--
+        <th:block th:if="${#lists.isEmpty}">
         	<a th:href="@{/shared_shop/client/item/detail/1}">
         	<img th:src="@{/static/images/web_images/button/like1_i .png}" width="7%"/>
         	 </a>
@@ -70,12 +66,13 @@
        		<img th:src="@{/static/images/web_images/button/like1_i .png}" width="7%"/>
        		 </a>
 		 </th:block>
-       
-
+       -->
+       <span th:text="${param['favorite']}"></span>
+		<img th:src="@{/static/images/web_images/button/like1_i .png}" width="7%"/>
         </form>
-     </div>
-
-</div>
+	     </div>
+	
+	</div>
 </body>
 
 </html>

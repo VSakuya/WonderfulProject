@@ -81,11 +81,12 @@ public class ClientItemShowController {
 	public String detail(@PathVariable Integer id, Model model) {
 		Item item = itemRepository.getReferenceById(id);
 	    ItemBean itemBean = beanTools.copyEntityToItemBean(item);
-	    itemBean.setImage(item.getImageList().get(0).getImagePath());
+	    itemBean.setImage(item.getImageList().get(0).getImagePath()); 
+	    
 	    UserBean userBean =(UserBean) session.getAttribute("user");
 	    Integer userId  = userBean.getId();
-	    User user = userRepository.findByIdAndDeleteFlag(userId, 0);
-	    List<Favorite> favorite = favoriteRepository.findByUser(user);
+	    User users = userRepository.findByIdAndDeleteFlag(userId, 0);
+	    List<Favorite> favorite = favoriteRepository.findByUser(users);
 	    
 	    
 	    model.addAttribute("favorite", favorite);
