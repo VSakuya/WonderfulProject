@@ -11,7 +11,7 @@
 	<h1>商品一覧</h1>
 	
 	<button type="button" class="btn btn-light" data-bs-toggle="collapse" data-bs-target="#filter-container">絞り込み</button>
-	<div class="collapse" id="filter-container">
+	<div class="collapse p-4" id="filter-container">
 		<form th:action="@{/client/item/list}" th:object="${listForm}">
 			<input type="text" th:field="*{searchStr}">
 			<input type="number" th:field="*{minPrice}">
