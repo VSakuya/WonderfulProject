@@ -18,6 +18,7 @@ import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.UserRepository;
@@ -83,7 +84,9 @@ public class ClientItemShowController {
 	    itemBean.setImage(item.getImageList().get(0).getImagePath());
 	    UserBean userBean =(UserBean) session.getAttribute("user");
 	    Integer userId  = userBean.getId();
-	    List<Favorite> favorite = favoriteRepository.findByItemIdAndUserId(id, userId);
+	    User user = userRepository.findByIdAndDeleteFlag(userId, 0);
+	    List<Favorite> favorite = favoriteRepository.findByUser(user);
+	    
 	    
 	    model.addAttribute("favorite", favorite);
 		model.addAttribute("items", itemBean);
