@@ -21,6 +21,7 @@ import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
+import jp.co.sss.shop.repository.OrderItemRepository;
 import jp.co.sss.shop.repository.UserRepository;
 import jp.co.sss.shop.service.BeanTools;
 import jp.co.sss.shop.util.Constant;
@@ -38,6 +39,10 @@ public class ClientItemShowController {
 	@Autowired
 	ItemRepository itemRepository;
 
+
+	@Autowired
+	OrderItemRepository orderItemRepository;
+	
 	@Autowired
 	FavoriteRepository favoriteRepository;
 
@@ -130,17 +135,14 @@ public class ClientItemShowController {
 	/**
 	 * 商品売れ筋表示
 	 * @param model Viewとの値受け渡し
-	 * @return "hotsell"商品売れ筋画面
+	 * @return "hot_seller"商品売れ筋画面
 	 * @author Inaba
 	 */
 	@RequestMapping("/client/item/list/2")
-	public String showFindDateForRanking(Model model, Pageable pageable) {
-		Page<Item> pageList = itemRepository.findDataForHotSell(pageable);
-		List<Item> itemList = pageList.getContent();
-		model.addAttribute("pageList", pageList);
-		model.addAttribute("itemList", itemList);
-		model.addAttribute("ranking", itemRepository.findDataForHotSell(pageable));
-		return "client/item/hotsell";
+	public String showFindDateForRanking(Model model) {
+		List<Item> itemList = itemRepository.findDataForHotSell();
+		model.addAttribute("items", itemList);
+		return "client/item/hot_seller";
 	}
 
 }

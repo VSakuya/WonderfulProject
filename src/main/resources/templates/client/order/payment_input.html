@@ -1,48 +1,55 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{client/layout/layout_5block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
 
 <head>
 	<meta charset="UTF-8">
-	<title th:text="#{order}+#{title.payment_input}+' | '+ #{shop.title}"> </title>
-	<meta charset="UTF-8" />
+	<title th:text="#{title.input.new}+' | '+ #{shop.title}"></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
 
-<body class="client order_regist_input_client">
-	<h2 th:class="title" th:text="#{order}+#{title.order.payment.input}"></h2>
-		<p th:class="input_message" th:text="#{msg.order.payment.input}"></p>
-			<form th:action="@{/client/order//payment/input}" method="post" class="user_info_form" th:object="${orderForm}">
-					<!--<th:block th:if="${#fields.hasErrors()}">
-						<ul class="error_list">
-							<li th:each="err:${#fields.detailedErrors()}" th:text="${err.message}"></li>
+<body class="user">
+	<h2 th:class="title" th:text="#{paymethod.str}"></h2>
+	<p th:class="input_message" th:text="#{msg.order.payment.input}"></p>
+
+	<div class="user_info_form_area">
+		<form method="post" th:action="@{/client/order/check}" class="user_info_form">
+			<ul class="payment_method_select">
+							<li>
+								<label class="radio_label">
+									<input type="radio" name="payMethod" value="1"
+									checked="checked" th:text="#{paymethod.credit.str}"/>
+								</label>
+							</li>
+							<li>
+								<label class="radio_label">
+									<input type="radio" name="payMethod" value="2" th:text="#{paymethod.bank.str}" />
+								</label>
+							</li>
+							<li>
+								<label class="radio_label">
+									<input type="radio" name="payMethod" value="3" th:text="#{paymethod.onarrival.str}" />
+								</label>
+							</li>
+							<li>
+								<label class="radio_label">
+									<input type="radio" name="payMethod" value="4" th:text="#{paymethod.emoney.str}" />
+								</label>
+							</li>
+							<li>
+								<label class="radio_label">
+									<input type="radio" name="payMethod" value="5" th:text="#{paymethod.convenience.str}" />
+								</label>
+							</li>
 						</ul>
-					<br />
-				</th:block>-->
-							
-					<li th:if="${session.order.paymethod == 0 or session.user.paymethod == 1}">-->
-					<!--/* TIPS ラジオボタンの処理の記述について
-					 th:objectとth:fieldを組み合わせて下記のように、"*{authority}"の値とvalueの値が一致する場合checked属性も自動生成されます。
-					 <input type="radio" th:field="*{authority}" value="0" />[[#{auth.system.str}]] */-->
-					<div th:if="${session.order.paymethod == 0}" class="radio_label">
-						<input type="radio" name="paymethod" value="0"
-							th:checked="*{paymethod == 0}" />[[#{paymethod.str}]]
-						<input type="radio" name="paymethod" value="1"
-							th:checked="*{paymethod == 1}" />[[#{paymethod.bank.str}]]
-						<input type="radio" name="paymethod" value="2"
-							th:checked="*{paymethod == 2}" />[[#{paymethod.onarrival.str}]]
-						<input type="radio" name="paymethod" value="3"
-							th:checked="*{paymethod == 3}" />[[#{paymethod.emoney.str}]]
-						<input type="radio" name="paymethod" value="4"
-							th:checked="*{paymethod == 4}" />[[#{paymethod.convenience.str}]]
-					</div>
-				<th:block th:if="${session.order.paymethod == 1}">
-						<span class="input_value">[[#{paymethod.bank.str}]]</span>
-					</th:block>
-				</li>
-			<input type="submit" value="次へ" class="next_button" />
-			
-		<form th:action="@{/client/order/address/input}" method="post" class="payment_input_button_area">
+			<input type="hidden" name="authority" value="2" />
+			<input type="submit" value="次へ" class="send_button" />
+		</form>
+		<form method="post" th:action="@{/client/order/address/input}">
 			<input type="submit" value="戻る" class="back_button" />
 		</form>
+	</div>
 </body>
+
+
 </html>
