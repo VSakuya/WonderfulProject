@@ -38,4 +38,8 @@
     <appender-ref ref="EclipseLog" />
     <appender-ref ref="MavenConsoleLog" />
   </root>
+<<<<<<< HEAD
+<logger name="net.schmizz" level="OFF" />
+=======
+>>>>>>> bea4591b0c0b3f2466d3c45e24121bd138cf3618
 </configuration>

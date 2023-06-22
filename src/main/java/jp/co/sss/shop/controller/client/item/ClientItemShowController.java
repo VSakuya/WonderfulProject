@@ -1,7 +1,6 @@
 package jp.co.sss.shop.controller.client.item;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.ItemBean;
-import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.service.BeanTools;
@@ -36,18 +34,17 @@ public class ClientItemShowController {
 	ItemRepository itemRepository;
 
 	/**
+	 * セッション
+	 */
+	@Autowired
+	HttpSession session;
+
+	/**
 	 * Entity、Form、Bean間のデータコピーサービス
 	 */
 	@Autowired
 	BeanTools beanTools;
-	
-	/**
-	 * 商品情報
-	 */
-	@Autowired
-	HttpSession session;
-     
-     
+
 	/**
 	 * トップ画面 表示処理
 	 *
@@ -59,20 +56,6 @@ public class ClientItemShowController {
 		return "index";
 	}
 
-	/**
-	 * カテゴリー検索
-	 * @param categoryId カテゴリーidの値受け渡し
-	 * @param model Viewとの値受け渡し
-	 * @return "list" 商品一覧画面
-	 */
-	@RequestMapping(path = "/client/item/list/{sortType}", method = RequestMethod.GET)
-	public String category(@PathVariable Integer categoryId, Model model) {
-		Category category = new Category();
-		category.setId(categoryId);
-		List<Item> items = itemRepository.findByCategory(category);
-		model.addAttribute("items", items);
-		return"client/item/list";
-	}
 
 	/**
 	 * 商品詳細表示
@@ -83,23 +66,11 @@ public class ClientItemShowController {
 	 */
 	@RequestMapping(path = "/client/item/detail/{id}", method = RequestMethod.GET)
 	public String detail(@PathVariable Integer id, Model model) {
-		List<ItemBean> itemList = new ArrayList<ItemBean>();
 		Item item = itemRepository.getReferenceById(id);
 	    ItemBean itemBean = beanTools.copyEntityToItemBean(item);
-	    
-		if (item == null) {
-		return "redirect:/syserror";
-		}
-		
-		
-		itemList.add(itemBean);
-		
-		
-		session.setAttribute("items", itemBean);
-	
+	    itemBean.setImage(item.getImageList().get(0).getImagePath());
+		model.addAttribute("items", itemBean);
 		return"client/item/detail";
-		
-		
 	}
 
 	/**
@@ -107,66 +78,46 @@ public class ClientItemShowController {
 	 * @return "list" 商品一覧画面
 	 * @author tanaka
 	 */
-	@RequestMapping(path = "/client/item/list/1", method = RequestMethod.POST)
+	@RequestMapping(path = "/client/item/new_arrival/back", method = RequestMethod.POST)
 	public String rollback() {
-		return"redirect:/client/item/list/1";
+		return"redirect:/client/item/new_arrival";
 	}
 
 	/**
 	 * 商品一覧表示 新着順
 	 * @param model Viewとの値受け渡し
-	 * @return "list/new/arrival"商品新着順画面
+	 * @return "client/item/new_arrival"商品新着順画面
 	 * @author Tomita
-	 * @param pageable 
 	 */
-	//@RequestMapping(path = "/client/item/list/1")
-	//public String idSortDesc(Model model) {
-
-		//model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
-	//	return "client/item/latest";
 
 
-	//@RequestMapping(path = "/client/item/list")
-	//public String idSortDesc(Model model, Pageable pageable) {
-		//Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
-//		List<Item> itemList = itemsPage.getContent();
-//
-//		model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
-//		model.addAttribute("itemsPage", itemsPage);
-//		model.addAttribute("itemList", itemList);
-//		return "client/item/latest";
-//
-//
-//	}
-	//
 
 
-	@RequestMapping(path="/client/item/list/1", method =  RequestMethod.GET)
-	public String list(Model model, Pageable pageable) {
+
+	@RequestMapping(path="/client/item/new_arrival", method =  RequestMethod.GET)
+	public String newArrival(Model model, Pageable pageable) {
 		Page<Object[]> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
 		List<Object[]> itemList = itemsPage.getContent();
-		
+
 		model.addAttribute("itemsPage", itemsPage);
-		session.setAttribute("itemList", itemList );
-	
-		return"client/item/list";
-		
+		model.addAttribute("itemList", itemList );
+
+		return"client/item/new_arrival";
 	}
 
-	
 	/**
-	 * 商品売れ筋順表示
+	 * 商品売れ筋表示
 	 * @param model Viewとの値受け渡し
-	 * @return "ranking_list/"商品売れ筋順画面
+	 * @return "hotsell"商品売れ筋画面
 	 * @author Inaba
 	 */
 	@RequestMapping("/client/item/list/2")
-	public String showFindDateForRanking(Model model) {
-		System.out.println("test1!");
-		
-		model.addAttribute("ranking", itemRepository.findDataForHotSell());
-		System.out.println("test2!");
-		
+	public String showFindDateForRanking(Model model, Pageable pageable) {
+		Page<Item> pageList = itemRepository.findDataForHotSell(pageable);
+		List<Item> itemList = pageList.getContent();
+		model.addAttribute("pageList", pageList);
+		model.addAttribute("itemList", itemList);
+		model.addAttribute("ranking", itemRepository.findDataForHotSell(pageable));
 		return "client/item/hotsell";
 	}
 
