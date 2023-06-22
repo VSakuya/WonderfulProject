@@ -99,37 +99,6 @@
 			<dl class="item_detail_list">
 		</div>
 
-
-
-     <div class="detail_button_area">
-        <form th:action="@{/client/basket/add}", method="post">
-        <input type="hidden" name="id" th:value= "${items.id}">
-        <input type="submit" value="買い物かごに入れる" class="send_button"/>
-        </form>
-        
-     	<form th:action="@{/client/item/new_arrival/back}" method="post">
-	    <input type="submit" value="戻る" class="back_button" />
-		</form>
-		<form th:action="@{/client/favorite/switch}", method="post">
-        <input type="hidden" name="id" th:value= "${items.id}">
-        <input type="submit" value="fav" class="send_button"/>
-        <!--
-        <th:block th:if="${#lists.isEmpty}">
-        	<a th:href="@{/shared_shop/client/item/detail/1}">
-        	<img th:src="@{/static/images/web_images/button/like1_i .png}" width="7%"/>
-        	 </a>
-        </th:block>
-        <th:block th:if="${favorite.item.id != favorite.user.id}">
-        	<a th:href="@{/shared_shop/client/item/detail/1}">
-       		<img th:src="@{/static/images/web_images/button/like1_i .png}" width="7%"/>
-       		 </a>
-		 </th:block>
-       -->
-       <span th:text="${param['favorite']}"></span>
-		<img th:src="@{/static/images/web_images/button/like1_i .png}" width="7%"/>
-        </form>
-	     </div>
-	
 	</div>
 </body>
 </html>
