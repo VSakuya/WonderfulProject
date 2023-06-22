@@ -50,7 +50,7 @@ public class ClientOrderRegistController {
 //	public String showRegist() {
 //		
 //		return "client/order/address_input";
-//	}
+////	}
 
 	
 	//フォーム画面の表示
