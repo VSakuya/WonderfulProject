@@ -5,77 +5,102 @@
 
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
-<head>
-<title>商品詳細</title>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-</head>
-<body class="user">
-   <h2 class="title">商品詳細</h2>
-     <div class="info_form_area">
-	     <div class="item_detail_area">
-	         <div class="item_image_area">
-		     <img th:src = "@{/static/images/} + ${items.image}"/>
-		     </div>
-	
-	
-		
-	         <dl class="item_detail_list">
-	           <dt>商品名</dt>
-	             <dd th:text="${items.name}"></dd>
-	           <dt>価格</dt>
-	             <dd th:text="${items.price}"></dd>
-	           <dt>在庫数</dt>
-	             <div th:if="${items.stock >= 6}">在庫あり</div>
-	             <th:block th:if="${items.stock le 5 && items.stock ge 1}">
-	               <dd th:text="${items.stock}"></dd>
-	             </th:block>
-	             
-	             <th:block th:if="${items.stock == 0}">
-	               <p>在庫なし</p>
-	             </th:block>
-	           <dt>カテゴリ</dt>
-	             <dd th:text="${items.categoryName}"></dd>
-	           <dt>説明文</dt>
-	             <dd th:text="${items.description}"></dd>
-	         </dl>
-	      </div>
+	th:replace="~{/client/layout/layout_3block :: layout(~{::title},~{::body/content()})}">
 
-     <div class="detail_button_area">
-        <form th:action="@{/client/basket/add}", method="post">
-<<<<<<< HEAD
-        <input type="hidden" name="id" th:value= "${session.items.id}">
-=======
-        <input type="hidden" name="id" th:value= "${items.id}">
->>>>>>> branch 'main' of https://VSakuya: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@github.com/VSakuya/WonderfulProject.git
-        <input type="submit" value="買い物かごに入れる" class="send_button"/>
-        </form>
-        
-     	<form th:action="@{/client/item/new_arrival/back}" method="post">
-	    <input type="submit" value="戻る" class="back_button" />
-		</form>
-		
-		<form th:action="@{/client/favorite/switch}", method="post">
-        <input type="hidden" name="id" th:value= "${items.id}">
-        <input type="submit" value="fav" class="send_button"/>
-        <!--
-        <th:block th:if="${#lists.isEmpty}">
-        	<a th:href="@{/shared_shop/client/item/detail/1}">
-        	<img th:src="@{/static/images/web_images/button/like1_i .png}" width="7%"/>
-        	 </a>
-        </th:block>
-        <th:block th:if="${favorite.item.id != favorite.user.id}">
-        	<a th:href="@{/shared_shop/client/item/detail/1}">
-       		<img th:src="@{/static/images/web_images/button/like1_i .png}" width="7%"/>
-       		 </a>
-		 </th:block>
-       -->
-       <span th:text="${param['favorite']}"></span>
-		<img th:src="@{/static/images/web_images/button/like1_i .png}" width="7%"/>
-        </form>
-	     </div>
-	
+<head>
+	<title>商品詳細</title>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body class="user">
+	<div class="container-60">
+		<h2 class="title text-start m-4" th:text="${item.name}">商品詳細</h2>
+	</div>
+	<div class="info_form_area">
+		<div class="item_detail_area row container-60">
+
+			<div class="col-4 p-4">
+				<div id="carouselId" class="carousel slide slider-container border" data-bs-ride="carousel">
+					<div class="carousel-inner" role="listbox">
+						<div th:each="img, imgStat : ${item.imageList}" class="carousel-item"
+							th:classappend="${imgStat.index == 0} ? 'active' : ''">
+							<img th:src="@{/static/images/} + ${img.imagePath}" class="w-100 d-block">
+						</div>
+					</div>
+					<button class="carousel-control-prev" type="button" data-bs-target="#carouselId"
+						data-bs-slide="prev">
+						<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Previous</span>
+					</button>
+					<button class="carousel-control-next" type="button" data-bs-target="#carouselId"
+						data-bs-slide="next">
+						<span class="carousel-control-next-icon" aria-hidden="true"></span>
+						<span class="visually-hidden">Next</span>
+					</button>
+				</div>
+				
+				<div class="row container-fluid">
+					
+					<form th:action="@{/client/favorite/switch}" , method="post">
+						<input type="hidden" name="id" th:value="${item.id}">
+						<input type="submit" value="fav" class="send_button" />
+						<span th:text="${param['favorite']}"></span>
+						<img th:src="@{/static/images/web_images/button/like1_i .png}" width="7%" />
+					</form>
+					<div class="detail_button_area mt-4">
+						<form th:action="@{/client/basket/add}" , method="post">
+							<input type="hidden" name="id" th:value="${item.id}">
+							<input type="submit" value="買い物かごに入れる" class="send_button" />
+						</form>
+						<button onclick="history.back()" class="btn btn-light">戻る</button>
+					</div>
+				</div>
+
+			</div>
+
+
+			<div class="col-8 p-4">
+				<div class="table-responsive">
+					<table class="table table-striped">
+						<tbody>
+							<tr class="">
+								<th>商品名</td>
+								<td th:text="${item.name}"></td>
+							</tr>
+							<tr class="">
+								<th>価格</td>
+								<td th:text="${item.price}"></td>
+							</tr>
+							<tr class="">
+								<th>在庫数</td>
+								<td th:if="${item.stock >= 6}">在庫あり</td>
+								<td th:if="${item.stock le 5 && item.stock ge 1}" th:text="${item.stock}"></td>
+								<td th:if="${item.stock == 0}">在庫なし</td>
+							</tr>
+							<tr class="">
+								<th>価格</td>
+								<td th:text="${item.price}"></td>
+							</tr>
+							<tr class="">
+								<th>カテゴリ</td>
+								<td th:text="${item.category.name}"></td>
+							</tr>
+							<tr class="">
+								<th>説明文</td>
+								<td th:text="${item.description}"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+
+			</div>
+			<dl class="item_detail_list">
+		</div>
+
+
+
 	</div>
 </body>
 
