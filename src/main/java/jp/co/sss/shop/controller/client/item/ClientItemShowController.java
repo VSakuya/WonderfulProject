@@ -56,7 +56,6 @@ public class ClientItemShowController {
 		return "index";
 	}
 
-	
 
 	/**
 	 * 商品詳細表示
@@ -87,36 +86,10 @@ public class ClientItemShowController {
 	/**
 	 * 商品一覧表示 新着順
 	 * @param model Viewとの値受け渡し
-	 * @return "list/new/arrival"商品新着順画面
+	 * @return "client/item/new_arrival"商品新着順画面
 	 * @author Tomita
-	 * @param pageable
 	 */
 
-
-
-//	@RequestMapping(path = "/client/item/list")
-//	public String idSortDesc(Model model, Pageable pageable) {
-//		Page<Object[]> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
-//		List<Object[]> itemList = itemsPage.getContent();
-//
-//
-//		model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
-//		model.addAttribute("itemsPage", itemsPage);
-//		model.addAttribute("itemList", itemList);
-//		return "client/item/list";
-//	}
-//	@RequestMapping(path = "/client/item/list")
-//	public String idSortDesc(Model model, Pageable pageable) {
-//		Page<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
-//		List<Item> itemList = itemsPage.getContent();
-//
-//		model.addAttribute("items", itemRepository.findAllByOrderByIdDesc());
-//		model.addAttribute("itemsPage", itemsPage);
-//		model.addAttribute("itemList", itemList);
-//		return "client/item/latest";
-//
-//
-//	}
 
 
 
