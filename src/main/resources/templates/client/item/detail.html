@@ -51,7 +51,6 @@
      	<form th:action="@{/client/item/new_arrival/back}" method="post">
 	    <input type="submit" value="戻る" class="back_button" />
 		</form>
-		
 		<form th:action="@{/client/favorite/switch}", method="post">
         <input type="hidden" name="id" th:value= "${items.id}">
 
@@ -74,5 +73,4 @@
 
 	</div>
 </body>
-
 </html>
