@@ -53,7 +53,7 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @return 商品エンティティ
 	 * @author tanaka
 	 */
-	Page<Item> findByCategory(Category category, Pageable pageable);
+	Page<Item> findByCategoryAndDeleteFlag(Category category, Integer deleteFlag, Pageable pageable);
 
 	/**
 	 * idで降順でソートする
@@ -110,6 +110,11 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 */
 	//@Query("SELECT i FROM Item i WHERE i.id = :id")
 	//public List<Item> findByIdQuery(@Param("id") Integer id);
+
+	@Query(JPQLConstant.FIND_BY_STR_AND_PRICE_RANGE)
+	Page<Item> findByStrAndPriceRange(String searchStr, Integer minPrice, Integer maxPrice, Integer deleteFlag, Pageable pageable);
+
+
 
 }
 

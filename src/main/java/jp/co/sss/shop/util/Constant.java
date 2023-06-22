@@ -42,6 +42,9 @@ public class Constant {
 	/** トップページスライダー画像ファイル保存用フォルダの名前 */
 	public static final String SLIDER_IMAGE_FOLDER = "/images/web_images/sliders/";
 
+	/** トップページスライダー画像ファイル保存用フォルダの名前 */
+	public static final String NO_IMAGE_PATH = "/static/images/web_images/common/no_image.jpg";
+
 	/** CSS保存用フォルダの名前 */
 	public static final String CSS_FOLDER = "/css/";
 

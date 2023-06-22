@@ -18,5 +18,13 @@ import jp.co.sss.shop.entity.User;
 @Repository
 public interface FavoriteRepository extends JpaRepository<Favorite, Integer> {
 	List<Favorite> findByUser(User user);
-	Favorite findByItemAndUser(Item item, User user);
+    Favorite findByItemAndUser(Item item, User user);
+    
+    List<Favorite> findByItemAndUser(Integer Id, Integer userId);
+    
 }
+
+    
+    
+    	
+    	

@@ -10,7 +10,7 @@
 			<img th:src="@{/static/images/web_images/title/category_i.png}" alt="">
 		</div>
 		<div class="text-center sidebar__categories-con">
-			<a th:each="category: ${categories}" th:text="${category.name}" th:href="@{/client/item/list_temp(categoryId=${category.id})}" class="list-group-item list-group-item-action"></a>
+			<a th:each="category: ${categories}" th:text="${category.name}" th:href="@{/client/item/list(categoryId=${category.id})}" class="list-group-item list-group-item-action category-bar"></a>
 		</div>
 
 	</div>

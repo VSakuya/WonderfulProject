@@ -37,7 +37,7 @@ public class ListForm implements Serializable {
 	 * -1は制限なし
 	 */
 	@Max(9999999)
-	private Integer maxPrice = -1;
+	private Integer maxPrice = 9999999;
 
 	/**
 	 * 在庫確認

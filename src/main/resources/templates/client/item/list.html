@@ -8,67 +8,124 @@
 </head>
 
 <body class="user index">
-	<h1>商品一覧</h1>
+	<h1 class="m-4">商品一覧</h1>
+	<button type="button" class="btn btn-light m-4" data-bs-toggle="collapse" data-bs-target="#filter-container">絞り込み</button>
+	<div class="collapse m-4" id="filter-container">
+		<form th:action="@{/client/item/list}" th:object="${listForm}">
+			<label for="searchStr">文字検索：</label>
+			<input type="text" th:field="*{searchStr}">
+			<label for="minPrice" min="0" max="9999999">最小価格：</label>
+			<input type="number" th:field="*{minPrice}">
+			<label for="maxPrice">最大価格：</label>
+			<input type="number" th:field="*{maxPrice}">
+			<input class="btn btn-dark" type="submit" value="確認">
+		</form>
+	</div>
 	<div class="" th:if="${#lists.size(items) le 0}">
 		<br>
 		<h1>
 			申し訳ございません、当てはまる商品がありません。
 		</h1>
 	</div>
-	<!-- <h1 th:text="${#lists.size(items)}"></h1> -->
 	<div class="" th:if="${#lists.size(items) gt 0}">
-		<ul class="row align-items-center">
+		<ul class="row justify-content-start">
 			<li th:each="index, stat : ${#lists.size(items) ge 5 ? #numbers.sequence(0, 4) : #numbers.sequence(0, #lists.size(items) - 1) }"
 				class="col-2">
-				<div class="card" style="max-width:12vw">
-					<img class="card-img-top" th:if="${!#lists.isEmpty(items[index].imageList)}"
-						th:src="@{/static/images/} + ${items[index].imageList[0].imagePath}" alt="Card image">
-					<img class="card-img-top" th:if="${#lists.isEmpty(items[index].imageList)}"
-						th:src="@{/static/images/test1.jpg}" alt="Card image">
-					<div class="card-body">
-						<a th:href="@{/client/item/detail/} + ${items[index].id}">
-							<span class="card-title" th:text="${items[index].name}">John Doe</span>
-						</a>
-						<br>
-						<span>¥ </span>
-						<span class="card-text" th:text="${items[index].price}">Some example text.</span>
+				<a th:href="@{/client/item/detail/} + ${items[index].id}">
+					<div class="card" style="max-width:12vw">
+						<img class="card-img-top" th:if="${!#lists.isEmpty(items[index].imageList)}"
+							th:src="@{/static/images/} + ${items[index].imageList[0].imagePath}" alt="Card image">
+						<img class="card-img-top" th:if="${#lists.isEmpty(items[index].imageList)}"
+							th:src="@{${constants.NO_IMAGE_PATH}}" alt="Card image">
+						<div class="card-body">
+							<a th:href="@{/client/item/detail/} + ${items[index].id}">
+								<span class="card-title" th:text="${items[index].name}">John Doe</span>
+							</a>
+							<br>
+							<span>¥ </span>
+							<span class="card-text" th:text="${items[index].price}">Some example text.</span>
+						</div>
 					</div>
-				</div>
+				</a>
 			</li>
 		</ul>
-		<ul class="row align-items-center" th:if="${#lists.size(items) gt 5}">
+		<ul class="row justify-content-start" th:if="${#lists.size(items) gt 5}">
 			<li th:each="index, stat : ${#lists.size(items) == 10 ? #numbers.sequence(5, 9) : #numbers.sequence(5, #lists.size(items) - 1) }"
 				class="col-2">
-				<div class="card" style="max-width:12vw">
-					<img class="card-img-top" th:if="${!#lists.isEmpty(items[index].imageList)}"
-						th:src="@{/static/images/} + ${items[index].imageList[0].imagePath}" alt="Card image">
-					<img class="card-img-top" th:if="${#lists.isEmpty(items[index].imageList)}"
-						th:src="@{/static/images/test1.jpg}" alt="Card image">
-					<div class="card-body">
-						<a th:href="@{/client/item/detail/} + ${items[index].id}">
-							<span class="card-title" th:text="${items[index].name}">John Doe</span>
-						</a>
-						<br>
-						<span>¥ </span>
-						<span class="card-text" th:text="${items[index].price}">Some example text.</span>
+				<a th:href="@{/client/item/detail/} + ${items[index].id}">
+					<div class="card" style="max-width:12vw">
+						<img class="card-img-top" th:if="${!#lists.isEmpty(items[index].imageList)}"
+							th:src="@{/static/images/} + ${items[index].imageList[0].imagePath}" alt="Card image">
+						<img class="card-img-top" th:if="${#lists.isEmpty(items[index].imageList)}"
+							th:src="@{/static/images/test1.jpg}" alt="Card image">
+						<div class="card-body">
+							<a th:href="@{/client/item/detail/} + ${items[index].id}">
+								<span class="card-title" th:text="${items[index].name}">John Doe</span>
+							</a>
+							<br>
+							<span>¥ </span>
+							<span class="card-text" th:text="${items[index].price}">Some example text.</span>
+						</div>
 					</div>
-				</div>
+				</a>
 			</li>
 		</ul>
 		<div class="d-flex justify-content-center container-fluid align-items-center text-center">
 			<ul class="pagination">
 				<li class="page-item" th:classappend="${pageItems.number le 0 ? 'disabled' : ''}">
-					<a class="page-link" th:href="@{/client/item/list_temp(page=${pageItems.number - 1})}"><</a>
+					<a class="page-link" th:href="@{/client/item/list(page=${pageItems.number - 1})}">
+						&lt;</a>
 				</li>
-				<li class="page-item" th:each="i : ${#numbers.sequence(0, pageItems.totalPages - 1)}" th:classappend="${pageItems.number == i ? 'active' : ''}">
-					<a class="page-link" th:text="${i+1}" th:href="@{/client/item/list_temp(page=${i})}">2</a>
+				<li class="page-item" th:each="i : ${#numbers.sequence(0, pageItems.totalPages - 1)}"
+					th:classappend="${pageItems.number == i ? 'active' : ''}">
+					<a class="page-link" th:text="${i+1}" th:href="@{/client/item/list(page=${i})}">2</a>
 				</li>
-				<li class="page-item" th:classappend="${pageItems.number >= (pageItems.totalPages - 1) ? 'disabled' : ''}">
-					<a class="page-link" th:href="@{/client/item/list_temp(page=${pageItems.number + 1})}">></a>
+				<li class="page-item"
+					th:classappend="${pageItems.number >= (pageItems.totalPages - 1) ? 'disabled' : ''}">
+					<a class="page-link" th:href="@{/client/item/list(page=${pageItems.number + 1})}">&gt;</a>
 				</li>
 			</ul>
 		</div>
 	</div>
+	<script>
+		$(document).ready(function () {
+			// Get current url and params in get
+			var url = new URL(window.location.href);
+			var params = new URLSearchParams(url.search);
+			paramList = {}
+			params.forEach(function (param, key, parent) {
+				if (key != 'page') {
+					paramList[key] = param;
+				}
+			})
+			// Get all paging elements
+			var category_bars = $('a.page-link');
+			category_bars.each(function () {
+				$(this).click(function (e) {
+					e.preventDefault();
+					var pageHref = $(this).attr('href'); // Get the href attribute value
+					var pageUrl = new URL(pageHref, window.location.href); // Create a URL object from the href
+					console.log(pageUrl);
+					var pageParams = new URLSearchParams(pageUrl.search); // Get the URLSearchParams object for the query parameter
+
+					// key the original params from url and set it with new page number
+					for (const key in paramList) {
+						if (paramList.hasOwnProperty.call(paramList, key)) {
+							const element = paramList[key];
+							pageParams.set(key, element)
+						}
+					}
+					// combine a new url and jump to it
+					var updatedQueryStr = pageParams.toString();
+					var newUrl = pageUrl.origin + pageUrl.pathname + '?' + updatedQueryStr;
+					window.location.href = newUrl;
+				});
+			});
+		}
+		)
+
+	</script>
 </body>
+
 
 </html>
