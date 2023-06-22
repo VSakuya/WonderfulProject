@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.bean.UserBean;
-import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.repository.FavoriteRepository;
@@ -83,13 +82,15 @@ public class ClientItemShowController {
 	    ItemBean itemBean = beanTools.copyEntityToItemBean(item);
 	    itemBean.setImage(item.getImageList().get(0).getImagePath()); 
 	    
-	    UserBean userBean =(UserBean) session.getAttribute("user");
-	    Integer userId  = userBean.getId();
-	    User users = userRepository.findByIdAndDeleteFlag(userId, 0);
-	    List<Favorite> favorite = favoriteRepository.findByUser(users);
-	    
-	    
-	    model.addAttribute("favorite", favorite);
+	    UserBean userBean = (UserBean) session.getAttribute("user");
+		int userId = userBean.getId();
+		User user = userRepository.findByIdAndDeleteFlag(userId, 0);
+			   
+	    if (favoriteRepository.findByItemAndUser(item, user) != null) {
+	    	model.addAttribute("favorited", true);
+	    }
+	   
+	   
 		model.addAttribute("items", itemBean);
 		return"client/item/detail";
 	}
