@@ -9,10 +9,19 @@
 
 <body class="user index">
 	<h1>商品一覧</h1>
-	<form th:action="@{/client/item/list}" th:object="${listForm}">
-		<input type="number" th:field="*{minPrice}">
-		<input type="number" th:field="*{maxPrice}">
-	</form>
+	
+	<button type="button" class="btn btn-light m-4" data-bs-toggle="collapse" data-bs-target="#filter-container">絞り込み</button>
+	<div class="collapse m-4" id="filter-container">
+		<form th:action="@{/client/item/list}" th:object="${listForm}">
+			<label for="searchStr">文字検索：</label>
+			<input type="text" th:field="*{searchStr}">
+			<label for="minPrice">最小価格：</label>
+			<input type="number" th:field="*{minPrice}">
+			<label for="maxPrice">最大価格：</label>
+			<input type="number" th:field="*{maxPrice}">
+			<input class="btn btn-dark" type="submit" value="確認">
+		</form>
+	</div>
 	<div class="" th:if="${#lists.size(items) le 0}">
 		<br>
 		<h1>
@@ -20,7 +29,7 @@
 		</h1>
 	</div>
 	<div class="" th:if="${#lists.size(items) gt 0}">
-		<ul class="row align-items-center">
+		<ul class="row justify-content-start">
 			<li th:each="index, stat : ${#lists.size(items) ge 5 ? #numbers.sequence(0, 4) : #numbers.sequence(0, #lists.size(items) - 1) }"
 				class="col-2">
 				<a th:href="@{/client/item/detail/} + ${items[index].id}">
@@ -41,7 +50,7 @@
 				</a>
 			</li>
 		</ul>
-		<ul class="row align-items-center" th:if="${#lists.size(items) gt 5}">
+		<ul class="row justify-content-start" th:if="${#lists.size(items) gt 5}">
 			<li th:each="index, stat : ${#lists.size(items) == 10 ? #numbers.sequence(5, 9) : #numbers.sequence(5, #lists.size(items) - 1) }"
 				class="col-2">
 				<a th:href="@{/client/item/detail/} + ${items[index].id}">

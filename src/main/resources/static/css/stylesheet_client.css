@@ -80,9 +80,28 @@ label{
     margin: 0 auto;
 }
 
+.floating-container{
+    position: absolute;
+}
+
+.snap-top{
+    top: 0;
+    left: 0;
+}
+
 /* header elements */
 header{
     background: white;
+}
+
+#search-box{
+    min-height: 300px;
+    height: 30vh;
+    background-color: white;
+    border-bottom: #424242;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    z-index: 99;
 }
 
 .header__icon{
