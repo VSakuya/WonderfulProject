@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.hibernate.type.IntegerType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -72,9 +75,10 @@ public class Index {
 	 * @param model テンプレートのmodel
 	 * @param listForm 検索用データ情報
 	 * @return ページ"client/item/list"
+	 * @author tan
 	 */
-	@RequestMapping(path = "/client/item/list_temp", method = RequestMethod.GET)
-	public String itemList(Pageable pageable, ListForm listForm, Model model) {
+	@RequestMapping(path = "/client/item/list", method = RequestMethod.GET)
+	public String itemList(@Valid @ModelAttribute ListForm listForm, BindingResult result, Pageable pageable, Model model) {
 		List<Item> rtItems 	= new ArrayList<>();
 		Page<Item> pageItems = new PageImpl<>(rtItems);
 		String searchStr 	= listForm.getSearchStr();
