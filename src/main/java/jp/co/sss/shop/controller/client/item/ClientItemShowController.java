@@ -112,10 +112,6 @@ public class ClientItemShowController {
 	 * @author Tomita
 	 */
 
-
-
-
-
 	@RequestMapping(path="/client/item/new_arrival", method =  RequestMethod.GET)
 	public String newArrival(Model model, Pageable pageable) {
 		Page<Object[]> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
