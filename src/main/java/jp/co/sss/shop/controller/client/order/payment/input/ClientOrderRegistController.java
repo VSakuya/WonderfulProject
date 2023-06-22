@@ -34,24 +34,55 @@ public class ClientOrderRegistController {
 	 */
 	@Autowired
 	HttpSession session;
+//	@RequestMapping(path = "/client/order/address/input", method = RequestMethod.POST)
+//	public String registInput() {
+//		
+//		return "redirect:/client/order/address_input";
+//	}
+//	
+//	@RequestMapping(path = "/client/order/address/back", method = RequestMethod.POST)
+//	public String registback() {
+//		
+//		return "redirect:/client/order/address/input";
+//	}
+//
+//	@RequestMapping(path = "/client/order/address/input", method = RequestMethod.GET)
+//	public String showRegist() {
+//		
+//		return "client/order/address_input";
+//	}
+
+	
 	//フォーム画面の表示
-	@RequestMapping(path ="/client/order/payment/input", method = {RequestMethod.POST})
+	@RequestMapping(path ="/client/order/payment/input", method = {RequestMethod.GET})
 	public String paymentInputOrder(Model model) {
-		//セッションスコープより入力情報を取り出す
-				UserForm userForm = (UserForm) session.getAttribute("userForm");
-//				if (userForm == null) {
-//					userForm = new UserForm();
-//					userForm.setAuthority(((UserBean) session.getAttribute("user")).getAuthority());
+		//セッションから入力フォーム情報取得
+		System.out.println("-----1");
+		UserForm userForm = (UserForm) model.addAttribute("userForm");
+		System.out.println("-----2");
+		if (userForm == null) {
+			System.out.println("-----3");
+			userForm = new UserForm();
+			// セッション情報がない場合、エラー
+			//return "redirect:/syserror";
+		}
+		//入力フォーム情報をスコープへ設定
+		System.out.println("-----4");
+		model.addAttribute("userForm", userForm);
+		System.out.println("-----5");
+		return  "redirect:/client/order/payment_input";
+	}
+	
+	
+	
+//	@RequestMapping(path ="/client/order/payment/input", method = {RequestMethod.POST})
+//	public String paymentInputOrder()
+//		
+//				//登録入力画面　表示処理
+//				return "redorder/payment_input";
 
-					//空の入力フォーム情報をセッションに保持 登録ボタンからの遷移
-					session.setAttribute("userForm", userForm);
-//				}
-					
-
-				//登録入力画面　表示処理
-				return "order/payment_input";
-
-			}
+			
+	
 //
 //			/**
 //			 * 入力画面　表示処理(GET)
@@ -104,10 +135,6 @@ public class ClientOrderRegistController {
 	
 	
 	
-	@RequestMapping(path = "/client/order/address/input", method = RequestMethod.GET)
-	public String registUser() {
-		return "client/order/address_input";
-	}
 	
 	
 	
@@ -140,4 +167,5 @@ public class ClientOrderRegistController {
 //		
 //		return returnStr;
 //	}
+
 }
