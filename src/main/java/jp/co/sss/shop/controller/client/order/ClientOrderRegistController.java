@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jp.co.sss.shop.bean.BasketBean;
 import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.Item;
-import jp.co.sss.shop.entity.Order;
 import jp.co.sss.shop.entity.OrderItem;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.form.OrderForm;
@@ -228,29 +226,29 @@ public class ClientOrderRegistController {
 //				
 //			}
 //		}
-		
-		Order order = new Order();
-		
-		UserBean userBean = (UserBean) session.getAttribute("user");
-		int userId = userBean.getId();
-		User user = userRepository.findByIdAndDeleteFlag(userId, 0);
-		
-		BeanUtils.copyProperties(orderForm, order);
-		BeanUtils.copyProperties(orderList, order);
-		BeanUtils.copyProperties(user, order);
-		
-		orderRepository.save(order);
-		
-		OrderItem orderItems = new OrderItem();
-		
-		for (int i = 0; i < orderList.size(); i++) {						//買い物かご内商品のチェック
-			
-			orderItem = orderList.get(i);
-			
-			
-		}
-		
-		BeanUtils.copyProperties(orderList, orderItems);
+//		
+//		Order order = new Order();
+//		
+//		UserBean userBean = (UserBean) session.getAttribute("user");
+//		int userId = userBean.getId();
+//		User user = userRepository.findByIdAndDeleteFlag(userId, 0);
+//		
+//		BeanUtils.copyProperties(orderForm, order);
+//		BeanUtils.copyProperties(orderList, order);
+//		BeanUtils.copyProperties(user, order);
+//		
+//		orderRepository.save(order);
+//		
+//		OrderItem orderItems = new OrderItem();
+//		
+//		for (int i = 0; i < orderList.size(); i++) {						//買い物かご内商品のチェック
+//			
+//			orderItem = orderList.get(i);
+//			
+//			
+//		}
+//		
+//		BeanUtils.copyProperties(orderList, orderItems);
 		
 		return "redirect:/client/order/complete";
 	}
