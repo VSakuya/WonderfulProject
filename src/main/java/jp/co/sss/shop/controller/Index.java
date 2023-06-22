@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.hibernate.type.IntegerType;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.ResourceUtils;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -48,6 +51,15 @@ public class Index {
 	@Value("classpath:static" + Constant.SLIDER_IMAGE_FOLDER + "*")
 	private Resource[] sliderImgs;
 
+    /**
+     * Thymeleafに定数を読めるようにメソッド
+     * @return 定数の実体
+     */
+    @ModelAttribute("constants")
+    public Constant appConstants() {
+        return new Constant();
+    }
+
 	/**
 	 * エラー画面表示処理
 	 *
@@ -72,9 +84,10 @@ public class Index {
 	 * @param model テンプレートのmodel
 	 * @param listForm 検索用データ情報
 	 * @return ページ"client/item/list"
+	 * @author tan
 	 */
-	@RequestMapping(path = "/client/item/list_temp", method = RequestMethod.GET)
-	public String itemList(Pageable pageable, ListForm listForm, Model model) {
+	@RequestMapping(path = "/client/item/list", method = RequestMethod.GET)
+	public String itemList(@Valid @ModelAttribute ListForm listForm, BindingResult result, Pageable pageable, Model model) {
 		List<Item> rtItems 	= new ArrayList<>();
 		Page<Item> pageItems = new PageImpl<>(rtItems);
 		String searchStr 	= listForm.getSearchStr();
@@ -86,10 +99,10 @@ public class Index {
 		if (categoryId != -1) {
 			Category category = new Category();
 			category.setId(categoryId);
-			pageItems = itemRepository.findByCategory(category, pageable);
+			pageItems = itemRepository.findByCategoryAndDeleteFlag(category, 0, pageable);
 		}
 		else {
-			pageItems = itemRepository.findAll(pageable);
+			pageItems = itemRepository.findByStrAndPriceRange(searchStr, minPrice, maxPrice, 0, pageable);
 		}
 		rtItems = pageItems.getContent();
 

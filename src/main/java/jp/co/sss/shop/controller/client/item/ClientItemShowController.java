@@ -15,8 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.ItemBean;
+import jp.co.sss.shop.bean.UserBean;
+import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
+import jp.co.sss.shop.repository.UserRepository;
 import jp.co.sss.shop.service.BeanTools;
 import jp.co.sss.shop.util.Constant;
 
@@ -32,12 +36,20 @@ public class ClientItemShowController {
 	 */
 	@Autowired
 	ItemRepository itemRepository;
+	
+	@Autowired
+	FavoriteRepository favoriteRepository;
+	
+	@Autowired
+	UserRepository userRepository;
 
 	/**
 	 * セッション
 	 */
 	@Autowired
 	HttpSession session;
+	
+	
 
 	/**
 	 * Entity、Form、Bean間のデータコピーサービス
@@ -56,6 +68,7 @@ public class ClientItemShowController {
 		return "index";
 	}
 
+
 	/**
 	 * 商品詳細表示
 	 * @param id 商品id
@@ -68,7 +81,11 @@ public class ClientItemShowController {
 		Item item = itemRepository.getReferenceById(id);
 	    ItemBean itemBean = beanTools.copyEntityToItemBean(item);
 	    itemBean.setImage(item.getImageList().get(0).getImagePath());
-
+	    UserBean userBean =(UserBean) session.getAttribute("user");
+	    Integer userId  = userBean.getId();
+	    List<Favorite> favorite = favoriteRepository.findByItemIdAndUserId(id, userId);
+	    
+	    model.addAttribute("favorite", favorite);
 		model.addAttribute("items", itemBean);
 		return"client/item/detail";
 	}
@@ -89,6 +106,7 @@ public class ClientItemShowController {
 	 * @return "client/item/new_arrival"商品新着順画面
 	 * @author Tomita
 	 */
+
 
 
 
