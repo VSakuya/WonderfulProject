@@ -51,6 +51,11 @@ public class Index {
 	@Value("classpath:static" + Constant.SLIDER_IMAGE_FOLDER + "*")
 	private Resource[] sliderImgs;
 
+    @ModelAttribute("constants")
+    public Constant appConstants() {
+        return new Constant();
+    }
+
 	/**
 	 * エラー画面表示処理
 	 *

@@ -28,7 +28,7 @@
 						<img class="card-img-top" th:if="${!#lists.isEmpty(items[index].imageList)}"
 							th:src="@{/static/images/} + ${items[index].imageList[0].imagePath}" alt="Card image">
 						<img class="card-img-top" th:if="${#lists.isEmpty(items[index].imageList)}"
-							th:src="@{/static/images/test1.jpg}" alt="Card image">
+							th:src="@{${constants.NO_IMAGE_PATH}}" alt="Card image">
 						<div class="card-body">
 							<a th:href="@{/client/item/detail/} + ${items[index].id}">
 								<span class="card-title" th:text="${items[index].name}">John Doe</span>
