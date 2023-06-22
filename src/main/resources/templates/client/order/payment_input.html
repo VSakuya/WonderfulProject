@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+
+<head>
+	<meta charset="UTF-8">
+	<title th:text="#{title.input.new}+' | '+ #{shop.title}"></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body class="user">
+	<h2 th:class="title" th:text="#{paymethod.str}"></h2>
+	<p th:class="input_message" th:text="#{msg.order.payment.input}"></p>
+
+	<div class="user_info_form_area">
+		<form method="post" th:action="@{/client/order/check}" class="user_info_form">
+			<ul class="payment_method_select">
+							<li>
+								<label class="radio_label">
+									<input type="radio" name="payMethod" value="1"
+									checked="checked" th:text="#{paymethod.credit.str}"/>
+								</label>
+							</li>
+							<li>
+								<label class="radio_label">
+									<input type="radio" name="payMethod" value="2" th:text="#{paymethod.bank.str}" />
+								</label>
+							</li>
+							<li>
+								<label class="radio_label">
+									<input type="radio" name="payMethod" value="3" th:text="#{paymethod.onarrival.str}" />
+								</label>
+							</li>
+							<li>
+								<label class="radio_label">
+									<input type="radio" name="payMethod" value="4" th:text="#{paymethod.emoney.str}" />
+								</label>
+							</li>
+							<li>
+								<label class="radio_label">
+									<input type="radio" name="payMethod" value="5" th:text="#{paymethod.convenience.str}" />
+								</label>
+							</li>
+						</ul>
+			<input type="hidden" name="authority" value="2" />
+			<input type="submit" value="次へ" class="send_button" />
+		</form>
+		<form method="post" th:action="@{/client/order/address/input}">
+			<input type="submit" value="戻る" class="back_button" />
+		</form>
+	</div>
+</body>
+
+</html>
