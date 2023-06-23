@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{common/layout_3block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{/client/layout/layout_3block :: layout(~{::title},~{::body/content()})}">
 
 <head>
 	<meta charset="UTF-8">
@@ -12,7 +12,90 @@
 	<h2 th:class="title" th:text="#{title.input.new}"></h2>
 	<p th:class="input_message" th:text="#{msg.regist.input}"></p>
 
-	<div class="user_info_form_area">
+	<div class="user_info_form_area" th:object=${userForm}>
+		<div class="container-40">
+			<form th:action="@{/client/user/regist/input}" method="post" class="login_form needs-validation">
+				<th:block th:if="${#fields.hasErrors()}">
+					<div class="error_list alert alert-danger alert-dismissible text-center fade show">
+						<ul class="list-unstyled">
+							<li th:each="err:${#fields.detailedErrors()}" th:text="${err.message}"></li>
+						</ul>
+						<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+					</div>
+				</th:block>
+
+				<div class="row mb-3 mt-3">
+					<label for="email" class="col-sm-4 col-form-label">[[#{userForm.email}]]</label>
+					<div class="col-sm-8">
+						<input type="email" class="form-control" th:field="*{email}"
+							th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''" placeholder="Enter email"
+							required>
+					</div>
+					<div class="valid-feedback">問題なし</div>
+					<div class="invalid-feedback">メールアドレスは正しい形式で入力してください。</div>
+					<div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+				</div>
+				<div class="row mb-3 mt-3">
+					<label for="password" class="col-sm-4 col-form-label">[[#{userForm.password}]]</label>
+					<div class="col-sm-8">
+						<input type="password" class="form-control" th:field="*{password}"
+							th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''" value="" required>
+					</div>
+					<div class="valid-feedback">問題なし</div>
+					<div class="invalid-feedback">メールアドレスは正しい形式で入力してください。</div>
+					<div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+					</div>
+				</div>
+				<div class="row mb-3 mt-3">
+					<label for="name" class="col-sm-4 col-form-label">[[#{userForm.name}]]</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" th:field="*{name}"
+							th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''" required>
+					</div>
+					<div class="valid-feedback">問題なし</div>
+					<div class="invalid-feedback">メールアドレスは正しい形式で入力してください。</div>
+					<div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+				</div>
+				<div class="row mb-3 mt-3">
+					<label for="text" class="col-sm-4 col-form-label">[[#{userForm.postalCode}]]</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" th:field="*{postalCode}"
+							th:classappend="${#fields.hasErrors('postalCode')} ? 'is-invalid' : ''" required>
+					</div>
+					<div class="valid-feedback">問題なし</div>
+					<div class="invalid-feedback">メールアドレスは正しい形式で入力してください。</div>
+					<div class="invalid-feedback" th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}">
+					</div>
+				</div>
+				<div class="row mb-3 mt-3">
+					<label for="address" class="col-sm-4 col-form-label">[[#{userForm.address}]]</label>
+					<div class="col-sm-8">
+						<textarea rows="6" class="form-control" th:field="*{address}"
+							th:classappend="${#fields.hasErrors('address')} ? 'is-invalid' : ''" required></textarea>
+					</div>
+					<div class="valid-feedback">問題なし</div>
+					<div class="invalid-feedback">メールアドレスは正しい形式で入力してください。</div>
+					<div class="invalid-feedback" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+				</div>
+				<div class="row mb-3 mt-3">
+					<label for="phoneNumber" class="col-sm-4 col-form-label">[[#{userForm.phoneNumber}]]</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" th:field="*{phoneNumber}"
+							th:classappend="${#fields.hasErrors('phoneNumber')} ? 'is-invalid' : ''" required>
+					</div>
+					<div class="valid-feedback">問題なし</div>
+					<div class="invalid-feedback">メールアドレスは正しい形式で入力してください。</div>
+					<div class="invalid-feedback" th:if="${#fields.hasErrors('phoneNumber')}"
+						th:errors="*{phoneNumber}"></div>
+				</div>
+
+				<input type="submit" class="btn btn-dark btn-lg" value="確認"></input>
+			</form>
+			<button class="btn btn-light btn-lg" onclick="history.back()">戻る</button>
+		</div>
+
+
+		<!-- <div class="user_info_form_area">
 		<form method="post" th:action="@{/client/user/regist/input}" class="user_info_form" th:object="${userForm}">
 			<th:block th:if="${#fields.hasErrors()}">
 				<ul class="error_list">
@@ -52,7 +135,7 @@
 		<form method="post" th:action="@{/}">
 			<input type="submit" value="戻る" class="back_button" />
 		</form>
-	</div>
+	</div> -->
 </body>
 
 </html>

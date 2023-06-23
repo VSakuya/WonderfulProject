@@ -1,78 +1,106 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
-<<<<<<< HEAD
+	th:replace="~{/client/layout/layout_3block :: layout(~{::title},~{::body/content()})}">
+
 <head>
 	<meta charset="UTF-8">
 	<title th:text="#{title.input.new}+' | '+ #{shop.title}"></title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 </head>
+
 <body class="user">
 	<h2 th:class="title" th:text="#{title.order.address.input}"></h2>
 	<p th:class="input_message" th:text="#{msg.order.address.input}"></p>
-	<div class="user_info_form_area">
-		<form method="post" th:action="@{/client/order/address/input}" class="user_info_form" th:object="${orderForm}">
-			<th:block th:if="${#fields.hasErrors()}">
-				<ul class="error_list">
-					<li th:each="err:${#fields.detailedErrors()}" th:text="${err.message}"></li>
+
+	<div class="user_info_form_area" th:object=${userForm}>
+		<div class="container-40">
+			<form method="post" th:action="@{/client/order/payment/input}" class="user_info_form">
+				<div class="row mb-3 mt-3">
+					<label for="postalCode" class="col-sm-4 col-form-label">[[#{orderForm.postalCode}]]</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="postalCode" th:value="${session.orderForm.postalCode}" required>
+					</div>
+				</div>
+				<div class="row mb-3 mt-3">
+					<label for="address" class="col-sm-4 col-form-label">[[#{orderForm.address}]]</label>
+					<div class="col-sm-8">
+						<textarea rows="6" name="address" class="form-control" id="address" required>[[${session.orderForm.address}]]</textarea>
+					</div>
+				</div>
+				<div class="row mb-3 mt-3">
+					<label for="name" class="col-sm-4 col-form-label">[[#{orderForm.name}]]</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="name" th:value="${session.orderForm.name}" required>
+					</div>
+				</div>
+				<div class="row mb-3 mt-3">
+					<label for="phoneNumber" class="col-sm-4 col-form-label">[[#{orderForm.phoneNumber}]]</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" id="phoneNumber" th:value="${session.orderForm.phoneNumber}" required>
+					</div>
+				</div>
+				<input type="submit" value="確認" class="btn btn-dark btn-lg" />
+			</form>
+			<form method="get" th:action="@{/client/basket/list}">
+				<input type="submit" value="戻る" class="btn btn-lg btn-light" />
+			</form>
+
+				<!-- <ul class="input_list">
+					<li>
+						<label><span class="input_title">[[#{orderForm.postalCode}]]</span></label>
+
+						<input type="text" name="postalCode" th:value="${session.orderForm.postalCode}" />
+					</li>
+					<li>
+						<label><span class="input_title">[[#{orderForm.address}]]</span></label><br />
+
+						<textarea rows="6" name="address">[[${session.orderForm.address}]]</textarea>
+					</li>
+					<li>
+						<label><span class="input_title">[[#{orderForm.name}]]</span></label>
+
+						<input type="text" name="name" th:value="${session.orderForm.name}" />
+					</li>
+					<li>
+						<label><span class="input_title">[[#{orderForm.phoneNumber}]]</span></label>
+
+						<input type="text" name="phoneNumber" th:value="${session.orderForm.phoneNumber}" />
+					</li>
 				</ul>
-				<br />
-			</th:block>
-			<ul class="input_list">
-				<li>
-<label><span class="input_title">[[#{orderForm.address}]]</span></label><br />
-					<textarea th:field="*{address}" rows="6"></textarea>
-				</li>
-				<li>
-					<label><span class="input_title">[[#{orderForm.name}]]</span></label>
-					<input type="text" th:field="*{name}" />
-				</li>
-				<li>
-					<label><span class="input_title">[[#{orderForm.phoneNumber}]]</span></label>
-					<input type="text" th:field="*{phoneNumber}" />
-				</li>
-			</ul>
-			<input type="hidden" name="authority" value="2" />
-			<input type="submit" value="確認" class="send_button" />
-		</form>
-		<form method="post" th:action="@{/}">
-			<input type="submit" value="戻る" class="back_button" />
-		</form>
+				<input type="hidden" name="authority" value="2" />
+				<input type="submit" value="確認" class="send_button" />
+			</form>
+
+			<form method="get" th:action="@{/client/basket/list}">
+				<input type="submit" value="戻る" class="back_button" />
+			</form> -->
+
+		</div>
 	</div>
-</body>
-=======
 
-<head>
-	<meta charset="UTF-8">
-	<title th:text="#{title.input.new}+' | '+ #{shop.title}"></title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-</head>
 
-<body class="user">
-	<h2 th:class="title" th:text="#{title.order.address.input}"></h2>
-	<p th:class="input_message" th:text="#{msg.order.address.input}"></p>
-
-	<div class="user_info_form_area">
+	<!-- <div class="user_info_form_area">
 		<form method="post" th:action="@{/client/order/payment/input}" class="user_info_form">
 			<ul class="input_list">
-				<li>>					<label><span class="input_title">[[#{orderForm.postalCode}]]</span></label>
+				<li>
+					<label><span class="input_title">[[#{orderForm.postalCode}]]</span></label>
 
-					<input type="text" th:value="${ex.postalCode}" />
+					<input type="text" name="postalCode" th:value="${session.orderForm.postalCode}" />
 				</li>
 				<li>
 					<label><span class="input_title">[[#{orderForm.address}]]</span></label><br />
 
-					<textarea rows="6">[[${ex.address}]]</textarea>
+					<textarea rows="6" name="address">[[${session.orderForm.address}]]</textarea>
 				</li>
 				<li>
 					<label><span class="input_title">[[#{orderForm.name}]]</span></label>
 
-					<input type="text" th:value="${ex.name}" />
+					<input type="text" name="name" th:value="${session.orderForm.name}" />
 				</li>
 				<li>
 					<label><span class="input_title">[[#{orderForm.phoneNumber}]]</span></label>
 
-					<input type="text" th:value="${ex.phoneNumber}" />
+					<input type="text" name="phoneNumber" th:value="${session.orderForm.phoneNumber}" />
 				</li>
 			</ul>
 			<input type="hidden" name="authority" value="2" />
@@ -82,6 +110,7 @@
 		<form method="get" th:action="@{/client/basket/list}">
 			<input type="submit" value="戻る" class="back_button" />
 		</form>
-	</div>
+	</div> -->
 </body>
+
 </html>

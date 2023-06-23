@@ -10,8 +10,7 @@
 
 <body class="user">
 	<article class="main">
-				<h2 class="title">
-					注文内容確認
+				<h2 class="title" th:text="#{title.order.check}">
 				</h2>
 				<br />
 				<table class="list_table item_detail">
@@ -28,83 +27,82 @@
 						</th>
 					</tr>
 					<tr th:each="item: ${session.orderItems}">
-						<td th:text="${item.item.name}">
+						<td th:text="${item.name}">
 						</td>
+						
+						<!--
 						<td>
 							<img th:src="@{/static/images/} + ${item.item.imageList[0].imagePath}"　th:if="${item.item.imageList[0].imagePath != null}" />
 					<img th:src="@{/images/common/no_image.jpg}" th:if="${item.item.imageList[0].imagePath == null}" />
 						</td>
+						-->
+						<td>画像</td>
 						<td th:text="${item.price}">
 						</td>
-						<td th:text="${item.quantity}">
+						<td th:text="${item.orderNum}">
 						</td>
-						<td th:text="(${item.price}*${item.quantity})">
+						<td th:text="(${item.price}*${item.orderNum})">
 						</td>
 					</tr>
 					<tr>
 						<td colspan="3"></td>
-						<td class="total">
-							合計
+						<td class="total" th:text="#{data.total}">
 						</td>
 						<td class="total" th:text="${total}">
 						</td>
 					</tr>
 				</table>
 				<div class="user_info_form_area">
+					<caption class="table_caption">
+						<p th:text="#{data.address}"></p>
+					</caption>
 					<table class="detail_table address">
-						<caption class="table_caption">
-							お届け先
-						</caption>
 						<tr>
-							<th>
-								郵便番号
+							<th th:text="#{orderForm.postalCode}">
 							</th>
-							<td th:text="${session.ex.postalCode}">
+							<td th:text="${session.orderForm.postalCode}">
 							</td>
 						</tr>
 						<tr>
-							<th>
-								住所
+							<th th:text="#{orderForm.address}">
 							</th>
-							<td th:text="${session.ex.address}">
+							<td th:text="${session.orderForm.address}">
 							</td>
 						</tr>
 						<tr>
-							<th>
-								氏名
+							<th th:text="#{orderForm.name}">
 							</th>
-							<td th:text="${session.ex.name}">
+							<td th:text="${session.orderForm.name}">
 							</td>
 						</tr>
 						<tr>
-							<th>
-								電話番号
+							<th th:text="#{orderForm.phoneNumber}">
 							</th>
-							<td th:text="${session.ex.phoneNumber}">
+							<td th:text="${session.orderForm.phoneNumber}">
 							</td>
 						</tr>
 					</table>
+					
+					<caption class="table_caption">
+							<p th:text="#{paymethod.str}"></p>
+					</caption>
 					<table class="detail_table pay">
-						<caption class="table_caption">
-							お支払い方法
-						</caption>
 						<tr>
-							<th>
-								お支払い方法
+							<th th:text="#{paymethod.str}">
 							</th>
-							<td th:switch="${session.ex.payMethod}">
-								<span th:case="1">クレジットカード</span>
-								<span th:case="2">銀行振込</span>
-								<span th:case="3">着払い</span>
-								<span th:case="4">電子マネー</span>
-								<span th:case="5">コンビニ決済</span>
+							<td th:switch="${session.orderForm.payMethod}">
+								<span th:case="1" th:text="#{paymethod.credit.str}"></span>
+								<span th:case="2" th:text="#{paymethod.bank.str}"></span>
+								<span th:case="3" th:text="#{paymethod.onarrival.str}"></span>
+								<span th:case="4" th:text="#{paymethod.emoney.str}"></span>
+								<span th:case="5" th:text="#{paymethod.convenience.str}"></span>
 							</td>
 						</tr>
 					</table>
 					<form method="post" th:action="@{/client/order/complete}" >
 						<input class="send_button" type="submit" value="ご注文の確定" />
 					</form>
-					<form method="post" th:action="@{/client/order/payment/input}" class="update">
+					<form method="post" th:action="@{/client/order/check/back}" class="update">
 						<input type="submit" value="戻る" class="back_button"/>
 					</form>
 				</div>

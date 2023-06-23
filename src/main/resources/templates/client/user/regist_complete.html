@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{common/layout_3block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{/client/layout/layout_3block :: layout(~{::title},~{::body/content()})}">
 
 <head>
 	<meta charset="UTF-8">
@@ -9,9 +9,9 @@
 </head>
 
 <body>
-	<h2 th:class="title" th:text="#{title.input.complete}"></h2>
-	<p th:class="input_message">会員情報の登録が完了しました。</p>
-	<p class="complete_link"><a th:href="@{/}">トップに戻る</a></p>
+	<h2 th:text="#{title.input.complete}"></h2>
+	<h4 class="m-4">会員情報の登録が完了しました。</h4>
+	<h4 class="countdown m-4" data-duration="5" th:data-target-url="@{/}">自動的に<span class="countdown-time">5</span>秒内後に<a th:href="@{/}">トップへ</a>戻る</h4>
 </body>
 
 </html>

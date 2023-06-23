@@ -11,9 +11,9 @@
 <body class="user">
 	<h2 class="title" th:text="#{user} + #{title.detail}"></h2>
 	<div class="info_form_area">
-		<div class="container-60">
+		<div class="container-40">
 			<div class="table-responsive">
-				<table class="table table-hover">
+				<table class="table table-hover table-striped">
 					<tbody>
 						<tr>
 							<th>[[#{userForm.email}]]</th>
@@ -43,14 +43,12 @@
 			<form method="post" th:action="@{/client/user/update/input}">
 				<input type="submit" value="変更" class="btn btn-dark btn-lg" />
 			</form>
-			<form method="post" th:action="@{/}">
-				<input type="submit" value="戻る" class="btn btn-light btn-lg" />
+			<form method="get" th:action="@{/client/favorite/list}">
+				<input type="submit" value="お気に入り" class="btn btn-secondary btn-lg" />
 			</form>
+			<button class="btn btn-light btn-lg" onclick="history.back()">戻る</button>
 			<form method="post" th:action="@{/client/user/delete/check}">
 				<input type="submit" value="退会" class="btn btn-light btn-lg" />
-			</form>
-			<form method="get" th:action="@{/client/favorite/list}">
-				<input type="submit" value="お気に入り" class="btn btn-light btn-lg" />
 			</form>
 		</div>
 	</div>
