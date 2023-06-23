@@ -41,9 +41,9 @@
 			</tr>
 			<tr th:each="basket, st: ${session.baskets}">
 				<td>
-					<a th:href="@{/client/item/detail/{id}(id=${basket.id})}">
-						<h4 th:text="${basket.name}"></h4>
-					</a>
+					<h4>
+						<a th:href="@{/client/item/detail/{id}(id=${basket.id})}" th:text="${basket.name}"></a>
+					</h4>
 				</td>
 				<td>
 					<div class="input-group form-control-number justify-content-center d-flex" >

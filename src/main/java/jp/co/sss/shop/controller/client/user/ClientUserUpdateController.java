@@ -19,7 +19,7 @@ import jp.co.sss.shop.repository.UserRepository;
 
 /**
  * 会員情報変更機能のコントローラクラス
- * 
+ *
  * @author Kaine
  */
 @Controller
@@ -39,7 +39,7 @@ public class ClientUserUpdateController {
 
 	/**
 	 * 入力画面　初期表示処理
-	 * 
+	 *
 	 * @return "client/user/update_input" 入力画面 表示処理
 	 */
 	@RequestMapping(path = "/client/user/update/input", method = RequestMethod.POST)
@@ -106,8 +106,8 @@ public class ClientUserUpdateController {
 		//直前のセッション情報を取得
 		UserForm lastUserForm = (UserForm) session.getAttribute("userForm");
 		if (lastUserForm == null) {
-			// セッション情報が無い場合、エラー
-			return "redirect:/syserror";
+			// セッション情報が無い場合
+			return "redirect:/";
 		}
 		if (form.getAuthority() == null) {
 			//権限情報がない場合、セッション情報から値をセット
@@ -133,7 +133,7 @@ public class ClientUserUpdateController {
 
 	@RequestMapping(path = "/client/user/update/check", method = RequestMethod.GET)
 	public String updateCheck(Model model) {
-		
+
 		//セッションから入力フォーム情報取得
 		UserForm userForm = (UserForm) session.getAttribute("userForm");
 		if (userForm == null) {
@@ -175,7 +175,7 @@ public class ClientUserUpdateController {
 
 		// 各項目の保存
 		user.setEmail(userForm.getEmail());
-		
+
 		// ハッシュ変換が出来るまでコメントアウト(testtestで統一)
 		// user.setPassword(userForm.getPassword());
 

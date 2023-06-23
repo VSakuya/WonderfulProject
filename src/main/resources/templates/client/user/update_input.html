@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{/client/layout/layout_3block :: layout(~{::title},~{::body/content()})}">
 
 <head>
 	<meta charset="UTF-8">
@@ -12,47 +12,120 @@
 	<h2 th:class="title" th:text="#{title.update.input}"></h2>
 	<p th:class="input_message" th:text="#{msg.update.input}"></p>
 	<div class="user_info_form_area" th:object=${userForm}>
-		<form method="post" th:action="@{/client/user/update/check}" class="user_info_form">
-			<th:block th:if="${#fields.hasErrors()}">
-				<ul class="error_list">
-					<li th:each="err:${#fields.detailedErrors()}" th:text="${err.message}"></li>
-				</ul>
-				<br />
-			</th:block>
-			<ul class="input_list">
-				<li>
-					<label><span class="input_title">[[#{userForm.email}]]</span></label>
-					<input type="text" th:field="*{email}" />
-				</li>
-				<li>
-					<label><span class="input_title">[[#{userForm.password}]]</span></label>
-					<input type="password" th:field="*{password}" />
-				</li>
-				<li>
-					<label><span class="input_title">[[#{userForm.name}]]</span></label>
-					<input type="text" th:field="*{name}" />
-				</li>
-				<li>
-					<label><span class="input_title">[[#{userForm.postalCode}]]</span></label>
-					<input type="text" th:field="*{postalCode}" />
-				</li>
-				<li>
-					<label><span class="input_title">[[#{userForm.address}]]</span></label>
-					<textarea rows="6" th:field="*{address}"></textarea>
-				</li>
-				<li>
-					<label><span class="input_title">[[#{userForm.phoneNumber}]]</span></label>
-					<input type="text" th:field="*{phoneNumber}" />
-				</li>
-			</ul>
-			<input type="hidden" name="authority" value="2" />
-			<input type="submit" value="確認" class="check_button" />
-		</form>
-		<form th:action="@{/client/user/detail}" method="post">
-			<input type="submit" value="戻る" class="back_button" />
-		</form>
+		<div class="container-40">
+			<form th:action="@{/client/user/update/check}" method="post" class="login_form needs-validation">
+				<th:block th:if="${#fields.hasErrors()}">
+					<div class="error_list alert alert-danger alert-dismissible text-center fade show">
+						<ul class="list-unstyled">
+							<li th:each="err:${#fields.detailedErrors()}" th:text="${err.message}"></li>
+						</ul>
+						<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+					</div>
+				</th:block>
+
+				<div class="row mb-3 mt-3">
+					<label for="email" class="col-sm-4 col-form-label">[[#{userForm.email}]]</label>
+					<div class="col-sm-8">
+						<input type="email" class="form-control" th:field="*{email}"
+							th:classappend="${#fields.hasErrors('email')} ? 'is-invalid' : ''" placeholder="Enter email"
+							required>
+					</div>
+					<div class="valid-feedback">問題なし</div>
+					<div class="invalid-feedback">メールアドレスは正しい形式で入力してください。</div>
+					<div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+				</div>
+				<div class="row mb-3 mt-3">
+					<label for="password" class="col-sm-4 col-form-label">[[#{userForm.password}]]</label>
+					<div class="col-sm-8">
+						<input type="password" class="form-control" th:field="*{password}"
+							th:classappend="${#fields.hasErrors('password')} ? 'is-invalid' : ''" value="" required>
+					</div>
+					<div class="valid-feedback">問題なし</div>
+					<div class="invalid-feedback">メールアドレスは正しい形式で入力してください。</div>
+					<div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">
+					</div>
+				</div>
+				<div class="row mb-3 mt-3">
+					<label for="name" class="col-sm-4 col-form-label">[[#{userForm.name}]]</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" th:field="*{name}"
+							th:classappend="${#fields.hasErrors('name')} ? 'is-invalid' : ''" required>
+					</div>
+					<div class="valid-feedback">問題なし</div>
+					<div class="invalid-feedback">メールアドレスは正しい形式で入力してください。</div>
+					<div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
+				</div>
+				<div class="row mb-3 mt-3">
+					<label for="text" class="col-sm-4 col-form-label">[[#{userForm.postalCode}]]</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" th:field="*{postalCode}"
+							th:classappend="${#fields.hasErrors('postalCode')} ? 'is-invalid' : ''" required>
+					</div>
+					<div class="valid-feedback">問題なし</div>
+					<div class="invalid-feedback">メールアドレスは正しい形式で入力してください。</div>
+					<div class="invalid-feedback" th:if="${#fields.hasErrors('postalCode')}" th:errors="*{postalCode}">
+					</div>
+				</div>
+				<div class="row mb-3 mt-3">
+					<label for="address" class="col-sm-4 col-form-label">[[#{userForm.address}]]</label>
+					<div class="col-sm-8">
+						<textarea rows="6" class="form-control" th:field="*{address}"
+							th:classappend="${#fields.hasErrors('address')} ? 'is-invalid' : ''" required></textarea>
+					</div>
+					<div class="valid-feedback">問題なし</div>
+					<div class="invalid-feedback">メールアドレスは正しい形式で入力してください。</div>
+					<div class="invalid-feedback" th:if="${#fields.hasErrors('address')}" th:errors="*{address}"></div>
+				</div>
+				<div class="row mb-3 mt-3">
+					<label for="phoneNumber" class="col-sm-4 col-form-label">[[#{userForm.phoneNumber}]]</label>
+					<div class="col-sm-8">
+						<input type="text" class="form-control" th:field="*{phoneNumber}"
+							th:classappend="${#fields.hasErrors('phoneNumber')} ? 'is-invalid' : ''" required>
+					</div>
+					<div class="valid-feedback">問題なし</div>
+					<div class="invalid-feedback">メールアドレスは正しい形式で入力してください。</div>
+					<div class="invalid-feedback" th:if="${#fields.hasErrors('phoneNumber')}"
+						th:errors="*{phoneNumber}"></div>
+				</div>
+
+				<input type="submit" class="btn btn-dark btn-lg" value="確認"></input>
+			</form>
+			<button class="btn btn-light btn-lg" onclick="history.back()">戻る</button>
 		</div>
 
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
+		<script>
+			// sha256ハッシュ用のメソッド
+			// return: 引数のsha256結果のString
+			function sha256(message) {
+				return CryptoJS.SHA256(message).toString();
+			}
+
+			// formの参照値を所得
+			const loginForm = document.getElementsByClassName("login_form")[0];
+			// formのsubmit動作をformSubmit()メソッドとバイトする。
+			loginForm.addEventListener("submit", formSubmit);
+
+			function formSubmit(event) {
+				// デフォルトのsubmit動作を阻止する。
+				event.preventDefault();
+				// パスワードの参照値を所得
+				const pwdInput = document.getElementById("password");
+				// 入力したパスワードを所得
+				var password = pwdInput.value;
+				// パスワードは空ではない場合
+				if (password) {
+					// ハッシュ結果
+					var hashedPassword = sha256(password + 'WonderfulProject');
+					// パスワードinputのvalueを変更する
+					pwdInput.value = hashedPassword;
+				}
+				// formを提出する
+				loginForm.submit();
+			}
+
+
+		</script>
 </body>
 
 </html>
