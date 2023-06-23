@@ -64,7 +64,7 @@ public class ClientBasketController {
 
 			} else {																//買い物かごに商品が存在する場合
 
-//				@SuppressWarnings("unchecked")
+				@SuppressWarnings("unchecked")
 				List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("baskets");
 
 				BasketBean	basketItem;

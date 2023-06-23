@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.BasketBean;
+import jp.co.sss.shop.bean.OrderItemBean;
 import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.OrderItem;
@@ -21,12 +22,16 @@ import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.OrderItemRepository;
 import jp.co.sss.shop.repository.OrderRepository;
 import jp.co.sss.shop.repository.UserRepository;
+import jp.co.sss.shop.service.BeanTools;
 
 @Controller
 public class ClientOrderRegistController {
 	
 	@Autowired
 	HttpSession session;
+	
+	@Autowired
+	BeanTools beanTools;
 	
 	@Autowired
 	UserRepository userRepository;
@@ -71,13 +76,13 @@ public class ClientOrderRegistController {
 	@RequestMapping(path = "/client/order/address/input", method = RequestMethod.GET)
 	public String inputAddress(Model model) {
 		
-		OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
+//		OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
 		
 //		if (result.hasErrors()) {
 //			session.setAttribute("result", result);
 //		}
 		
-		session.setAttribute("orderForm", orderForm);
+//		session.setAttribute("orderForm", orderForm);
 		
 		return "client/order/address_input";
 	}
@@ -98,10 +103,27 @@ public class ClientOrderRegistController {
 		}
 	}
 	
+	
 	@RequestMapping(path = "/client/order/payment/input", method = RequestMethod.GET)
 	public String paymentInput() {
 		
 		return "client/order/payment_input";
+	}
+	
+	
+	
+	@RequestMapping(path = "/client/order/payment/back", method = RequestMethod.POST)
+	public String backToAddressInput() {
+		
+		UserBean userBean = (UserBean) session.getAttribute("user");
+		if (userBean != null) {
+			
+			return "redirect:/client/order/address/input";
+			
+		} else {
+			return "redirect:/login";
+		}
+		
 	}
 	
 	
@@ -121,7 +143,7 @@ public class ClientOrderRegistController {
 	@RequestMapping(path = "/client/order/check", method = RequestMethod.GET)
 	public String orderCheck(Model model) {
 		
-		OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
+//		OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
 		
 		@SuppressWarnings("unchecked")
 		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("baskets");
@@ -162,65 +184,52 @@ public class ClientOrderRegistController {
 			}
 		}
 		
-		List<OrderItem> orderList = new ArrayList<>();
-		OrderItem orderItem = new OrderItem();
+		List<OrderItemBean> orderList = new ArrayList<>();
 		
-		for (int i = 0; i < basketList.size(); i++) {				//orderItemに情報を入れる
+		OrderItemBean orderItemBean = new OrderItemBean();
+		
+		for (int i = 0; i < basketList.size(); i++) {
 			
 			basketItem = basketList.get(i);
 			
 			int id = basketItem.getId();
-			
 			Item item = itemRepository.getReferenceById(id);
 			
-			orderItem.setItem(item);
-			orderItem.setQuantity(basketItem.getOrderNum());
-			orderItem.setPrice(item.getPrice());
-			orderList.add(i, orderItem);
+			orderItemBean = beanTools.generateOrderItemBean(item, basketItem);
+			orderList.add(orderItemBean);
 			
 			total += basketItem.getOrderNum() * item.getPrice();
 		}
+		
 		model.addAttribute("total", total);
-		session.setAttribute("orderForm", orderForm);
 		session.setAttribute("orderItems", orderList);
 		
 		return "client/order/check";
 	}
 	
 	
-	
-	
-	
-	@RequestMapping(path = "/client/order/payment/back", method = RequestMethod.POST)
+	@RequestMapping(path = "/client/order/check/back", method = RequestMethod.POST)
 	public String backToPaymentInput() {
 		
 		UserBean userBean = (UserBean) session.getAttribute("user");
 		if (userBean != null) {
 			
-			return "redirect:/client/order/address/input";
+			return "redirect:/client/order/payment/input";
 			
 		} else {
 			return "redirect:/login";
 		}
 		
 	}
-
+	
 /*
 	UserBean userBean = (UserBean) session.getAttribute("user");
 	if (userBean != null) {
-		
-		
-		
-		
-		
-		
 		
 	} else {
 		return "redirect:/login";
 	}
 */	
-	
-	
 	
 	
 	@RequestMapping(path = "/client/order/complete", method = RequestMethod.POST)
