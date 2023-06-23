@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{/client/layout/layout_3block :: layout(~{::title},~{::body/content()})}">
 
 <head>
 	<meta charset="UTF-8">
@@ -45,7 +45,7 @@
 		<form method="post" th:action="@{/client/user/update/complete}">
 			<input type="submit" value="登録" class="btn btn-dark btn-lg" />
 		</form>
-		<form method="post" th:action="@{/client/user/update/input}">
+		<form method="post" th:action="@{/client/user/update/input/init}">
 			<input type="submit" value="戻る" class="btn btn-light btn-lg" />
 		</form>
 	</div>
