@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/client/layout/layout_3block :: layout(~{::title},~{::body/content()})}">
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/client/layout/layout_3block_nav :: layout(~{::title},~{::body/content()})}">
 <head>
 <meta charset="UTF-8">
 <title th:text="#{favorite.list}+' | '+ #{shop.title}"> </title>
@@ -40,7 +40,9 @@
 						</div>
 					</td>
 					<td>
-					<a th:href="@{/client/item/detail/{id}(id=${item.item.id})}" th:text="${item.item.name}"> </a>
+						<h3>
+							<a th:href="@{/client/item/detail/{id}(id=${item.item.id})}" th:text="${item.item.name}"> </a>
+						</h3>
 					</td>
 					<td th:text="${item.item.price}">
 					</td>
