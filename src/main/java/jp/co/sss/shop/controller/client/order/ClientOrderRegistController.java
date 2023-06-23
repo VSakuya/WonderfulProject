@@ -42,57 +42,71 @@ public class ClientOrderRegistController {
 	
 	
 	@RequestMapping(path = "/client/order/address/input", method = RequestMethod.POST)
-	public String order() {
+	public String order(Model model) {
 		
 		UserBean userBean = (UserBean) session.getAttribute("user");
-		int userId = userBean.getId();
-		User user = userRepository.findByIdAndDeleteFlag(userId, 0);
-		
-		OrderForm orderForm = new OrderForm();
-		
-		orderForm.setId(user.getId());
-		orderForm.setPostalCode(user.getPostalCode());
-		orderForm.setAddress(user.getAddress());
-		orderForm.setName(user.getName());
-		orderForm.setPhoneNumber(user.getPhoneNumber());
-		orderForm.setPayMethod(1);
-		
-		model.addAttribute("orderForm", orderForm);
-		
-		return "redirect:/client/order/address/input";
+		if (userBean != null) {
+			
+			int userId = userBean.getId();
+			User user = userRepository.findByIdAndDeleteFlag(userId, 0);
+			
+			OrderForm orderForm = new OrderForm();
+			
+			orderForm.setId(user.getId());
+			orderForm.setPostalCode(user.getPostalCode());
+			orderForm.setAddress(user.getAddress());
+			orderForm.setName(user.getName());
+			orderForm.setPhoneNumber(user.getPhoneNumber());
+			orderForm.setPayMethod(1);
+			
+			session.setAttribute("orderForm", orderForm);
+			
+			return "redirect:/client/order/address/input";
+			
+		} else {
+			return "redirect:/login";
+		}
 	}
 	
 	@RequestMapping(path = "/client/order/address/input", method = RequestMethod.GET)
 	public String inputAddress(Model model) {
 		
-		OrderForm orderForm = (OrderForm) model.getAttribute("orderForm");
-		model.addAttribute("orderForm", orderForm);
+		OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
 		
 //		if (result.hasErrors()) {
 //			session.setAttribute("result", result);
 //		}
+		
+		session.setAttribute("orderForm", orderForm);
 		
 		return "client/order/address_input";
 	}
 	
 	
 	@RequestMapping(path = "/client/order/payment/input", method = RequestMethod.POST)
-	public String b(Model model, OrderForm orderForm) {
+	public String payment(OrderForm orderForm) {
 		
-		model.addAttribute(orderForm);
-		
-		return "redirect:/client/order/payment/input";
+		UserBean userBean = (UserBean) session.getAttribute("user");
+		if (userBean != null) {
+			
+			session.setAttribute("orderForm", orderForm);
+			
+			return "redirect:/client/order/payment/input";
+			
+		} else {
+			return "redirect:/login";
+		}
 	}
 	
 	@RequestMapping(path = "/client/order/payment/input", method = RequestMethod.GET)
-	public String c() {
+	public String paymentInput() {
 		
 		return "client/order/payment_input";
 	}
 	
 	
 	@RequestMapping(path = "/client/order/check", method = RequestMethod.POST)
-	public String d(int payMethod) {
+	public String check(int payMethod) {
 		
 		OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
 		orderForm.setPayMethod(payMethod);
@@ -104,10 +118,8 @@ public class ClientOrderRegistController {
 	
 	
 	
-	
-	
 	@RequestMapping(path = "/client/order/check", method = RequestMethod.GET)
-	public String e(Model model) {
+	public String orderCheck(Model model) {
 		
 		OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
 		
@@ -118,7 +130,7 @@ public class ClientOrderRegistController {
 		
 		int total = 0;
 		
-		for (int i = 0; i < basketList.size(); i++) {						//買い物かご内商品の削除フラグチェック
+		for (int i = 0; i < basketList.size(); i++) {						//商品の削除フラグチェック
 			
 			basketItem = basketList.get(i);
 			int itemId = basketItem.getId();
@@ -130,7 +142,7 @@ public class ClientOrderRegistController {
 			}
 		}
 		
-		for (int i = 0; i < basketList.size(); i++) {						//買い物かご内商品のチェック
+		for (int i = 0; i < basketList.size(); i++) {						//商品のチェック
 			
 			basketItem = basketList.get(i);
 			
@@ -153,15 +165,13 @@ public class ClientOrderRegistController {
 		List<OrderItem> orderList = new ArrayList<>();
 		OrderItem orderItem = new OrderItem();
 		
-		for (int i = 0; i < basketList.size(); i++) {
+		for (int i = 0; i < basketList.size(); i++) {				//orderItemに情報を入れる
 			
 			basketItem = basketList.get(i);
 			
-			int g = basketItem.getId();
+			int id = basketItem.getId();
 			
-			Item item = itemRepository.getReferenceById(g);
-			
-//			int price = basketItem.getOrderNum() * item.getPrice();
+			Item item = itemRepository.getReferenceById(id);
 			
 			orderItem.setItem(item);
 			orderItem.setQuantity(basketItem.getOrderNum());
@@ -180,8 +190,41 @@ public class ClientOrderRegistController {
 	
 	
 	
+	
+	@RequestMapping(path = "/client/order/payment/back", method = RequestMethod.POST)
+	public String backToPaymentInput() {
+		
+		UserBean userBean = (UserBean) session.getAttribute("user");
+		if (userBean != null) {
+			
+			return "redirect:/client/order/address/input";
+			
+		} else {
+			return "redirect:/login";
+		}
+		
+	}
+
+/*
+	UserBean userBean = (UserBean) session.getAttribute("user");
+	if (userBean != null) {
+		
+		
+		
+		
+		
+		
+		
+	} else {
+		return "redirect:/login";
+	}
+*/	
+	
+	
+	
+	
 	@RequestMapping(path = "/client/order/complete", method = RequestMethod.POST)
-	public String f(Model model) {
+	public String complete(Model model) {
 		
 		OrderForm orderForm = (OrderForm) session.getAttribute("ex");
 		
@@ -254,16 +297,8 @@ public class ClientOrderRegistController {
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	@RequestMapping(path = "/client/order/complete", method = RequestMethod.GET)
-	public String g() {
-		
+	public String completed() {
 		return "client/order/complete";
 	}
 }
