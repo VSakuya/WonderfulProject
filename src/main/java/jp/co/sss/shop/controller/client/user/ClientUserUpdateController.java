@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.form.UserForm;
+import jp.co.sss.shop.form.UserUpdateForm;
 import jp.co.sss.shop.repository.UserRepository;
 
 /**
@@ -101,7 +102,7 @@ public class ClientUserUpdateController {
 	}
 
 	@RequestMapping(path = "/client/user/update/check", method = RequestMethod.POST)
-	public String updateInputCheck(@Valid @ModelAttribute UserForm form, BindingResult result) {
+	public String updateInputCheck(@Valid @ModelAttribute UserUpdateForm form, BindingResult result) {
 
 		//直前のセッション情報を取得
 		UserForm lastUserForm = (UserForm) session.getAttribute("userForm");
@@ -135,7 +136,7 @@ public class ClientUserUpdateController {
 	public String updateCheck(Model model) {
 
 		//セッションから入力フォーム情報取得
-		UserForm userForm = (UserForm) session.getAttribute("userForm");
+		UserUpdateForm userForm = (UserUpdateForm) session.getAttribute("userForm");
 		if (userForm == null) {
 			// セッション情報がない場合、エラー
 			return "redirect:/syserror";
@@ -152,7 +153,7 @@ public class ClientUserUpdateController {
 	public String updateComplete() {
 
 		//セッション保持情報から入力値再取得
-		UserForm userForm = (UserForm) session.getAttribute("userForm");
+		UserUpdateForm userForm = (UserUpdateForm) session.getAttribute("userForm");
 		if (userForm == null) {
 			// セッション情報がない場合、エラー
 			return "redirect:/syserror";
