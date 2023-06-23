@@ -19,12 +19,8 @@
 				<br />
 			</th:block>
 			<ul class="input_list">
-				<li>>
-					<label><span class="input_title">[[#{orderForm.postalCode}]]</span></label>
-					<input type="text" th:field="*{postalCode}" />
-				</li>
 				<li>
-					<label><span class="input_title">[[#{orderForm.address}]]</span></label><br />
+<label><span class="input_title">[[#{orderForm.address}]]</span></label><br />
 					<textarea th:field="*{address}" rows="6"></textarea>
 				</li>
 				<li>
@@ -59,31 +55,33 @@
 	<div class="user_info_form_area">
 		<form method="post" th:action="@{/client/order/payment/input}" class="user_info_form">
 			<ul class="input_list">
-				<li>>
-					<label><span class="input_title">[[#{orderForm.postalCode}]]</span></label>
+				<li>>					<label><span class="input_title">[[#{orderForm.postalCode}]]</span></label>
+
 					<input type="text" th:value="${ex.postalCode}" />
 				</li>
 				<li>
 					<label><span class="input_title">[[#{orderForm.address}]]</span></label><br />
+
 					<textarea rows="6">[[${ex.address}]]</textarea>
 				</li>
 				<li>
 					<label><span class="input_title">[[#{orderForm.name}]]</span></label>
+
 					<input type="text" th:value="${ex.name}" />
 				</li>
 				<li>
 					<label><span class="input_title">[[#{orderForm.phoneNumber}]]</span></label>
+
 					<input type="text" th:value="${ex.phoneNumber}" />
 				</li>
 			</ul>
 			<input type="hidden" name="authority" value="2" />
 			<input type="submit" value="確認" class="send_button" />
 		</form>
+
 		<form method="get" th:action="@{/client/basket/list}">
 			<input type="submit" value="戻る" class="back_button" />
 		</form>
 	</div>
 </body>
-
->>>>>>> branch 'main' of https://VSakuya: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@github.com/VSakuya/WonderfulProject.git
 </html>

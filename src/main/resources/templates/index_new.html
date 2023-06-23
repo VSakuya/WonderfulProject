@@ -11,8 +11,9 @@
 	<div class="top-page-container">
 		<div id="carouselId" class="carousel slide slider-container py-4" data-bs-ride="carousel">
 			<div class="carousel-inner" role="listbox">
-				<div th:each="img, imgStat : ${sliderImgs}"   class="carousel-item" th:classappend="${imgStat.index == 0} ? 'active' : ''">
-					<img th:src="@{${img}}" class="w-100 d-block" >
+				<div th:each="img, imgStat : ${sliderImgs}" class="carousel-item"
+					th:classappend="${imgStat.index == 0} ? 'active' : ''">
+					<img th:src="@{${img}}" class="w-100 d-block">
 				</div>
 			</div>
 			<button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
@@ -26,7 +27,7 @@
 		</div>
 		<div class="d-flex justify-content-between py-4">
 			<div class="d-flex align-items-start">
-				<a href="">
+				<a th:href="@{/client/item/new_arrival}">
 					<img class="top-page__link-image" th:src="@{/static/images/web_images/home/new_arrival.png}" alt="">
 				</a>
 			</div>
@@ -35,7 +36,7 @@
 					<img class="top-page__link-image" th:src="@{/static/images/web_images/home/hot_seller.png}" alt="">
 				</a>
 			</div>
-	</div>
+		</div>
 
 	</div>
 </body>

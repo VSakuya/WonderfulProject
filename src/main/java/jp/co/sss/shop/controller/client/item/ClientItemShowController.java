@@ -16,10 +16,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.bean.UserBean;
+import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
+import jp.co.sss.shop.repository.OrderItemRepository;
 import jp.co.sss.shop.repository.UserRepository;
 import jp.co.sss.shop.service.BeanTools;
 import jp.co.sss.shop.util.Constant;
@@ -36,10 +38,14 @@ public class ClientItemShowController {
 	 */
 	@Autowired
 	ItemRepository itemRepository;
+
+
+	@Autowired
+	OrderItemRepository orderItemRepository;
 	
 	@Autowired
 	FavoriteRepository favoriteRepository;
-	
+
 	@Autowired
 	UserRepository userRepository;
 
@@ -48,8 +54,8 @@ public class ClientItemShowController {
 	 */
 	@Autowired
 	HttpSession session;
-	
-	
+
+
 
 	/**
 	 * Entity、Form、Bean間のデータコピーサービス
@@ -89,9 +95,17 @@ public class ClientItemShowController {
 	    if (favoriteRepository.findByItemAndUser(item, user) != null) {
 	    	model.addAttribute("favorited", true);
 	    }
-	   
-	   
 		model.addAttribute("items", itemBean);
+	    itemBean.setImage(item.getImageList().get(0).getImagePath());
+	    
+	    if (userBean != null) {
+//	    	Integer userId  = userBean.getId();
+	    	User users = userRepository.findByIdAndDeleteFlag(userId, 0);
+	    	List<Favorite> favorite = favoriteRepository.findByUser(users);
+	    	model.addAttribute("favorite", favorite);
+		}
+		model.addAttribute("item", item);
+
 		return"client/item/detail";
 	}
 
@@ -126,17 +140,14 @@ public class ClientItemShowController {
 	/**
 	 * 商品売れ筋表示
 	 * @param model Viewとの値受け渡し
-	 * @return "hotsell"商品売れ筋画面
+	 * @return "hot_seller"商品売れ筋画面
 	 * @author Inaba
 	 */
 	@RequestMapping("/client/item/list/2")
-	public String showFindDateForRanking(Model model, Pageable pageable) {
-		Page<Item> pageList = itemRepository.findDataForHotSell(pageable);
-		List<Item> itemList = pageList.getContent();
-		model.addAttribute("pageList", pageList);
-		model.addAttribute("itemList", itemList);
-		model.addAttribute("ranking", itemRepository.findDataForHotSell(pageable));
-		return "client/item/hotsell";
+	public String showFindDateForRanking(Model model) {
+		List<Item> itemList = itemRepository.findDataForHotSell();
+		model.addAttribute("items", itemList);
+		return "client/item/hot_seller";
 	}
 
 }
