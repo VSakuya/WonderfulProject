@@ -57,7 +57,7 @@ public class ClientOrderRegistController {
 		orderForm.setPhoneNumber(user.getPhoneNumber());
 		orderForm.setPayMethod(1);
 		
-		session.setAttribute("ex", orderForm);
+		model.addAttribute("orderForm", orderForm);
 		
 		return "redirect:/client/order/address/input";
 	}
@@ -65,8 +65,8 @@ public class ClientOrderRegistController {
 	@RequestMapping(path = "/client/order/address/input", method = RequestMethod.GET)
 	public String inputAddress(Model model) {
 		
-		OrderForm orderForm = (OrderForm) session.getAttribute("ex");
-		model.addAttribute("ex", orderForm);
+		OrderForm orderForm = (OrderForm) model.getAttribute("orderForm");
+		model.addAttribute("orderForm", orderForm);
 		
 //		if (result.hasErrors()) {
 //			session.setAttribute("result", result);
@@ -94,9 +94,9 @@ public class ClientOrderRegistController {
 	@RequestMapping(path = "/client/order/check", method = RequestMethod.POST)
 	public String d(int payMethod) {
 		
-		OrderForm orderForm = (OrderForm) session.getAttribute("ex");
+		OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
 		orderForm.setPayMethod(payMethod);
-		session.setAttribute("ex", orderForm);
+		session.setAttribute("orderForm", orderForm);
 		
 		return "redirect:/client/order/check";
 	}
@@ -109,7 +109,7 @@ public class ClientOrderRegistController {
 	@RequestMapping(path = "/client/order/check", method = RequestMethod.GET)
 	public String e(Model model) {
 		
-		OrderForm orderForm = (OrderForm) session.getAttribute("ex");
+		OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
 		
 		@SuppressWarnings("unchecked")
 		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("baskets");
@@ -171,7 +171,7 @@ public class ClientOrderRegistController {
 			total += basketItem.getOrderNum() * item.getPrice();
 		}
 		model.addAttribute("total", total);
-		session.setAttribute("ex", orderForm);
+		session.setAttribute("orderForm", orderForm);
 		session.setAttribute("orderItems", orderList);
 		
 		return "client/order/check";
