@@ -42,7 +42,7 @@ public class ClientItemShowController {
 
 	@Autowired
 	OrderItemRepository orderItemRepository;
-	
+
 	@Autowired
 	FavoriteRepository favoriteRepository;
 
@@ -93,8 +93,8 @@ public class ClientItemShowController {
 	    	Integer userId  = userBean.getId();
 	    	User users = userRepository.findByIdAndDeleteFlag(userId, 0);
 	    	List<Favorite> favorite = favoriteRepository.findByUser(users);
-	    	model.addAttribute("favorite", favorite);
-
+	    	Boolean isFavorite = favorite.size() > 0 ? true : false;
+	    	model.addAttribute("isFavorite", isFavorite);
 		}
 		model.addAttribute("item", item);
 		return"client/item/detail";
