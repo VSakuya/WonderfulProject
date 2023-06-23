@@ -14,13 +14,22 @@
 </head>
 
 <body class="user">
-	<div class="container-60">
-		<h2 class="title text-start m-4" th:text="${item.name}">商品詳細</h2>
+	<div class="container-60 row d-flex align-items-center">
+		<div class="col-auto">
+			<a th:href="@{/client/item/list}" class="btn btn-light btn-lg">
+				<h2>
+					&lt;
+				</h2>
+			</a>
+		</div>
+		<div class="col-auto">
+			<h2 class="title text-start m-4" th:text="${item.name}">商品詳細</h2>
+		</div>
 	</div>
 	<div class="info_form_area">
 		<div class="item_detail_area row container-60">
 
-			<div class="col-4 p-4">
+			<div class="col-4">
 				<div id="carouselId" class="carousel slide slider-container border" data-bs-ride="carousel">
 					<div class="carousel-inner" role="listbox">
 						<div th:each="img, imgStat : ${item.imageList}" class="carousel-item"
@@ -39,23 +48,28 @@
 						<span class="visually-hidden">Next</span>
 					</button>
 				</div>
-				<h1 th:text="${isFavorite}"></h1>
-				<div class="row container-fluid">
-					<div class="col-4">
+				<div class="row container-fluid d-flex align-items-center p-0 mt-2 justify-content-center">
+
+					<div class="col-auto">
 						<form th:action="@{/client/favorite/switch}" method="post">
 							<input type="hidden" name="id" th:value="${item.id}">
-							<button type="submit" class="btn">
-								<img th:unless="${isFavorite}" th:src="@{/static/images/web_images/button/like1_i.png}" class="icon-img"/>
-								<img th:if="${isFavorite}" th:src="@{/static/images/web_images/button/like3_i.png}" class="icon-img"/>
+							<button type="submit" class="btn icon-small">
+								<img th:unless="${isFavorite}" th:src="@{/static/images/web_images/button/like1_i.png}"
+									class="icon-img" />
+								<img th:if="${isFavorite}" th:src="@{/static/images/web_images/button/like3_i.png}"
+									class="icon-img" />
 							</button>
 						</form>
 					</div>
-					<div class="col-4">
+					<div class="col-auto">
 						<form th:action="@{/client/basket/add}" , method="post">
 							<input type="hidden" name="id" th:value="${item.id}">
-							<input type="submit" value="買い物かごに入れる" class="send_button" />
+							<button type="submit" class="btn btn-dark btn-lg">
+								買い物かごに入れる
+								<!-- <img th:src="@{/static/images/web_images/button/add_i.png}" class="icon-img"/> -->
+							</button>
+							<!-- <input type="submit" value="買い物かごに入れる" class="send_button" /> -->
 						</form>
-						<button onclick="history.back()" class="btn btn-light">戻る</button>
 					</div>
 				</div>
 
@@ -103,4 +117,5 @@
 
 	</div>
 </body>
+
 </html>

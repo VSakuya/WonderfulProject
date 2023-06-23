@@ -89,6 +89,12 @@ label{
     left: 0;
 }
 
+.icon-small{
+    max-width: 4vw;
+    height: auto;
+    object-fit: cover;
+}
+
 .icon-img{
     max-width: 100%;
     max-height: 100%;
