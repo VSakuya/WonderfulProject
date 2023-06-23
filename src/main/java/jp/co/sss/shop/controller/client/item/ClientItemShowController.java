@@ -42,7 +42,7 @@ public class ClientItemShowController {
 
 	@Autowired
 	OrderItemRepository orderItemRepository;
-	
+
 	@Autowired
 	FavoriteRepository favoriteRepository;
 
@@ -102,7 +102,12 @@ public class ClientItemShowController {
 //	    	Integer userId  = userBean.getId();
 	    	User users = userRepository.findByIdAndDeleteFlag(userId, 0);
 	    	List<Favorite> favorite = favoriteRepository.findByUser(users);
+
 	    	model.addAttribute("favorite", favorite);
+
+	    	Boolean isFavorite = favorite.size() > 0 ? true : false;
+	    	model.addAttribute("isFavorite", isFavorite);
+
 		}
 		model.addAttribute("item", item);
 
@@ -143,11 +148,12 @@ public class ClientItemShowController {
 	 * @return "hot_seller"商品売れ筋画面
 	 * @author Inaba
 	 */
-	@RequestMapping("/client/item/list/2")
+	@RequestMapping("/client/item/hot_seller")
 	public String showFindDateForRanking(Model model) {
 		List<Item> itemList = itemRepository.findDataForHotSell();
 		model.addAttribute("items", itemList);
 		return "client/item/hot_seller";
+		
 	}
 
 }
