@@ -43,9 +43,10 @@
 			</div>
 			<input type="submit" class="btn btn-dark btn-lg" value="ログイン"></input>
 		</form>
-		<form th:action="@{/}">
-			<button type="submit" class="btn btn-light btn-lg">戻る</button>
-		 </form>
+		<form th:action="@{/client/user/regist/input}">
+			<button type="submit" class="btn btn-secondary btn-lg">新規登録</button>
+		</form>
+		<button type="submit" onclick="history.back()" class="btn btn-light btn-lg">戻る</button>
 	</div>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
