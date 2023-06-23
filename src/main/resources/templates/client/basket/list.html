@@ -1,62 +1,79 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" th:replace="~{/client/layout/layout_3block_nav :: layout(~{::title},~{::body/content()})}">
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{/client/layout/layout_3block_nav :: layout(~{::title},~{::body/content()})}">
+
 <head>
-<meta charset="UTF-8">
-<title th:text="#{basket}+' | '+ #{shop.title}"> </title>
+	<meta charset="UTF-8">
+	<title th:text="#{basket}+' | '+ #{shop.title}"> </title>
 </head>
+
 <body>
-	<h2 class="title">
-		買い物かご
-	</h2>
+	<div class="container-70">
+		<h2 class="text-start m-4">
+			買い物かご
+		</h2>
+	</div>
 	<!--  買い物かごに商品がない場合のメッセージ    -->
-	<div th:if="${session.baskets == null}" th:text="#{msg.basket.list.none}">
+	<div th:if="${session.baskets == null}">
+		<h4 th:text="#{msg.basket.list.none}"></h4>
 	</div>
 	<!--  商品の在庫がない場合のメッセージ    -->
 	<div th:if="${stockNone != null}">
-	<span th:text="#{msg.basket.stock.none(${stockNone})}"></span>
+		<h4 th:text="#{msg.basket.stock.none(${stockNone})}"></h4>
 	</div>
 	<!--  商品の注文数が在庫を超えた場合のメッセージ    -->
 	<div th:if="${stockShort != null}">
-	<span th:text="#{msg.basket.stock.short(${stockShort})}"></span>
+		<span th:text="#{msg.basket.stock.short(${stockShort})}"></span>
 	</div>
 	<!--  買い物かご一覧    -->
-	<th:block th:if="${session.baskets != null}">
-		<table class="list_table basket">
-			<tr>
-				<th th:text="#{data.basket.item.name}">
+	<div th:if="${session.baskets != null}" class="container-70">
+		<table class="table table-striped basket">
+			<tr class="">
+				<th>
+					<h4 th:text="#{data.basket.item.name}"></h4>
 				</th>
-				<th th:text="#{data.basket.count}">
+				<th>
+					<h4 th:text="#{data.basket.count}"></h4>
 				</th>
-				<th th:text="#{data.basket.delete}">
-				</th>
-				<th th:text="#{data.basket.stock.status}">
+				<th>
+					<h4 th:text="#{data.basket.stock.status}"></h4>
 				</th>
 			</tr>
 			<tr th:each="basket, st: ${session.baskets}">
 				<td>
-					<a th:href="@{/client/item/detail/{id}(id=${basket.id})}" th:text="${basket.name}"> </a>
-				</td>
-				<td th:text="${basket.orderNum}">
+					<a th:href="@{/client/item/detail/{id}(id=${basket.id})}">
+						<h4 th:text="${basket.name}"></h4>
+					</a>
 				</td>
 				<td>
-					<form action="/shared_shop/client/basket/delete" method="post">
-						<input type="hidden" name="index" th:value="${st.index}" />
-						<input type="submit" value="１つ減らす" class="delete"/>
-					</form>
+					<div class="input-group form-control-number justify-content-center d-flex" >
+						<form th:action="@{/client/basket/delete}" method="post">
+							<input type="hidden" name="index" th:value="${st.index}" />
+							<button class="btn btn-outline-secondary number-minus" type="submit"
+								id="button-addon1">&minus;</button>
+						</form>
+						<input th:value="${basket.orderNum}" type="number" class="form-control" aria-describedby="button-addon1" disabled>
+						<form th:action="@{/client/basket/add}" method="post">
+							<input type="hidden" name="id" th:value="${basket.id}" />
+							<button class="btn btn-outline-secondary number-plus" type="submit"
+								id="button-addon1">&plus;</button>
+						</form>
+					</div>
 				</td>
 				<td th:text="${basket.stock}">
 				</td>
 			</tr>
 		</table>
-			<div th:text="${session.id}"></div>
-			<div class="user_info_form_area  shopping_button">
-				<form action="/shared_shop/client/order/address/input" method="post">
-					<input type="submit" value="ご注文のお手続き" />
-				</form>
-				<form action="/shared_shop/client/basket/deleteAll" method="post">
-					<input type="submit" value="買い物かごを空にする" class="delete" />
-				</form>
-			</div>
-	</th;block>
+		<div th:text="${session.id}"></div>
+		<div class="container-70 d-flex justify-content-end">
+			<form action="/shared_shop/client/order/address/input" method="post">
+				<input type="submit" class="btn btn-dark btn-lg" value="ご注文のお手続き" />
+			</form>
+			<form action="/shared_shop/client/basket/deleteAll" method="post">
+				<input type="submit" class="btn btn-light btn-lg" value="買い物かごを空にする" />
+			</form>
+		</div>
+	</div>
 </body>
+
 </html>
