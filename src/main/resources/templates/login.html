@@ -43,44 +43,12 @@
 			</div>
 			<input type="submit" class="btn btn-dark btn-lg" value="ログイン"></input>
 		</form>
-		<form th:action="@{/}">
-			<button type="submit" class="btn btn-light btn-lg">戻る</button>
-		 </form>
+		<form th:action="@{/client/user/regist/input}">
+			<button type="submit" class="btn btn-secondary btn-lg">新規登録</button>
+		</form>
+		<button type="submit" onclick="history.back()" class="btn btn-light btn-lg">戻る</button>
 	</div>
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-	<script>
-		// sha256ハッシュ用のメソッド
-		// return: 引数のsha256結果のString
-		function sha256(message) {
-			return CryptoJS.SHA256(message).toString();
-		}
-
-		// formの参照値を所得
-		const loginForm = document.getElementsByClassName("login_form")[0];
-		// formのsubmit動作をformSubmit()メソッドとバイトする。
-		loginForm.addEventListener("submit", formSubmit);
-
-		function formSubmit(event) {
-			// デフォルトのsubmit動作を阻止する。
-			event.preventDefault();
-			// パスワードの参照値を所得
-			const pwdInput = document.getElementById("password");
-			// 入力したパスワードを所得
-			var password = pwdInput.value;
-			// パスワードは空ではない場合
-			if (password) {
-				// ハッシュ結果
-				var hashedPassword = sha256(password + 'WonderfulProject');
-				// パスワードinputのvalueを変更する
-				pwdInput.value = hashedPassword;
-			}
-			// formを提出する
-			loginForm.submit();
-		}
-
-
-	</script>
 </body>
 
 

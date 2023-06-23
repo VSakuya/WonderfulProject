@@ -11,7 +11,46 @@
 <body class="user">
 	<h2 class="title" th:text="#{user} + #{title.update.check}"></h2>
 	<p class="check_message">以下の内容にて変更します。</p>
-	<div class="user_info_form_area">
+
+	
+	<div class="user_info_form_area container-40">
+		<div class="table-responsive">
+			<table class="table table-hover table-striped">
+				<tbody>
+					<tr>
+						<th>[[#{userForm.email}]]</th>
+						<td th:text="${session.userForm.email}"></td>
+					</tr>
+					<tr>
+						<th>[[#{userForm.name}]]</th>
+						<td th:text="${session.userForm.name}"></td>
+					</tr>
+					<tr>
+						<th>[[#{userForm.postalCode}]]</th>
+						<td th:text="${session.userForm.postalCode}"></td>
+					</tr>
+					<tr>
+						<th>[[#{userForm.address}]]</th>
+						<td th:text="${session.userForm.address}"></td>
+					</tr>
+					<tr>
+						<th>[[#{userForm.phoneNumber}]]</th>
+						<td th:text="${session.userForm.phoneNumber}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="mt-4">
+		<form method="post" th:action="@{/client/user/update/complete}">
+			<input type="submit" value="登録" class="btn btn-dark btn-lg" />
+		</form>
+		<form method="post" th:action="@{/client/user/update/input}">
+			<input type="submit" value="戻る" class="btn btn-light btn-lg" />
+		</form>
+	</div>
+
+	<!-- <div class="user_info_form_area">
 		<ul class="input_list">
 			<li><span class="input_title">[[#{userForm.email}]]</span>
 				<span class="input_value" th:text="${session.userForm.email}"></span>
@@ -36,7 +75,7 @@
 		<form method="post" th:action="@{/client/user/update/input}">
 			<input type="submit" value="戻る" class="back_button" />
 		</form>
-	</div>
+	</div> -->
 </body>
 
 </html>
