@@ -68,6 +68,12 @@ label{
     margin: 0 auto;
 }
 
+.container-50{
+    max-width: 50vw;
+    width: 50vw;
+    margin: 0 auto;
+}
+
 .container-40{
     max-width: 40vw;
     width: 40vw;
@@ -95,8 +101,23 @@ label{
     left: 0;
 }
 
+.snap-bottom{
+    bottom: 0;
+    left: 0;
+}
+
+.block-center{
+    margin: 0 auto;
+}
+
 .icon-small{
     max-width: 4vw;
+    height: auto;
+    object-fit: cover;
+}
+
+.icon-medium{
+    max-width: 8vw;
     height: auto;
     object-fit: cover;
 }
