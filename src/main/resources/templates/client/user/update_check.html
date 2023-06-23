@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{common/layout_5block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{/client/layout/layout_3block :: layout(~{::title},~{::body/content()})}">
 
 <head>
 	<meta charset="UTF-8">
@@ -45,37 +45,11 @@
 		<form method="post" th:action="@{/client/user/update/complete}">
 			<input type="submit" value="登録" class="btn btn-dark btn-lg" />
 		</form>
-		<form method="post" th:action="@{/client/user/update/input}">
+		<form method="post" th:action="@{/client/user/update/input/init}">
 			<input type="submit" value="戻る" class="btn btn-light btn-lg" />
 		</form>
 	</div>
 
-	<!-- <div class="user_info_form_area">
-		<ul class="input_list">
-			<li><span class="input_title">[[#{userForm.email}]]</span>
-				<span class="input_value" th:text="${session.userForm.email}"></span>
-			</li>
-			<li><span class="input_title">[[#{userForm.name}]]</span>
-				<span class="input_value" th:text="${session.userForm.name}"></span>
-			</li>
-			<li><span class="input_title">[[#{userForm.postalCode}]]</span>
-				<span class="input_value" th:text="${session.userForm.postalCode}"></span>
-			</li>
-			<li><span class="input_title">[[#{userForm.address}]]</span>
-				<span class="input_value" th:text="${session.userForm.address}"></span>
-			</li>
-			<li><span class="input_title">[[#{userForm.phoneNumber}]]</span>
-				<span class="input_value" th:text="${session.userForm.phoneNumber}"></span>
-			</li>
-		</ul>
-		<input type="hidden" name="authority" value="2" />
-		<form method="post" th:action="@{/client/user/update/complete}">
-			<input type="submit" value="登録" class="send_button" />
-		</form>
-		<form method="post" th:action="@{/client/user/update/input}">
-			<input type="submit" value="戻る" class="back_button" />
-		</form>
-	</div> -->
 </body>
 
 </html>
