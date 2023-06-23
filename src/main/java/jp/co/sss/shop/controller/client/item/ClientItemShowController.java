@@ -143,6 +143,7 @@ public class ClientItemShowController {
 		List<Item> itemList = itemRepository.findDataForHotSell();
 		model.addAttribute("items", itemList);
 		return "client/item/hot_seller";
+		
 	}
 
 }
