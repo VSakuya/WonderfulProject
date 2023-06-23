@@ -103,10 +103,10 @@ public class ClientFavoriteController {
 		if (userBean != null) {
 			int userId = userBean.getId();
 			User user = userRepository.findByIdAndDeleteFlag(userId, 0);
+			List<Favorite> favoritedItems = favoriteRepository.findByItemAndUser(item, user);
 			//商品情報とユーザ情報からfavoriteテーブル内を検索（お気に入り状態の確認）
-			if (favoriteRepository.findByItemAndUser(item, user) != null) {
+			if (favoritedItems.size() > 0) {
 				//お気に入りに登録されている場合
-				List<Favorite> favoritedItems = favoriteRepository.findByItemAndUser(item, user);
 				for (Favorite favorite : favoritedItems) {
 					favoriteRepository.deleteById(favorite.getId());
 				}

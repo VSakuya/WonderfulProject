@@ -85,6 +85,7 @@ public class ClientItemShowController {
 	@RequestMapping(path = "/client/item/detail/{id}", method = RequestMethod.GET)
 	public String detail(@PathVariable Integer id, Model model) {
 		Item item = itemRepository.getReferenceById(id);
+
 	    ItemBean itemBean = beanTools.copyEntityToItemBean(item);
 	    itemBean.setImage(item.getImageList().get(0).getImagePath()); 
 	    
@@ -106,6 +107,17 @@ public class ClientItemShowController {
 	    	model.addAttribute("favorite", favorite);
 
 	    	Boolean isFavorite = favorite.size() > 0 ? true : false;
+	    }
+
+	    UserBean userBean =(UserBean) session.getAttribute("user");
+	    
+	    if (userBean != null) {
+	    	Integer userId  = userBean.getId();
+	    	User user = new User();
+	    	user.setId(userId);
+	    	List<Favorite> favoriteList = favoriteRepository.findByItemAndUser(item, user);
+	    	Boolean isFavorite = favoriteList.size() > 0;
+
 	    	model.addAttribute("isFavorite", isFavorite);
 
 		}
@@ -153,7 +165,7 @@ public class ClientItemShowController {
 		List<Item> itemList = itemRepository.findDataForHotSell();
 		model.addAttribute("items", itemList);
 		return "client/item/hot_seller";
-		
+
 	}
 
 }
