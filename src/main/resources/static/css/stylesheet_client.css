@@ -33,6 +33,10 @@ label{
     text-shadow: 2px;
 }
 
+th, td{
+    min-width: 150px;
+}
+
 .img-button{
     display: block;
     max-width: 12vw;
@@ -68,6 +72,12 @@ label{
     margin: 0 auto;
 }
 
+.container-50{
+    max-width: 50vw;
+    width: 50vw;
+    margin: 0 auto;
+}
+
 .container-40{
     max-width: 40vw;
     width: 40vw;
@@ -95,10 +105,38 @@ label{
     left: 0;
 }
 
+.snap-bottom{
+    bottom: 0;
+    left: 0;
+}
+
+.block-center{
+    margin: 0 auto;
+}
+
 .icon-small{
     max-width: 4vw;
     height: auto;
     object-fit: cover;
+}
+
+.icon-medium{
+    max-width: 8vw;
+    height: auto;
+    object-fit: cover;
+}
+
+.icon-large{
+    max-width: 8vw;
+    height: auto;
+    object-fit: cover;
+}
+
+.icon-small img,
+.icon-medium img,
+.icon-large img{
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .icon-img{

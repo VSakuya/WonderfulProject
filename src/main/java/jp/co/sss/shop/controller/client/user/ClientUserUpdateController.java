@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.User;
-import jp.co.sss.shop.form.UserForm;
 import jp.co.sss.shop.form.UserUpdateForm;
 import jp.co.sss.shop.repository.UserRepository;
 
@@ -43,11 +42,11 @@ public class ClientUserUpdateController {
 	 *
 	 * @return "client/user/update_input" 入力画面 表示処理
 	 */
-	@RequestMapping(path = "/client/user/update/input", method = RequestMethod.POST)
+	@RequestMapping(path = "/client/user/update/input/init", method = RequestMethod.POST)
 	public String updateInput() {
 
 		// セッションスコープより入力情報を取り出す
-		UserForm userForm = (UserForm) session.getAttribute("userForm");
+		UserUpdateForm userForm = (UserUpdateForm) session.getAttribute("userForm");
 		if (userForm == null) {
 
 			// セッション情報がない場合、詳細画面からの遷移と判断し初期値を準備
@@ -66,11 +65,11 @@ public class ClientUserUpdateController {
 			}
 
 			// フォーム初期値の生成
-			userForm = new UserForm();
-			BeanUtils.copyProperties(user, userForm);
+			UserUpdateForm userUpdateForm = new UserUpdateForm();
+			BeanUtils.copyProperties(user, userUpdateForm);
 
 			// 変更入力フォームをセッションに保持
-			session.setAttribute("userForm", userForm);
+			session.setAttribute("userForm", userUpdateForm);
 		}
 
 		// 変更入力画面表示
@@ -81,14 +80,15 @@ public class ClientUserUpdateController {
 	public String updateInput(Model model) {
 
 		//セッションから入力フォーム取得
-		UserForm userForm = (UserForm) session.getAttribute("userForm");
+		UserUpdateForm userForm = (UserUpdateForm) session.getAttribute("userForm");
 		if (userForm == null) {
-			// セッション情報がない場合、エラー
+			// セッション情報がない場合、
 			return "redirect:/syserror";
 		}
-		// 入力フォーム情報を画面表示設定
-		model.addAttribute("userForm", userForm);
-
+			// 入力フォーム情報を画面表示設定
+			model.addAttribute("userForm", userForm);
+		
+		
 		BindingResult result = (BindingResult) session.getAttribute("result");
 		if (result != null) {
 			//セッションにエラー情報がある場合、エラー情報を画面表示設定
@@ -105,7 +105,7 @@ public class ClientUserUpdateController {
 	public String updateInputCheck(@Valid @ModelAttribute UserUpdateForm form, BindingResult result) {
 
 		//直前のセッション情報を取得
-		UserForm lastUserForm = (UserForm) session.getAttribute("userForm");
+		UserUpdateForm lastUserForm = (UserUpdateForm) session.getAttribute("userForm");
 		if (lastUserForm == null) {
 			// セッション情報が無い場合
 			return "redirect:/";
@@ -177,8 +177,7 @@ public class ClientUserUpdateController {
 		// 各項目の保存
 		user.setEmail(userForm.getEmail());
 
-		// ハッシュ変換が出来るまでコメントアウト(testtestで統一)
-		// user.setPassword(userForm.getPassword());
+		user.setPassword(userForm.getPassword());
 
 		user.setName(userForm.getName());
 
