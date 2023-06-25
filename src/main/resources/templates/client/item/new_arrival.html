@@ -11,8 +11,6 @@
 <title>商品詳細</title>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-
 </head>
 <body>
 	<h2 class="title">新着商品</h2>
@@ -37,10 +35,10 @@
 
 		 <tr th:each="item, status: ${itemList}">
 		 	<td th:text="${status.count}"></td>
-			<td><img th:src="@{/static/images/} + ${item.items.imageList[0].imagePath}"/>
+			<td><img th:src="@{/static/images/} + ${item.imageList[0].imagePath}"/>
 <!--		 	<td><a th:href="@{/client/item/detail/{id}(id = ${items.id})}" th:text="${items.name}"></a></td>-->
-		 	<td><a th:href="@{/client/item/detail/} + ${item.items.id}" th:text="${item.items.name}"></a></td>
-		 	<td th:text="${item.items.price}"></td>
+		 	<td><a th:href="@{/client/item/detail/} + ${item.id}" th:text="${item.name}"></a></td>
+		 	<td th:text="${item.price}"></td>
 <!--			 	<td th:text="${item.items.images.imagePath}"></td>-->
 <!--			<td><img th:src="@{/client/item/detail/{id}(id = ${item.items.id})}"></td>  -->
 
