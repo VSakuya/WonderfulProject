@@ -1,6 +1,8 @@
 package jp.co.sss.shop.controller.admin.item;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -13,11 +15,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import jp.co.sss.shop.entity.Category;
+import jp.co.sss.shop.entity.Image;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.form.ItemForm;
 import jp.co.sss.shop.repository.CategoryRepository;
+import jp.co.sss.shop.repository.ImageRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.service.BeanTools;
 import jp.co.sss.shop.service.UploadFileService;
@@ -36,6 +41,12 @@ public class AdminItemUpdateController {
 	 */
 	@Autowired
 	ItemRepository itemRepository;
+
+	/**
+	 * 画像情報　リポジトリ
+	 */
+	@Autowired
+	public ImageRepository imageRepository;
 
 	/**
 	 * カテゴリ情報
@@ -63,7 +74,7 @@ public class AdminItemUpdateController {
 
 	/**
 	 * 変更入力画面　初期表示処理(POST)
-	 * 
+	 *
 	 * @param id 変更対象ID
 	 * @return "redirect:/admin/item/update/input" 変更入力画面　表示処理
 	 */
@@ -71,24 +82,31 @@ public class AdminItemUpdateController {
 	public String updateInputInit(@PathVariable Integer id) {
 
 		//セッションスコープより入力情報を取り出す
-		ItemForm itemForm = (ItemForm) session.getAttribute("itemForm");
+		ItemForm itemForm = new ItemForm();
+		// 変更対象の情報を取得
+		Item item = itemRepository.findByIdAndDeleteFlag(id, Constant.NOT_DELETED);
 
-		if (itemForm == null) {
-			// セッション情報がない場合、詳細画面からの遷移と判断し初期値を準備
-
-			// 変更対象の情報を取得
-			Item item = itemRepository.findByIdAndDeleteFlag(id, Constant.NOT_DELETED);
-
-			if (item == null) {
-				// 対象が無い場合、エラー
-				return "redirect:/syserror";
-			}
-
-			// 初期表示用フォーム情報の生成しIDで取得した値を入力フォーム情報としてセット
-			itemForm = beanTools.copyEntityToItemForm(item);
-			//変更入力フォームをセッションに保持
-			session.setAttribute("itemForm", itemForm);
+		if (item == null) {
+			// 対象が無い場合、エラー
+			return "redirect:/syserror";
 		}
+
+		// 初期表示用フォーム情報の生成しIDで取得した値を入力フォーム情報としてセット
+		itemForm.setId(item.getId());
+		itemForm.setCategoryId(item.getCategory().getId());
+		itemForm.setCategoryName(item.getCategory().getName());
+		itemForm.setDescription(item.getDescription());
+		itemForm.setName(item.getName());
+		itemForm.setPrice(item.getPrice());
+		itemForm.setStock(item.getStock());
+		List<Image> imgList = item.getImageList();
+		ArrayList<String> imgPaths = new ArrayList<>();
+		for (Image image : imgList) {
+			imgPaths.add(image.getImagePath());
+		}
+		itemForm.setImages(imgPaths);
+		//変更入力フォームをセッションに保持
+		session.setAttribute("itemForm", itemForm);
 
 		// 変更入力画面　表示処理
 		return "redirect:/admin/item/update/input";
@@ -131,8 +149,8 @@ public class AdminItemUpdateController {
 	 *
 	 * @param form 入力フォーム
 	 * @param result 入力チェック結果
-	 * @return 
-	 *   入力値エラーあり："redirect:/admin/item/update/input" 変更入力画面　表示処理 
+	 * @return
+	 *   入力値エラーあり："redirect:/admin/item/update/input" 変更入力画面　表示処理
 	 *   入力値エラーなし："redirect:/admin/item/update/check" 変更確認画面　表示処理
 	 */
 	@RequestMapping(path = "/admin/item/update/check", method = RequestMethod.POST)
@@ -155,14 +173,33 @@ public class AdminItemUpdateController {
 
 		}
 
-		String imageName = upfileService.saveUploadFile(form.getImageFile());
-		if (imageName != null) {
+		MultipartFile[] imageFiles = form.getImageFiles();
+		boolean hasValidFile = false;
+		for (MultipartFile multipartFile : imageFiles) {
+			if (!multipartFile.isEmpty()) {
+				hasValidFile = true;
+			}
+		}
 
-			// 一時的にアップロードしたファイルの名前をFormクラスにセット
-			form.setImage(imageName);
-		} else {
-			// イメージが入力されなかった場合に、直前に登録されていたイメージファイルを設定しておく
-			form.setImage(lastItemForm.getImage());
+		if (!hasValidFile) {
+			form.setImages(lastItemForm.getImages());
+		}else {
+			form.setHasImageFilesChange(true);
+			for (MultipartFile multipartFile : imageFiles) {
+				//ファイルアップロード処理呼び出す 戻り値 成功時:ファイル名、失敗時:null
+				String imageName = upfileService.saveUploadFile(multipartFile);
+				if (imageName != null) {
+					//ファイルアップロードが正常にできた場合
+					// 一時的にアップロードしたファイルの名前をFormクラスにセット
+					ArrayList<String> tmpImgs = form.getImages();
+					tmpImgs.add(imageName);
+					form.setImages(tmpImgs);
+
+				} else {
+					// イメージが入力されなかった場合に、直前に登録されていたイメージファイルを設定してお
+					return "redirect:/syserror";
+				}
+			}
 		}
 
 		// 選択したカテゴリの名前をFormクラスにセット
@@ -199,7 +236,7 @@ public class AdminItemUpdateController {
 
 	/**
 	 * 変更登録、完了画面表示処理
-	 * 
+	 *
 	 * @return "redirect:/admin/item/update/complete" 変更完了画面　表示
 	 */
 	@RequestMapping(path = "/admin/item/update/complete", method = RequestMethod.POST)
@@ -230,7 +267,23 @@ public class AdminItemUpdateController {
 		item.setInsertDate(insertDate);
 
 		// 商品情報を保存
-		itemRepository.save(item);
+		Item savedItem = itemRepository.save(item);
+
+		ArrayList<String> imgStrList = itemForm.getImages();
+
+		if (itemForm.isHasImageFilesChange()) {
+			imageRepository.deleteByItems(savedItem);
+			for (String imgStr : imgStrList) {
+				Image checkImg = imageRepository.findByImagePathAndItems(imgStr, savedItem);
+				if (checkImg != null) {
+					continue;
+				}
+				Image img = new Image();
+				img.setImagePath(imgStr);
+				img.setItems(savedItem);
+				imageRepository.save(img);
+			}
+		}
 
 		//セッション情報の削除
 		session.removeAttribute("itemForm");
@@ -241,7 +294,7 @@ public class AdminItemUpdateController {
 
 	/**
 	 * 変更完了画面　表示
-	 * 
+	 *
 	 * @return "admin/item/update_complete"
 	 */
 	@RequestMapping(path = "/admin/item/update/complete", method = RequestMethod.GET)

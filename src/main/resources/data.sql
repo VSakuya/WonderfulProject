@@ -92,17 +92,17 @@ INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-
 INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般三郎', '0123456789', 2, DEFAULT, 3);
 --レコード登録（注文)追加部分--
 
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都港区4-5-6 ABCマンション5階', '一般四郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般五郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都目黒区4-5-6 ABCマンション5階', '一般六郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都千代田区4-5-6 ABCマンション5階', '一般七郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都中央区4-5-6 ABCマンション5階', '一般八郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都文京区4-5-6 ABCマンション5階', '一般九郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都墨田区4-5-6 ABCマンション5階', '一般十郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都江東区4-5-6 ABCマンション5階', '一般十一郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般十二郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都品川区4-5-6 ABCマンション5階', '一般十三郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都港区4-5-6 ABCマンション5階', '一般十四郎', '0123456789', 2, DEFAULT, 3);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都港区4-5-6 ABCマンション5階', '一般四郎', '0123456789', 2, DEFAULT, 4);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般五郎', '0123456789', 2, DEFAULT, 5);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都目黒区4-5-6 ABCマンション5階', '一般六郎', '0123456789', 2, DEFAULT, 6);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都千代田区4-5-6 ABCマンション5階', '一般七郎', '0123456789', 2, DEFAULT, 7);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都中央区4-5-6 ABCマンション5階', '一般八郎', '0123456789', 2, DEFAULT, 8);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都文京区4-5-6 ABCマンション5階', '一般九郎', '0123456789', 2, DEFAULT, 9);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都墨田区4-5-6 ABCマンション5階', '一般十郎', '0123456789', 2, DEFAULT, 10);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都江東区4-5-6 ABCマンション5階', '一般十一郎', '0123456789', 2, DEFAULT, 11);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般十二郎', '0123456789', 2, DEFAULT, 12);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都品川区4-5-6 ABCマンション5階', '一般十三郎', '0123456789', 2, DEFAULT, 13);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都港区4-5-6 ABCマンション5階', '一般十四郎', '0123456789', 2, DEFAULT, 14);
 
 
 -- レコード登録(商品注文)
@@ -110,39 +110,39 @@ INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 120, 1, 1);
 INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 112, 2, 1);
 INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 300, 3, 1);
 --レコード登録（商品注文）追加部分--
-INSERT INTO order_items VALUES(4, 3, 219, 4, 1);
-INSERT INTO order_items VALUES(5, 3, 130, 4, 20);
-INSERT INTO order_items VALUES(6, 3, 298, 4, 26);
-INSERT INTO order_items VALUES(7, 3, 144, 5, 16);
-INSERT INTO order_items VALUES(8, 4, 191, 5, 35);
-INSERT INTO order_items VALUES(9, 1, 142, 5, 22);
-INSERT INTO order_items VALUES(10, 6, 120, 6, 39);
-INSERT INTO order_items VALUES(11, 1, 220, 6, 47);
-INSERT INTO order_items VALUES(12, 4, 158, 6, 39);
-INSERT INTO order_items VALUES(13, 5, 292, 7, 22);
-INSERT INTO order_items VALUES(14, 1, 209, 7, 18);
-INSERT INTO order_items VALUES(15, 5, 181, 7, 31);
-INSERT INTO order_items VALUES(16, 2, 177, 8, 34);
-INSERT INTO order_items VALUES(17, 5, 200, 8, 29);
-INSERT INTO order_items VALUES(18, 1, 266, 8, 15);
-INSERT INTO order_items VALUES(19, 6, 268, 9, 39);
-INSERT INTO order_items VALUES(20, 3, 286, 9, 19);
-INSERT INTO order_items VALUES(21, 2, 174, 9, 44);
-INSERT INTO order_items VALUES(22, 4, 205, 10, 9);
-INSERT INTO order_items VALUES(23, 6, 111, 10, 29);
-INSERT INTO order_items VALUES(24, 5, 163, 10, 40);
-INSERT INTO order_items VALUES(25, 4, 282, 11, 49);
-INSERT INTO order_items VALUES(26, 2, 212, 11, 5);
-INSERT INTO order_items VALUES(27, 6, 242, 11, 37);
-INSERT INTO order_items VALUES(28, 6, 149, 12, 8);
-INSERT INTO order_items VALUES(29, 5, 205, 12, 14);
-INSERT INTO order_items VALUES(30, 3, 224, 12, 8);
-INSERT INTO order_items VALUES(31, 6, 103, 13, 35);
-INSERT INTO order_items VALUES(32, 6, 245, 13, 13);
-INSERT INTO order_items VALUES(33, 4, 201, 13, 25);
-INSERT INTO order_items VALUES(34, 3, 248, 14, 29);
-INSERT INTO order_items VALUES(35, 3, 198, 14, 25);
-INSERT INTO order_items VALUES(36, 2, 189, 14, 47);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 219, 4, 1);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 130, 4, 20);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 298, 4, 26);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 144, 5, 16);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 191, 5, 35);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 1, 142, 5, 22);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 6, 120, 6, 39);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 1, 220, 6, 47);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 158, 6, 39);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 5, 292, 7, 22);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 1, 209, 7, 18);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 5, 181, 7, 31);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 2, 177, 8, 34);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 5, 200, 8, 29);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 1, 266, 8, 15);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 6, 268, 9, 39);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 286, 9, 19);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 2, 174, 9, 44);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 205, 10, 9);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 6, 111, 10, 29);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 5, 163, 10, 40);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 282, 11, 49);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 2, 212, 11, 5);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 6, 242, 11, 37);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 6, 149, 12, 8);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 5, 205, 12, 14);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 224, 12, 8);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 6, 103, 13, 35);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 6, 245, 13, 13);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 201, 13, 25);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 248, 14, 29);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 198, 14, 25);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 2, 189, 14, 47);
 
 -- レコード登録(画像)
 INSERT INTO images VALUES(seq_images.NEXTVAL, 'test1.jpg', DEFAULT, 1);
@@ -302,12 +302,6 @@ INSERT INTO images VALUES(seq_images.NEXTVAL, 'test3.jpg', DEFAULT, 52);
 INSERT INTO images VALUES(seq_images.NEXTVAL, 'test1.jpg', DEFAULT, 53);
 INSERT INTO images VALUES(seq_images.NEXTVAL, 'test2.jpg', DEFAULT, 53);
 INSERT INTO images VALUES(seq_images.NEXTVAL, 'test3.jpg', DEFAULT, 53);
-INSERT INTO images VALUES(seq_images.NEXTVAL, 'test1.jpg', DEFAULT, 54);
-INSERT INTO images VALUES(seq_images.NEXTVAL, 'test2.jpg', DEFAULT, 54);
-INSERT INTO images VALUES(seq_images.NEXTVAL, 'test3.jpg', DEFAULT, 54);
-INSERT INTO images VALUES(seq_images.NEXTVAL, 'test1.jpg', DEFAULT, 55);
-INSERT INTO images VALUES(seq_images.NEXTVAL, 'test2.jpg', DEFAULT, 55);
-INSERT INTO images VALUES(seq_images.NEXTVAL, 'test3.jpg', DEFAULT, 55);
 
 -- レコード登録(いいね)
 INSERT INTO favorite VALUES(seq_favorite.NEXTVAL, DEFAULT, 1, 2);

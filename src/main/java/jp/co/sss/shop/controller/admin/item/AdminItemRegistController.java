@@ -1,5 +1,7 @@
 package jp.co.sss.shop.controller.admin.item;
 
+import java.util.ArrayList;
+
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -11,11 +13,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
 
 import jp.co.sss.shop.entity.Category;
+import jp.co.sss.shop.entity.Image;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.form.ItemForm;
 import jp.co.sss.shop.repository.CategoryRepository;
+import jp.co.sss.shop.repository.ImageRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.service.BeanTools;
 import jp.co.sss.shop.service.UploadFileService;
@@ -48,6 +53,12 @@ public class AdminItemRegistController {
 	public ItemRepository itemRepository;
 
 	/**
+	 * 画像情報　リポジトリ
+	 */
+	@Autowired
+	public ImageRepository imageRepository;
+
+	/**
 	 * セッション
 	 */
 	@Autowired
@@ -67,7 +78,7 @@ public class AdminItemRegistController {
 
 	/**
 	 * 入力画面　表示処理(POST)
-	 * 
+	 *
 	 * @return "redirect:/admin/item/regist/input" 入力画面　表示処理
 	 */
 	@RequestMapping(path = "/admin/item/regist/input", method = RequestMethod.POST)
@@ -89,7 +100,7 @@ public class AdminItemRegistController {
 
 	/**
 	 * 入力画面　表示処理(GET)
-	 * 
+	 *
 	 * @param model Viewとの値受渡し
 	 * @return "admin/item/regist_input" 入力画面　表示
 	 */
@@ -122,7 +133,7 @@ public class AdminItemRegistController {
 	 *
 	 * @param form 入力フォーム
 	 * @param result 入力値チェックの結果
-	 * @return 
+	 * @return
 	 * 	入力値エラーあり："redirect:/admin/item/regist/input" 入力録画面　表示処理
 	 * 	入力値エラーなし："redirect:/admin/item/regist/check" 登録確認画面　表示処理
 	 */
@@ -135,12 +146,12 @@ public class AdminItemRegistController {
 			form.setCategoryName(category.getName());
 		}
 
-		//直前のセッション情報を取得
-		ItemForm lastItemForm = (ItemForm) session.getAttribute("itemForm");
-		if (lastItemForm == null) {
-			// セッション情報が無い場合、エラー
-			return "redirect:/syserror";
-		}
+//		//直前のセッション情報を取得
+//		ItemForm lastItemForm = (ItemForm) session.getAttribute("itemForm");
+//		if (lastItemForm == null) {
+//			// セッション情報が無い場合、エラー
+//			return "redirect:/syserror";
+//		}
 
 		// 入力フォームをセッションに保持
 		session.setAttribute("itemForm", form);
@@ -152,17 +163,27 @@ public class AdminItemRegistController {
 			return "redirect:/admin/item/regist/input";
 		}
 
-		//ファイルアップロード処理呼び出す 戻り値 成功時:ファイル名、失敗時:null
-		String imageName = upfileService.saveUploadFile(form.getImageFile());
-		if (imageName != null) {
-			//ファイルアップロードが正常にできた場合
-			// 一時的にアップロードしたファイルの名前をFormクラスにセット
-			form.setImage(imageName);
-		} else {
-			// イメージが入力されなかった場合に、直前に登録されていたイメージファイルを設定しておく
-			form.setImage(lastItemForm.getImage());
+		MultipartFile[] imageFiles = form.getImageFiles();
+
+		for (MultipartFile multipartFile : imageFiles) {
+			//ファイルアップロード処理呼び出す 戻り値 成功時:ファイル名、失敗時:null
+			String imageName = upfileService.saveUploadFile(multipartFile);
+			if (imageName != null) {
+				//ファイルアップロードが正常にできた場合
+				// 一時的にアップロードしたファイルの名前をFormクラスにセット
+				ArrayList<String> tmpImgs = form.getImages();
+				tmpImgs.add(imageName);
+				form.setImages(tmpImgs);
+
+			} else {
+				// イメージが入力されなかった場合に、直前に登録されていたイメージファイルを設定しておく
+//				form.setImages(lastItemForm.getImages());
+				return "redirect:/syserror";
+			}
+
 		}
-		// 登録確認画面　表示処理 
+
+		// 登録確認画面　表示処理
 		return "redirect:/admin/item/regist/check";
 	}
 
@@ -202,6 +223,7 @@ public class AdminItemRegistController {
 			// セッション情報がない場合、エラー
 			return "redirect:/syserror";
 		}
+
 		// Formクラス内の各フィールドの値をエンティティにコピー
 		Item item = beanTools.copyItemFormToEntity(itemForm);
 
@@ -209,7 +231,17 @@ public class AdminItemRegistController {
 		item.setDeleteFlag(Constant.NOT_DELETED);
 
 		// 商品情報をDBに保存
-		itemRepository.save(item);
+		Item savedItem = itemRepository.save(item);
+
+
+		ArrayList<String> imgStrList = itemForm.getImages();
+
+		for (String imgStr : imgStrList) {
+			Image img = new Image();
+			img.setImagePath(imgStr);
+			img.setItems(savedItem);
+			imageRepository.save(img);
+		}
 
 		//セッション情報の削除
 		session.removeAttribute("itemForm");

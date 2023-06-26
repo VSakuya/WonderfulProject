@@ -37,9 +37,8 @@
 			<li>
 				<span class="input_title">[[#{data.item.image}]]</span>
 				<span class="input_value">
-					<img th:src="@{/images/{itemFileName}(itemFileName=*{image})}"
-						th:if="*{image != null}"></img>
-					<img th:src="@{/images/common/no_image.jpg}" th:if="*{image == null}"></img>
+					<img th:if="!${#lists.isEmpty(itemForm.images)}" th:each="image : *{images}" th:src="@{/images/} + ${image}"></img>
+					<img th:if="${#lists.isEmpty(itemForm.images)}" th:src="@{/images/common/no_image.jpg}"></img>
 				</span>
 			</li>
 		</ul>

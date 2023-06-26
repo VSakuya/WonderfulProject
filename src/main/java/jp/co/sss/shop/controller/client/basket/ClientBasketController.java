@@ -81,6 +81,9 @@ public class ClientBasketController {
 					}
 				}
 
+				List<String> stockNoneList = new ArrayList<>();
+				List<String> stockShortList = new ArrayList<>();
+
 				for (int i = 0; i < basketList.size(); i++) {						//買い物かご内商品のチェック
 
 					basketItem = basketList.get(i);
@@ -89,17 +92,21 @@ public class ClientBasketController {
 
 						basketList.remove(i);
 						session.setAttribute("baskets", basketList);
-						model.addAttribute("stockNone", basketItem.getName());
+						stockNoneList.add(basketItem.getName());
 
 					} else if (basketItem.getOrderNum() > basketItem.getStock()) {	//注文数が在庫を超えている場合
 
 						basketItem.setOrderNum(basketItem.getStock());
 						basketList.set(i, basketItem);
 						session.setAttribute("baskets", basketList);
-						model.addAttribute("stockShort", basketItem.getName());
+						stockShortList.add(basketItem.getName());
 
 					}
 				}
+
+				model.addAttribute("stockNone", stockNoneList);
+				model.addAttribute("stockShort", stockShortList);
+
 				return "client/basket/list";
 			}
 		} else {
