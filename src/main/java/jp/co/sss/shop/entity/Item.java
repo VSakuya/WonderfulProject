@@ -257,7 +257,7 @@ public class Item {
 		return imageList;
 	}
 
-	
+
 	/**
 	 * 画像リストのセット
 	 * @param imageList 画像リスト
@@ -266,6 +266,6 @@ public class Item {
 		this.imageList = imageList;
 	}
 
-	
+
 
 }

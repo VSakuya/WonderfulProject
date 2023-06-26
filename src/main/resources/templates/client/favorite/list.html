@@ -28,13 +28,13 @@
 				</tr>
 				<tr th:each="item, stat: ${items}">
 					<!-- <td>
-						<img th:src="@{/static/images/} + ${item.item.imageList[0].imagePath}" th:if="${item.item.imageList[0].imagePath != null}" />
+						<img th:src="@{/images/} + ${item.item.imageList[0].imagePath}" th:if="${item.item.imageList[0].imagePath != null}" />
 						<img th:src="@{/images/common/no_image.jpg}" th:if="${item.item.imageList[0].imagePath == null}" />
 					</td> -->
 					<td class="icon-small">
 						<div class="icon-medium block-center">
 							<a th:href="@{/client/item/detail/{id}(id=${item.item.id})}">
-								<img th:src="@{/static/images/} + ${item.item.imageList[0].imagePath}" th:if="${item.item.imageList[0].imagePath != null}" />
+								<img th:src="@{/images/} + ${item.item.imageList[0].imagePath}" th:if="${item.item.imageList[0].imagePath != null}" />
 								<img th:src="@{/images/common/no_image.jpg}" th:if="${item.item.imageList[0].imagePath == null}" />
 							</a>
 						</div>

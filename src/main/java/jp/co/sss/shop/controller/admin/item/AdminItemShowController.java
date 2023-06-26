@@ -84,7 +84,7 @@ public class AdminItemShowController {
 	 * @param id  商品ID
 	 * @param model  Viewとの値受渡し
 	 * @return "admin/item/detail" 詳細画面 表示
-	 * 
+	 *
 	 * TIPS: 一般会員向けの商品詳細表示機能に類似した処理です。
 	 */
 	@RequestMapping(path = "/admin/item/detail/{id}", method = { RequestMethod.GET, RequestMethod.POST })
@@ -98,11 +98,8 @@ public class AdminItemShowController {
 			return "redirect:/syserror";
 		}
 
-		//Itemエンティティの各フィールドの値をItemBeanにコピー
-		ItemBean itemBean = beanTools.copyEntityToItemBean(item);
-
 		// 商品情報をViewへ渡す
-		model.addAttribute("item", itemBean);
+		model.addAttribute("item", item);
 		//商品登録・変更・削除用のセッションスコープを初期化
 		session.removeAttribute("itemForm");
 

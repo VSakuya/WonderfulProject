@@ -116,11 +116,7 @@ public class ClientItemShowController {
 		//<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
 		//List<Item> itemList = itemsPage.getContent();
 
-		//model.addAttribute("itemsPage", itemsPage);
-		//model.addAttribute("itemList", itemList );
 
-		//return"client/item/new_arrival";
-	//}
 	@RequestMapping(path = "client/item/new_arrival", method = RequestMethod.GET)
 	public String newArrival(Model model) {
 		List<Item> itemList =  itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED);
