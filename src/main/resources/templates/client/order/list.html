@@ -35,7 +35,8 @@
 				<td th:text="${order.total}"></td>
 			</tr>
 		</table>
-		<div class="d-flex justify-content-center container-fluid align-items-center text-center">
+		
+		<!--<div class="d-flex justify-content-center container-fluid align-items-center text-center">
 			<ul class="pagination">
 				<li class="page-item" th:classappend="${pages.number le 0 ? 'disabled' : ''}">
 					<a class="page-link" th:href="@{${url}(page=${pages.number - 1})}">
@@ -51,7 +52,7 @@
 			</ul>
 		</div>
 		<!--/* ページリンク */-->
-		<!-- <ul class="paging" th:if="!${#lists.isEmpty(orders)}">
+		<!--<ul class="paging" th:if="!${#lists.isEmpty(orders)}">
 			<li th:class="${pages.first} ? 'disabled':''">
 				<span th:if="${pages.first}">&lt;&lt;</span>
 				<a th:if="${not pages.first}" th:href="@{${url}(page=0)}">&lt;&lt;</a>
@@ -67,8 +68,7 @@
 				<span th:if="${pages.last}">&gt;&gt;</span>
 				<a th:if="${not pages.last}" th:href="@{${url}(page=(${pages.totalPages}-1))}">&gt;&gt;</a>
 			</li>
-		</ul> -->
-	</div>
+		</ul> 
+	</div>-->
 </body>
-
 </html>

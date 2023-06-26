@@ -15,11 +15,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.OrderBean;
 import jp.co.sss.shop.bean.OrderItemBean;
+import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.Order;
 import jp.co.sss.shop.entity.OrderItem;
+import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.repository.OrderRepository;
+import jp.co.sss.shop.repository.UserRepository;
 import jp.co.sss.shop.service.BeanTools;
 import jp.co.sss.shop.service.PriceCalc;
+import jp.co.sss.shop.util.Constant;
 /**
  * 注文管理 一覧表示機能(一般会員)のコントローラクラス
  *
@@ -34,6 +38,10 @@ public class ClientOrderShowController {
 	 */
 	@Autowired
 	OrderRepository orderRepository;
+	
+	@Autowired
+	UserRepository userRepository;
+	
 	/**
 	 *  セッション
 	 */
@@ -58,10 +66,18 @@ public class ClientOrderShowController {
 	 */
 	@RequestMapping(path = "/client/order/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public String showOrderList(Model model, Pageable pageable) {
+		
+		Integer userId = ((UserBean) session.getAttribute("user")).getId();
+		User user = userRepository.findByIdAndDeleteFlag(userId, Constant.NOT_DELETED);
+		
 		// すべての注文情報を取得(注文日降順)
-		Page<Order> orderList = orderRepository.findAllOrderByInsertdateDescIdDesc(pageable);
+		Page<Order> orderListPage = orderRepository.findByIdOrderByInsertdateDescIdDesc(user, pageable);
+		
+		List<Order> orderList = orderListPage.getContent();
+		
 		// 注文情報リストを生成
 		List<OrderBean> orderBeanList = new ArrayList<OrderBean>();
+		
 		for (Order order : orderList) {
 			// 表示する注文情報を生成
 			OrderBean orderBean = beanTools.copyEntityToOrderBean(order);
