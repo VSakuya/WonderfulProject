@@ -59,31 +59,37 @@ public class ClientFavoriteController {
 	 *
 	 * @param model　お気に入りリストを保存するリクエストスコープ
 	 *
-	 * @return　お気に入り煎り譚画面に遷移
+	 * @return　お気に入り一覧画面に遷移
 	 */
 	@RequestMapping(path = "/client/favorite/list", method = RequestMethod.GET)
 	public String showFavorite(Model model) {
-		//現在閲覧しているユーザの検索
+		//ログインチェック　ログイン情報がなければログイン画面へ遷移
 		UserBean userBean = (UserBean) session.getAttribute("user");
-		int userId = userBean.getId();
-		User user = userRepository.findByIdAndDeleteFlag(userId, 0);
-		//ユーザのお気に入りリストの取得
-		List<Favorite> list = favoriteRepository.findByUser(user);
-		//お気に入り内の削除フラグチェック
-		for (int i = 0; i < list.size(); i++) {
-
-			Item favoritedItem = (list.get(i)).getItem();
-			//削除フラグがある場合、お気に入りリストから削除
-			if (itemRepository.findByIdAndDeleteFlag(favoritedItem.getId(), 1) == favoritedItem) {
-				list.remove(i);
+		if (userBean != null) {
+			//現在閲覧しているユーザの検索
+			int userId = userBean.getId();
+			User user = userRepository.findByIdAndDeleteFlag(userId, 0);
+			//ユーザのお気に入りリストの取得
+			List<Favorite> list = favoriteRepository.findByUser(user);
+			//お気に入り内の削除フラグチェック
+			for (int i = 0; i < list.size(); i++) {
+	
+				Item favoritedItem = (list.get(i)).getItem();
+				//削除フラグがある場合、お気に入りリストから削除
+				if (itemRepository.findByIdAndDeleteFlag(favoritedItem.getId(), 1) == favoritedItem) {
+					list.remove(i);
+				}
 			}
-		}
-		//お気に入りリストに商品がある場合
-		if (list.size() != 0) {
-			model.addAttribute("items", list);
-		}
+			//お気に入りリストに商品がある場合
+			if (list.size() != 0) {
+				model.addAttribute("items", list);
+			}
 
-		return "client/favorite/list";
+			return "client/favorite/list";
+
+		} else {
+			return "redirect:/login";
+		}
 	}
 
 	/**
