@@ -53,7 +53,5 @@ $(document).ready(function () {
             $(this).unbind('submit').submit(); // Unbind the submit event handler and submit the form
         });
     });
-
-
-
+    
 });

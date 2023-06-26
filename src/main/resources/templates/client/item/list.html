@@ -33,10 +33,12 @@
 				class="col-2">
 				<a th:href="@{/client/item/detail/} + ${items[index].id}">
 					<div class="card" style="max-width:12vw">
-						<img class="card-img-top" th:if="${!#lists.isEmpty(items[index].imageList)}"
-							th:src="@{/images/} + ${items[index].imageList[0].imagePath}" alt="Card image">
-						<img class="card-img-top" th:if="${#lists.isEmpty(items[index].imageList)}"
-							th:src="@{${constants.NO_IMAGE_PATH}}" alt="Card image">
+						<div class="square-img-wrapper">
+							<img class="card-img-top" th:if="${!#lists.isEmpty(items[index].imageList)}"
+								th:src="@{/images/} + ${items[index].imageList[0].imagePath}" alt="Card image">
+							<img class="card-img-top" th:if="${#lists.isEmpty(items[index].imageList)}"
+								th:src="@{${constants.NO_IMAGE_PATH}}" alt="Card image">
+						</div>
 						<div class="card-body">
 							<a th:href="@{/client/item/detail/} + ${items[index].id}">
 								<span class="card-title" th:text="${items[index].name}">John Doe</span>
@@ -54,10 +56,12 @@
 				class="col-2">
 				<a th:href="@{/client/item/detail/} + ${items[index].id}">
 					<div class="card" style="max-width:12vw">
-						<img class="card-img-top" th:if="${!#lists.isEmpty(items[index].imageList)}"
-							th:src="@{/images/} + ${items[index].imageList[0].imagePath}" alt="Card image">
-						<img class="card-img-top" th:if="${#lists.isEmpty(items[index].imageList)}"
-							th:src="@{${constants.NO_IMAGE_PATH}}" alt="Card image">
+						<div class="square-img-wrapper">
+							<img class="card-img-top" th:if="${!#lists.isEmpty(items[index].imageList)}"
+								th:src="@{/images/} + ${items[index].imageList[0].imagePath}" alt="Card image">
+							<img class="card-img-top" th:if="${#lists.isEmpty(items[index].imageList)}"
+								th:src="@{${constants.NO_IMAGE_PATH}}" alt="Card image">
+						</div>
 						<div class="card-body">
 							<a th:href="@{/client/item/detail/} + ${items[index].id}">
 								<span class="card-title" th:text="${items[index].name}">John Doe</span>
