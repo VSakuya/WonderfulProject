@@ -14,12 +14,6 @@
 
 	<div class="user_info_form_area" th:object=${userForm}>
 		<div class="container-40">
-<!--			<th:block th:if="${#fields.hasErrors()}">
-				<ul class="error_list">
-					<li th:each="err:${#fields.detailedErrors()}" th:text="${err.message}"></li>
-				</ul>
-				<br />
-			</th:block>            -->
 			<form method="post" th:action="@{/client/order/payment/input}" class="user_info_form">
 				<div class="row mb-3 mt-3">
 					<label for="postalCode" class="col-sm-4 col-form-label">[[#{orderForm.postalCode}]]</label>
@@ -42,7 +36,7 @@
 				<div class="row mb-3 mt-3">
 					<label for="phoneNumber" class="col-sm-4 col-form-label">[[#{orderForm.phoneNumber}]]</label>
 					<div class="col-sm-8">
-						<input type="text" class="form-control" id="phoneNumber"  name="phoneNumber" th:value="${session.orderForm.phoneNumber}" required>
+						<input type="text" class="form-control" id="phoneNumber" name="phoneNumber" th:value="${session.orderForm.phoneNumber}" required>
 					</div>
 				</div>
 				<input type="submit" value="確認" class="btn btn-dark btn-lg" />
