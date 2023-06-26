@@ -134,7 +134,8 @@ public class ClientItemShowController {
 	@RequestMapping("/client/item/hot_seller")
 	public String showFindDateForRanking(Model model) {
 		List<Item> itemList = itemRepository.findDataForHotSell();
-		model.addAttribute("items", itemList);
+		List<Item> sbList = itemList.subList(0,10);
+		model.addAttribute("items", sbList);
 		return "client/item/hot_seller";
 
 	}

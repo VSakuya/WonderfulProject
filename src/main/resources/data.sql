@@ -12,7 +12,7 @@ INSERT INTO items VALUES(seq_items.NEXTVAL, '芽キャベツ',1500, 'とれた�
 INSERT INTO items VALUES(seq_items.NEXTVAL, 'ナス',150, 'とれたて！とってもみずみずしい！', 25, 1, DEFAULT, 1);
 INSERT INTO items VALUES(seq_items.NEXTVAL, 'レタス',150, 'とれたて！とってもみずみずしい！', 25, 1, DEFAULT, 1);
 INSERT INTO items VALUES(seq_items.NEXTVAL, 'ジャガイモ',150, 'とれたて！とってもみずみずしい！', 25, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, '里芋',160, 'とれたて！とってもみずみずしい！とれたて！とってもみずみずしい！', 2, 20, DEFAULT, 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, '里芋',160, 'とれたて！とってもみずみずしい！とれたて！とってもみずみずしい！', 20, 0, DEFAULT, 1);
 INSERT INTO items VALUES(seq_items.NEXTVAL, 'さつま芋',1580, 'とれたて！とってもみずみずしい！', 5, 0, DEFAULT, 1);
 INSERT INTO items VALUES(seq_items.NEXTVAL, 'きゅうり',1500, 'とれたて！とってもみずみずしい！', 5, 0, DEFAULT, 1);
 INSERT INTO items VALUES(seq_items.NEXTVAL, 'こつつ',150, 'とれたて！とってもみずみずしい！', 9, 0, DEFAULT, 1);
@@ -82,6 +82,9 @@ INSERT INTO users VALUES(seq_users.NEXTVAL, 'unyo_shiro@test.co.jp', '732955d4bb
 INSERT INTO users VALUES(seq_users.NEXTVAL, 'unyo_goro@test.co.jp', '732955d4bbbc1e09e9e633b7946a402d30da3804eea99480ae402e1a358a40fe', '運用管理五郎', '1111111', '東京都台東区1-2-3 ABCビル10階', '0123456789', 1, DEFAULT, DEFAULT);
 INSERT INTO users VALUES(seq_users.NEXTVAL, 'unyo_rokuro@test.co.jp', '732955d4bbbc1e09e9e633b7946a402d30da3804eea99480ae402e1a358a40fe', '運用管理六郎', '1111111', '東京都台東区1-2-3 ABCビル10階', '0123456789', 1, DEFAULT, DEFAULT);
 INSERT INTO users VALUES(seq_users.NEXTVAL, 'unyo_shichiro@test.co.jp', '732955d4bbbc1e09e9e633b7946a402d30da3804eea99480ae402e1a358a40fe', '運用管理七郎', '1111111', '東京都台東区1-2-3 ABCビル10階', '0123456789', 1, DEFAULT, DEFAULT);
+
+--(システム管理者)追加部分--
+INSERT INTO users VALUES(seq_users.NEXTVAL, 'tanaka_kotaro@test.co.jp', '732955d4bbbc1e09e9e633b7946a402d30da3804eea99480ae402e1a358a40fe', 'システム管理小太郎', '1111111', '東京都台東区1-2-3 ABCビル10階', '0123456789', 0, DEFAULT, DEFAULT);
 
 -- レコード登録(注文)
 INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般三郎', '0123456789', 2, DEFAULT, 3);
