@@ -107,6 +107,7 @@ INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 120, 1, 1);
 INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 112, 2, 1);
 INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 300, 3, 1);
 --レコード登録（商品注文）追加部分--
+
 INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 219, 4, 1);
 INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 130, 4, 20);
 INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 298, 4, 26);

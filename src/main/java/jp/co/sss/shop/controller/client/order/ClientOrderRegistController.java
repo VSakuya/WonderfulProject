@@ -364,15 +364,20 @@ public class ClientOrderRegistController {
 			order.setOrderItemsList(orderItemList);
 			BeanUtils.copyProperties(orderForm, order, "id");
 			orderRepository.save(order);
-			//注文商品情報をＤＢに登録
-			for (int i = 0; i < orderItemList.size(); i++) {
 
+			for (int i = 0; i < orderItemList.size(); i++) {
+				//注文商品情報をＤＢに登録
 				OrderItem orderItem = new OrderItem();
 				orderItem = orderItemList.get(i);
 				Item item = orderItem.getItem();
 				orderItem.setItem(item);
 				orderItem.setOrder(order);
 				orderItemRepository.save(orderItem);
+				//在庫状況の更新
+				int stock = item.getStock();
+				stock -= orderItem.getQuantity();
+				item.setStock(stock);
+				itemRepository.save(item);
 			}
 			//セッションスコープから注文情報と買い物かご情報の削除
 			session.removeAttribute("orderForm");
