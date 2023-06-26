@@ -13,6 +13,7 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>shared_shop</name>
 	<description>SharedShop project for Spring Boot 2.7.5</description>
+	<packaging>jar</packaging>
 	<properties>
 		<java.version>16</java.version>
 	</properties>

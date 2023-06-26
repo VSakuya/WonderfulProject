@@ -34,5 +34,7 @@ public class JPQLConstant {
 
 	/** 商品情報を商品名、商品紹介と価格からの検索 @author tan **/
 	public static final String FIND_BY_STR_AND_PRICE_RANGE = "SELECT i FROM Item i WHERE (i.name LiKE %:searchStr% OR i.description LIKE %:searchStr%) AND i.price >= :minPrice AND i.price <= :maxPrice AND i.deleteFlag = :deleteFlag";
-
+	
+	//個人別のユーザー情報を検索します。
+	public static final String FIND_BY_USERS_ORDERS_ORDERS_BY_INSERT_DATE = "SELECT o FROM Order o WHERE o.user =:user ORDER BY o.insertDate DESC, o.id DESC";
 }

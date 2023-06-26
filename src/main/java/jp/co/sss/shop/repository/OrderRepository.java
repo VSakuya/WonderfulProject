@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import jp.co.sss.shop.entity.Order;
+import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.util.JPQLConstant;
 
 /**
@@ -25,5 +26,11 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
 	 */
 	@Query(JPQLConstant.FIND_ALL_ORDERS_ORDER_BY_INSERT_DATE)
 	Page<Order> findAllOrderByInsertdateDescIdDesc(Pageable pageable);
-
+	
+	/**
+	 * 注文一覧を個別の情報を出す。（一般会員）
+	 * 
+	 */
+	@Query(JPQLConstant.FIND_BY_USERS_ORDERS_ORDERS_BY_INSERT_DATE)
+	Page<Order> findByIdOrderByInsertdateDescIdDesc(User user, Pageable pageable);
 }
