@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import jp.co.sss.shop.bean.BasketBean;
 import jp.co.sss.shop.bean.OrderItemBean;
 import jp.co.sss.shop.bean.UserBean;
+import jp.co.sss.shop.entity.Image;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.Order;
 import jp.co.sss.shop.entity.OrderItem;
@@ -214,6 +215,10 @@ public class ClientOrderRegistController {
 			Item item = itemRepository.getReferenceById(id);
 			
 			orderItemBean = beanTools.generateOrderItemBean(item, basketItem);
+			Image image = (item.getImageList()).get(0);
+			String imagePath = image.getImagePath();
+			orderItemBean.setImage(imagePath);
+			
 			orderList.add(orderItemBean);
 			
 			total += basketItem.getOrderNum() * item.getPrice();
