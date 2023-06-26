@@ -13,33 +13,33 @@
 	<p th:class="input_message" th:text="#{msg.order.payment.input}"></p>
 
 	<div class="container-10">
-		<form method="post" th:action="@{/client/order/check}" class="user_info_form">
+		<form method="post" th:action="@{/client/order/check}" class="user_info_form was-validated">
 			<div class="form-check mt-3">
-				<input class="form-check-input" type="radio" name="payMethod" id="payMethod_1" value="1">
+				<input class="form-check-input" type="radio" name="payMethod" id="payMethod_1" value="1" required>
 				<label class="form-check-label" for="payMethod_1" th:text="#{paymethod.credit.str}">
 				  Default radio
 				</label>
 			</div>
 			<div class="form-check mt-3">
-				<input class="form-check-input" type="radio" name="payMethod" id="payMethod_2" value="2">
+				<input class="form-check-input" type="radio" name="payMethod" id="payMethod_2" value="2" required>
 				<label class="form-check-label" for="payMethod_2" th:text="#{paymethod.bank.str}">
 				  Default radio
 				</label>
 			</div>
 			<div class="form-check mt-3">
-				<input class="form-check-input" type="radio" name="payMethod" id="payMethod_3" value="3">
+				<input class="form-check-input" type="radio" name="payMethod" id="payMethod_3" value="3" required>
 				<label class="form-check-label" for="payMethod_3" th:text="#{paymethod.onarrival.str}">
 				  Default radio
 				</label>
 			</div>
 			<div class="form-check mt-3">
-				<input class="form-check-input" type="radio" name="payMethod" id="payMethod_4" value="4">
+				<input class="form-check-input" type="radio" name="payMethod" id="payMethod_4" value="4" required>
 				<label class="form-check-label" for="payMethod_4" th:text="#{paymethod.emoney.str}">
 				  Default radio
 				</label>
 			</div>
 			<div class="form-check mt-3">
-				<input class="form-check-input" type="radio" name="payMethod" id="payMethod_5" value="5">
+				<input class="form-check-input" type="radio" name="payMethod" id="payMethod_5" value="5" required>
 				<label class="form-check-label" for="payMethod_5" th:text="#{paymethod.convenience.str}">
 				  Default radio
 				</label>
