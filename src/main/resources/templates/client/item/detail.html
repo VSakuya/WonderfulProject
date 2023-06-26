@@ -4,7 +4,7 @@
 -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-	th:replace="~{/client/layout/layout_3block_nav :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{client/layout/layout_3block_nav :: layout(~{::title},~{::body/content()})}">
 <head>
 	<title>商品詳細</title>
 	<meta charset="UTF-8" />
@@ -57,6 +57,10 @@
 							</button>
 						</form>
 					</div>
+
+					<th:bllock th:if="${item.stock gt 0}">
+					<div class="col-auto">
+
 					<div class="col-7">
 						<form th:action="@{/client/basket/add}" , method="post">
 							<input type="hidden" name="id" th:value="${item.id}">
@@ -67,6 +71,7 @@
 							<!-- <input type="submit" value="買い物かごに入れる" class="send_button" /> -->
 						</form>
 					</div>
+					</th:block>
 				</div>
 			</div>
 			<div class="col-8 p-4">
