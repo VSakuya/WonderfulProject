@@ -208,7 +208,7 @@ public class ClientOrderRegistController {
 		OrderItemBean orderItemBean = new OrderItemBean();
 		
 		for (int i = 0; i < basketList.size(); i++) {
-			
+			//
 			basketItem = basketList.get(i);
 			
 			int id = basketItem.getId();
