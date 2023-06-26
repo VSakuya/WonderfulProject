@@ -8,25 +8,20 @@
 	th:replace="~{/client/layout/layout_3block_nav :: layout(~{::title},~{::body/content()})}">
 
 <head>
+<title>商品詳細</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 	<title>商品詳細</title>
 	<meta charset="UTF-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
 
 </head>
 
 <body>
 	<h2 class="title">新着商品</h2>
-	<br />
-	<!--連番 画像 商品名(リンク) 価格  -->
-	<!--
-	<ol th:each="item : ${itemList}">
-		<li class="di" th:text="${item.items.id}"></li>
-		<li class="di" th:text="${item.items.price}"></li>
-		<a th:href="@{/client/item/detail/{id}(id = ${item.items.id})}"></a>
-		<li class="di"th:text="${item.id}"></li>
-	</ol>
--->
+	
+
 	<div class="container-50">
 		<table class="table table-hover table-striped table-bordered align-middle">
 			<tr>
@@ -36,27 +31,25 @@
 				<th th:text="#{itemForm.price}"></th>
 			</tr>
 
-			<tr th:each="item, status: ${itemList}">
-				<td th:text="${status.count}"></td>
-				<td>
-					<div class="icon-medium block-center">
-						<a th:href="@{/client/item/detail/} + ${item.items.id}">
-							<img class="icon-img" th:src="@{/static/images/} + ${item.items.imageList[0].imagePath}" />
-						</a>
-					</div>
-					<!--		 	<td><a th:href="@{/client/item/detail/{id}(id = ${items.id})}" th:text="${items.name}"></a></td>-->
-				<td>
-					<h2>
-						<a th:href="@{/client/item/detail/} + ${item.items.id}" th:text="${item.items.name}"></a>
-					</h2>
-				</td>
-				<td th:text="${item.items.price}"></td>
-				<!--			 	<td th:text="${item.items.images.imagePath}"></td>-->
-				<!--			<td><img th:src="@{/client/item/detail/{id}(id = ${item.items.id})}"></td>  -->
+
+
+		 <tr th:each="item, status: ${itemList}">
+		 	<td th:text="${status.count}"></td>
+		 	<td>
+		 	<div class="icon-medium block-center">
+			<img th:src="@{/static/images/} + ${item.imageList[0].imagePath}"/>
+			</div>
+			</td>
+			
+
+		 	<td><a th:href="@{/client/item/detail/} + ${item.id}" th:text="${item.name}"></a></td>
+		 	<td th:text="${item.price}"></td>
 
 			</tr>
+
 
 		</table>
 	</div>
 
 </body>
+</html>

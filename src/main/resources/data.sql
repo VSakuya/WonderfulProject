@@ -92,17 +92,17 @@ INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-
 INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般三郎', '0123456789', 2, DEFAULT, 3);
 --レコード登録（注文)追加部分--
 
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都港区4-5-6 ABCマンション5階', '一般四郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般五郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都目黒区4-5-6 ABCマンション5階', '一般六郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都千代田区4-5-6 ABCマンション5階', '一般七郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都中央区4-5-6 ABCマンション5階', '一般八郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都文京区4-5-6 ABCマンション5階', '一般九郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都墨田区4-5-6 ABCマンション5階', '一般十郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都江東区4-5-6 ABCマンション5階', '一般十一郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般十二郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都品川区4-5-6 ABCマンション5階', '一般十三郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都港区4-5-6 ABCマンション5階', '一般十四郎', '0123456789', 2, DEFAULT, 3);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都港区4-5-6 ABCマンション5階', '一般四郎', '0123456789', 2, DEFAULT, 4);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般五郎', '0123456789', 2, DEFAULT, 5);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都目黒区4-5-6 ABCマンション5階', '一般六郎', '0123456789', 2, DEFAULT, 6);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都千代田区4-5-6 ABCマンション5階', '一般七郎', '0123456789', 2, DEFAULT, 7);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都中央区4-5-6 ABCマンション5階', '一般八郎', '0123456789', 2, DEFAULT, 8);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都文京区4-5-6 ABCマンション5階', '一般九郎', '0123456789', 2, DEFAULT, 9);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都墨田区4-5-6 ABCマンション5階', '一般十郎', '0123456789', 2, DEFAULT, 10);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都江東区4-5-6 ABCマンション5階', '一般十一郎', '0123456789', 2, DEFAULT, 11);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般十二郎', '0123456789', 2, DEFAULT, 12);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都品川区4-5-6 ABCマンション5階', '一般十三郎', '0123456789', 2, DEFAULT, 13);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都港区4-5-6 ABCマンション5階', '一般十四郎', '0123456789', 2, DEFAULT, 14);
 
 
 -- レコード登録(商品注文)

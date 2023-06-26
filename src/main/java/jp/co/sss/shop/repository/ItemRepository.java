@@ -92,8 +92,8 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	 * @return 商品エンティティ
 	 * @author Tomita
 	 */
-	@Query(JPQLConstant.FIND_DATE_FOR_NEW_SELL)
-	Page<Object[]> findByDeleteFlagOrderByInsertDateDescIdDescPage(@Param (value = "deleteFlag")int deleteFlag, Pageable pageable);
+	@Query(JPQLConstant.FIND_DATE_FOR_NEW_SELLS)
+	List<Item> findByDeleteFlagOrderByInsertDateDescIdDescPage(@Param (value = "deleteFlag")int deleteFlag);
 
 	//@Query(JPQLConstant.FIND_DATE_FOR_NEW_SELLS)
 	//Page<Item> findByDeleteFlagOrderByInsertDateDescIdDescPage(@Param (value = "deleteFlag")int deleteFlag, Pageable pageable);

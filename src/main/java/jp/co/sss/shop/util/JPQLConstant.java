@@ -27,9 +27,9 @@ public class JPQLConstant {
 
 	//public static final String FIND_DATE_FOR_NEW_SELLS = "SELECT img FROM Image img INNER JOIN img.items i INNER JOIN i.category c WHERE i.deleteFlag =:deleteFlag ORDER BY i.insertDate DESC, i.id DESC ";
 
-	//public static final String FIND_DATE_FOR_NEW_SELLS = "SELECT i FROM Item i INNER JOIN i.imageList il WHERE i.deleteFlag =:deleteFlag ORDER BY i.insertDate DESC, i.id DESC ";
+	public static final String FIND_DATE_FOR_NEW_SELLS = "SELECT i FROM Item i WHERE i.deleteFlag =:deleteFlag ORDER BY i.insertDate DESC, i.id DESC ";
 
-	public static final String FIND_DATE_FOR_NEW_SELL = "SELECT img FROM Image img INNER JOIN img.items i INNER JOIN i.category c WHERE i.deleteFlag =:deleteFlag ORDER BY i.insertDate DESC, i.id DESC ";
+	//public static final String FIND_DATE_FOR_NEW_SELL = "SELECT img FROM Image img INNER JOIN img.items i INNER JOIN i.category c WHERE i.deleteFlag =:deleteFlag ORDER BY i.insertDate DESC, i.id DESC ";
 
 
 	/** 商品情報を商品名、商品紹介と価格からの検索 @author tan **/
