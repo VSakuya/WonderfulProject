@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
@@ -85,44 +84,16 @@ public class ClientItemShowController {
 	@RequestMapping(path = "/client/item/detail/{id}", method = RequestMethod.GET)
 	public String detail(@PathVariable Integer id, Model model) {
 		Item item = itemRepository.getReferenceById(id);
-
-	    ItemBean itemBean = beanTools.copyEntityToItemBean(item);
-	    itemBean.setImage(item.getImageList().get(0).getImagePath()); 
-	    
-	    UserBean userBean = (UserBean) session.getAttribute("user");
-		int userId = userBean.getId();
-		User user = userRepository.findByIdAndDeleteFlag(userId, 0);
-			   
-	    if (favoriteRepository.findByItemAndUser(item, user) != null) {
-	    	model.addAttribute("favorited", true);
-	    }
-		model.addAttribute("items", itemBean);
-	    itemBean.setImage(item.getImageList().get(0).getImagePath());
-	    
-	    if (userBean != null) {
-//	    	Integer userId  = userBean.getId();
-	    	User users = userRepository.findByIdAndDeleteFlag(userId, 0);
-	    	List<Favorite> favorite = favoriteRepository.findByUser(users);
-
-	    	model.addAttribute("favorite", favorite);
-
-	    	Boolean isFavorite = favorite.size() > 0 ? true : false;
-	    }
-
 	    UserBean userBean =(UserBean) session.getAttribute("user");
-	    
 	    if (userBean != null) {
 	    	Integer userId  = userBean.getId();
 	    	User user = new User();
 	    	user.setId(userId);
 	    	List<Favorite> favoriteList = favoriteRepository.findByItemAndUser(item, user);
 	    	Boolean isFavorite = favoriteList.size() > 0;
-
 	    	model.addAttribute("isFavorite", isFavorite);
-
 		}
 		model.addAttribute("item", item);
-
 		return"client/item/detail";
 	}
 
