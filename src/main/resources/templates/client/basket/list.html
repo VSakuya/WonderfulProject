@@ -18,12 +18,12 @@
 		<h4 th:text="#{msg.basket.list.none}"></h4>
 	</div>
 	<!--  商品の在庫がない場合のメッセージ    -->
-	<div th:if="${stockNone != null}">
-		<h4 th:text="#{msg.basket.stock.none(${stockNone})}"></h4>
+	<div th:if="${stockNone != null}" th:each="none:${stockNone}">
+		<h4 th:text="#{msg.basket.stock.none(${none})}"></h4>
 	</div>
 	<!--  商品の注文数が在庫を超えた場合のメッセージ    -->
-	<div th:if="${stockShort != null}">
-		<span th:text="#{msg.basket.stock.short(${stockShort})}"></span>
+	<div th:if="${stockShort != null}" th:each="short:${stockShort}">
+		<span th:text="#{msg.basket.stock.short(${short})}"></span>
 	</div>
 	<!--  買い物かご一覧    -->
 	<div th:if="${session.baskets != null}" class="container-70">

@@ -1,5 +1,8 @@
 package jp.co.sss.shop.controller.admin.item;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import jp.co.sss.shop.entity.Image;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.form.ItemForm;
 import jp.co.sss.shop.repository.ItemRepository;
@@ -59,7 +63,22 @@ public class AdminItemDeleteController {
 		}
 
 		// 取得情報から表示フォーム情報を生成
-		ItemForm itemForm = beanTools.copyEntityToItemForm(item);
+		ItemForm itemForm = new ItemForm();
+		itemForm.setId(item.getId());
+		itemForm.setCategoryId(item.getCategory().getId());
+		itemForm.setCategoryName(item.getCategory().getName());
+		itemForm.setDescription(item.getDescription());
+		itemForm.setName(item.getName());
+		itemForm.setPrice(item.getPrice());
+		itemForm.setStock(item.getStock());
+		List<Image> imgList = item.getImageList();
+		ArrayList<String> imgPaths = new ArrayList<>();
+		for (Image image : imgList) {
+			imgPaths.add(image.getImagePath());
+		}
+		itemForm.setImages(imgPaths);
+		//変更入力フォームをセッションに保持
+		session.setAttribute("itemForm", itemForm);
 
 		// セッションに取得情報を保持
 		session.setAttribute("itemForm", itemForm);
@@ -131,7 +150,7 @@ public class AdminItemDeleteController {
 
 	/**
 	 * 削除完了画面表示
-	 * 
+	 *
 	 * @return "admin/item/delete_complete"  削除完了画面
 	 */
 	@RequestMapping(path = "/admin/item/delete/complete", method = RequestMethod.GET)

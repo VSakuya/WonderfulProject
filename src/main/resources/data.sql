@@ -3,60 +3,59 @@ INSERT INTO categories VALUES(seq_categories.NEXTVAL, '食料品', '野菜類、
 INSERT INTO categories VALUES(seq_categories.NEXTVAL, '書籍', '和書、洋書、専門書、漫画、雑誌などを扱います。', DEFAULT, DEFAULT);
 
 -- レコード登録(商品)
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'りんご', 100, '青森県産のりんごです。とってもみずみずしい！', 30, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, '辞書', 2000, 'これ一冊があれば大丈夫！', 5, 1, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'オレンジ', 150, 'オーストラリア産のオレンジです。', 30, 0, DEFAULT, 1);
---レコード登録（商品)追加部分--
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'トマト',800, 'とれたて！とってもみずみずしい！', 25, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, '芽キャベツ',1500, 'とれたて！とってもみずみずしい！', 25, 1, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'ナス',150, 'とれたて！とってもみずみずしい！', 25, 1, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'レタス',150, 'とれたて！とってもみずみずしい！', 25, 1, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'ジャガイモ',150, 'とれたて！とってもみずみずしい！', 25, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, '里芋',160, 'とれたて！とってもみずみずしい！とれたて！とってもみずみずしい！', 20, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'さつま芋',1580, 'とれたて！とってもみずみずしい！', 5, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'きゅうり',1500, 'とれたて！とってもみずみずしい！', 5, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'こつつ',150, 'とれたて！とってもみずみずしい！', 9, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'キャベツ',150, 'とれたて！とってもみずみずしい！', 79, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'いもつ',150, 'とれたて！とってもみずみずしい！', 45, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'つかい',150, 'とれたて！とってもみずみずしい！', 245, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'すいかか',1590, 'とれたて！とってもみずみずしい！', 225, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'さめ',1508, 'とれたて！とってもみずみずしい！', 235, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, '春キャベツ',150, 'とれたて！とってもみずみずしい！', 625, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'キ',660, 'とれたて！とってもみずみずしい！', 225, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'ベツ',1590, 'とれたて！とってもみずみずしい！', 85, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'ャツ',15440, 'とれたて！とってもみずみずしい！', 20, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'もの',1520, 'とれたて！とってもみずみずしい！', 26, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'すし',2150, 'とれたて！とってもみずみずしい！', 23, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'らー',2150, 'とれたて！とってもみずみずしい！', 85, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'うし',1150, 'とれたて！とってもみずみずしい！', 45, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'めんま',8150, 'とれたて！とってもみずみずしい！', 32, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'たまご',4150, 'とれたて！とってもみずみずしい！', 29, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'さよなら',1150, 'とれたて！とってもみずみずしい！', 21, 0, DEFAULT, 1);
-INSERT INTO items VALUES(seq_items.NEXTVAL, '犬', 100, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 3, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'ねこ', 3000, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 5, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'こぶた', 1580, 'オーストラリア産のオレンジです。青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'たぬき', 1300, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'きつね', 2070, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！', 8, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'ねずみ', 100, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 3, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'みみずく', 3000, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 5, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'くみん', 1580, 'オーストラリア産のオレンジです。青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'んだほ', 1300, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'ほし', 2070, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！', 8, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'ねずみ', 10, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 3, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'みみずく', 30, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 5, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'くみん', 180, 'オーストラリア産のオレンジです。青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'んだほ', 10, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'ほし', 200, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！', 8, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'しんべえ', 1990, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 3, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'えすこ', 3000, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 5, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'こき', 1800, 'オーストラリア産のオレンジです。青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'きめら', 1340, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'らっぱ', 2009, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！', 8, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'パンツ', 1023, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 3, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, '月', 30, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 5, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, '太陽', 1805, 'オーストラリア産のオレンジです。青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, '火星', 140, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, DEFAULT, 2);
-INSERT INTO items VALUES(seq_items.NEXTVAL, 'みずがめ座', 2800, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！', 8, 0, DEFAULT, 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'りんご', 100, '青森県産のりんごです。とってもみずみずしい！', 30, 0, '2023-07-26 13:40:02', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, '辞書', 2000, 'これ一冊があれば大丈夫！', 5, 1, '2023-08-26 13:40:35', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'オレンジ', 150, 'オーストラリア産のオレンジです。', 30, 0, '2023-10-26 13:40:33', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'トマト',800, 'とれたて！とってもみずみずしい！', 25, 0, '2023-05-26 13:40:17', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, '芽キャベツ',1500, 'とれたて！とってもみずみずしい！', 25, 1, '2023-11-26 13:40:53', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'ナス',150, 'とれたて！とってもみずみずしい！', 25, 1, '2023-11-26 13:40:11', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'レタス',150, 'とれたて！とってもみずみずしい！', 25, 1, '2023-10-26 13:40:16', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'ジャガイモ',150, 'とれたて！とってもみずみずしい！', 25, 0, '2023-10-26 13:40:28', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, '里芋',160, 'とれたて！とってもみずみずしい！とれたて！とってもみずみずしい！', 20, 0, '2023-04-26 13:40:47', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'さつま芋',1580, 'とれたて！とってもみずみずしい！', 5, 0, '2023-12-26 13:40:00', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'きゅうり',1500, 'とれたて！とってもみずみずしい！', 5, 0, '2023-01-26 13:40:32', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'こつつ',150, 'とれたて！とってもみずみずしい！', 9, 0, '2023-01-26 13:40:58', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'キャベツ',150, 'とれたて！とってもみずみずしい！', 79, 0, '2023-04-26 13:40:21', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'いもつ',150, 'とれたて！とってもみずみずしい！', 45, 0, '2023-09-26 13:40:07', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'つかい',150, 'とれたて！とってもみずみずしい！', 245, 0, '2023-06-26 13:40:25', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'すいかか',1590, 'とれたて！とってもみずみずしい！', 225, 0, '2023-02-26 13:40:52', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'さめ',1508, 'とれたて！とってもみずみずしい！', 235, 0, '2023-08-26 13:40:31', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, '春キャベツ',150, 'とれたて！とってもみずみずしい！', 625, 0, '2023-02-26 13:40:03', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'キ',660, 'とれたて！とってもみずみずしい！', 225, 0, '2023-10-26 13:40:13', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'ベツ',1590, 'とれたて！とってもみずみずしい！', 85, 0, '2023-01-26 13:40:35', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'ャツ',15440, 'とれたて！とってもみずみずしい！', 20, 0, '2023-01-26 13:40:41', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'もの',1520, 'とれたて！とってもみずみずしい！', 26, 0, '2023-11-26 13:40:25', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'すし',2150, 'とれたて！とってもみずみずしい！', 23, 0, '2023-11-26 13:40:22', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'らー',2150, 'とれたて！とってもみずみずしい！', 85, 0, '2023-02-26 13:40:04', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'うし',1150, 'とれたて！とってもみずみずしい！', 45, 0, '2023-06-26 13:40:54', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'めんま',8150, 'とれたて！とってもみずみずしい！', 32, 0, '2023-01-26 13:40:04', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'たまご',4150, 'とれたて！とってもみずみずしい！', 29, 0, '2023-05-26 13:40:21', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'さよなら',1150, 'とれたて！とってもみずみずしい！', 21, 0, '2023-02-26 13:40:39', 1);
+INSERT INTO items VALUES(seq_items.NEXTVAL, '犬', 100, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 3, 0, '2023-09-26 13:40:48', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'ねこ', 3000, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 5, 0, '2023-06-26 13:40:34', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'こぶた', 1580, 'オーストラリア産のオレンジです。青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, '2023-04-26 13:40:52', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'たぬき', 1300, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, '2023-04-26 13:40:13', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'きつね', 2070, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！', 8, 0, '2023-10-26 13:40:24', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'ねずみ', 100, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 3, 0, '2023-09-26 13:40:53', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'みみずく', 3000, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 5, 0, '2023-01-26 13:40:37', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'くみん', 1580, 'オーストラリア産のオレンジです。青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, '2023-06-26 13:40:55', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'んだほ', 1300, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, '2023-11-26 13:40:41', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'ほし', 2070, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！', 8, 0, '2023-05-26 13:40:59', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'ねずみ', 10, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 3, 0, '2023-09-26 13:40:41', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'みみずく', 30, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 5, 0, '2023-02-26 13:40:14', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'くみん', 180, 'オーストラリア産のオレンジです。青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, '2023-08-26 13:40:25', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'んだほ', 10, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, '2023-09-26 13:40:03', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'ほし', 200, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！', 8, 0, '2023-01-26 13:40:55', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'しんべえ', 1990, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 3, 0, '2023-11-26 13:40:28', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'えすこ', 3000, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 5, 0, '2023-04-26 13:40:51', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'こき', 1800, 'オーストラリア産のオレンジです。青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, '2023-04-26 13:40:05', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'きめら', 1340, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, '2023-11-26 13:40:06', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'らっぱ', 2009, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！', 8, 0, '2023-10-26 13:40:01', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'パンツ', 1023, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 3, 0, '2023-10-26 13:40:19', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, '月', 30, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 5, 0, '2023-03-26 13:40:50', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, '太陽', 1805, 'オーストラリア産のオレンジです。青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, '2023-07-26 13:40:47', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, '火星', 140, '青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！青森県産のりんごです。とってもみずみずしい！', 30, 0, '2023-09-26 13:40:21', 2);
+INSERT INTO items VALUES(seq_items.NEXTVAL, 'みずがめ座', 2800, 'これ一冊があれば大丈夫！青森県産のりんごです。とってもみずみずしい！', 8, 0, '2023-12-26 13:40:57', 2);
 
 
 -- レコード登録(会員) すべてのパスワードは'testtest'です、sha256('testtestWonderfulProject')の結果です
@@ -87,22 +86,20 @@ INSERT INTO users VALUES(seq_users.NEXTVAL, 'unyo_shichiro@test.co.jp', '732955d
 INSERT INTO users VALUES(seq_users.NEXTVAL, 'tanaka_kotaro@test.co.jp', '732955d4bbbc1e09e9e633b7946a402d30da3804eea99480ae402e1a358a40fe', 'システム管理小太郎', '1111111', '東京都台東区1-2-3 ABCビル10階', '0123456789', 0, DEFAULT, DEFAULT);
 
 -- レコード登録(注文)
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般三郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般三郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般三郎', '0123456789', 2, DEFAULT, 3);
---レコード登録（注文)追加部分--
-
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都港区4-5-6 ABCマンション5階', '一般四郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般五郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都目黒区4-5-6 ABCマンション5階', '一般六郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都千代田区4-5-6 ABCマンション5階', '一般七郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都中央区4-5-6 ABCマンション5階', '一般八郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都文京区4-5-6 ABCマンション5階', '一般九郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都墨田区4-5-6 ABCマンション5階', '一般十郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都江東区4-5-6 ABCマンション5階', '一般十一郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般十二郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都品川区4-5-6 ABCマンション5階', '一般十三郎', '0123456789', 2, DEFAULT, 3);
-INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都港区4-5-6 ABCマンション5階', '一般十四郎', '0123456789', 2, DEFAULT, 3);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般三郎', '0123456789', 2, '2023-02-26 13:40:42', 3);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般三郎', '0123456789', 2, '2023-03-26 13:40:04', 3);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般三郎', '0123456789', 2, '2023-04-26 13:40:14', 3);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都港区4-5-6 ABCマンション5階', '一般四郎', '0123456789', 2, '2023-07-26 13:40:57', 4);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般五郎', '0123456789', 2, '2023-02-26 13:40:53', 5);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都目黒区4-5-6 ABCマンション5階', '一般六郎', '0123456789', 2, '2023-12-26 13:40:40', 6);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都千代田区4-5-6 ABCマンション5階', '一般七郎', '0123456789', 2, '2023-09-26 13:40:05', 7);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都中央区4-5-6 ABCマンション5階', '一般八郎', '0123456789', 2, '2023-05-26 13:40:51', 8);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都文京区4-5-6 ABCマンション5階', '一般九郎', '0123456789', 2, '2023-09-26 13:40:19', 9);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都墨田区4-5-6 ABCマンション5階', '一般十郎', '0123456789', 2, '2023-09-26 13:40:41', 10);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都江東区4-5-6 ABCマンション5階', '一般十一郎', '0123456789', 2, '2023-06-26 13:40:34', 11);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都台東区4-5-6 ABCマンション5階', '一般十二郎', '0123456789', 2, '2023-03-26 13:40:59', 12);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都品川区4-5-6 ABCマンション5階', '一般十三郎', '0123456789', 2, '2023-02-26 13:40:50', 13);
+INSERT INTO orders VALUES(seq_orders.NEXTVAL, '1111111', '東京都港区4-5-6 ABCマンション5階', '一般十四郎', '0123456789', 2, '2023-11-26 13:40:39', 14);
 
 
 -- レコード登録(商品注文)
@@ -110,39 +107,40 @@ INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 120, 1, 1);
 INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 112, 2, 1);
 INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 300, 3, 1);
 --レコード登録（商品注文）追加部分--
-INSERT INTO order_items VALUES(seq_order_items, 3, 219, 4, 1);
-INSERT INTO order_items VALUES(seq_order_items, 3, 130, 4, 20);
-INSERT INTO order_items VALUES(seq_order_items, 3, 298, 4, 26);
-INSERT INTO order_items VALUES(seq_order_items, 3, 144, 5, 16);
-INSERT INTO order_items VALUES(seq_order_items, 4, 191, 5, 35);
-INSERT INTO order_items VALUES(seq_order_items, 1, 142, 5, 22);
-INSERT INTO order_items VALUES(seq_order_items, 6, 120, 6, 39);
-INSERT INTO order_items VALUES(seq_order_items, 1, 220, 6, 47);
-INSERT INTO order_items VALUES(seq_order_items, 4, 158, 6, 39);
-INSERT INTO order_items VALUES(seq_order_items, 5, 292, 7, 22);
-INSERT INTO order_items VALUES(seq_order_items, 1, 209, 7, 18);
-INSERT INTO order_items VALUES(seq_order_items, 5, 181, 7, 31);
-INSERT INTO order_items VALUES(seq_order_items, 2, 177, 8, 34);
-INSERT INTO order_items VALUES(seq_order_items, 5, 200, 8, 29);
-INSERT INTO order_items VALUES(seq_order_items, 1, 266, 8, 15);
-INSERT INTO order_items VALUES(seq_order_items, 6, 268, 9, 39);
-INSERT INTO order_items VALUES(seq_order_items, 3, 286, 9, 19);
-INSERT INTO order_items VALUES(seq_order_items, 2, 174, 9, 44);
-INSERT INTO order_items VALUES(seq_order_items, 4, 205, 10, 9);
-INSERT INTO order_items VALUES(seq_order_items, 6, 111, 10, 29);
-INSERT INTO order_items VALUES(seq_order_items, 5, 163, 10, 40);
-INSERT INTO order_items VALUES(seq_order_items, 4, 282, 11, 49);
-INSERT INTO order_items VALUES(seq_order_items, 2, 212, 11, 5);
-INSERT INTO order_items VALUES(seq_order_items, 6, 242, 11, 37);
-INSERT INTO order_items VALUES(seq_order_items, 6, 149, 12, 8);
-INSERT INTO order_items VALUES(seq_order_items, 5, 205, 12, 14);
-INSERT INTO order_items VALUES(seq_order_items, 3, 224, 12, 8);
-INSERT INTO order_items VALUES(seq_order_items, 6, 103, 13, 35);
-INSERT INTO order_items VALUES(seq_order_items, 6, 245, 13, 13);
-INSERT INTO order_items VALUES(seq_order_items, 4, 201, 13, 25);
-INSERT INTO order_items VALUES(seq_order_items, 3, 248, 14, 29);
-INSERT INTO order_items VALUES(seq_order_items, 3, 198, 14, 25);
-INSERT INTO order_items VALUES(seq_order_items, 2, 189, 14, 47);
+
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 219, 4, 1);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 130, 4, 20);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 298, 4, 26);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 144, 5, 16);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 191, 5, 35);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 1, 142, 5, 22);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 6, 120, 6, 39);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 1, 220, 6, 47);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 158, 6, 39);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 5, 292, 7, 22);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 1, 209, 7, 18);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 5, 181, 7, 31);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 2, 177, 8, 34);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 5, 200, 8, 29);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 1, 266, 8, 15);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 6, 268, 9, 39);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 286, 9, 19);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 2, 174, 9, 44);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 205, 10, 9);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 6, 111, 10, 29);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 5, 163, 10, 40);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 282, 11, 49);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 2, 212, 11, 5);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 6, 242, 11, 37);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 6, 149, 12, 8);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 5, 205, 12, 14);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 224, 12, 8);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 6, 103, 13, 35);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 6, 245, 13, 13);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 4, 201, 13, 25);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 248, 14, 29);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 3, 198, 14, 25);
+INSERT INTO order_items VALUES(seq_order_items.NEXTVAL, 2, 189, 14, 47);
 
 -- レコード登録(画像)
 INSERT INTO images VALUES(seq_images.NEXTVAL, 'test1.jpg', DEFAULT, 1);
@@ -302,12 +300,7 @@ INSERT INTO images VALUES(seq_images.NEXTVAL, 'test3.jpg', DEFAULT, 52);
 INSERT INTO images VALUES(seq_images.NEXTVAL, 'test1.jpg', DEFAULT, 53);
 INSERT INTO images VALUES(seq_images.NEXTVAL, 'test2.jpg', DEFAULT, 53);
 INSERT INTO images VALUES(seq_images.NEXTVAL, 'test3.jpg', DEFAULT, 53);
-INSERT INTO images VALUES(seq_images.NEXTVAL, 'test1.jpg', DEFAULT, 54);
-INSERT INTO images VALUES(seq_images.NEXTVAL, 'test2.jpg', DEFAULT, 54);
-INSERT INTO images VALUES(seq_images.NEXTVAL, 'test3.jpg', DEFAULT, 54);
-INSERT INTO images VALUES(seq_images.NEXTVAL, 'test1.jpg', DEFAULT, 55);
-INSERT INTO images VALUES(seq_images.NEXTVAL, 'test2.jpg', DEFAULT, 55);
-INSERT INTO images VALUES(seq_images.NEXTVAL, 'test3.jpg', DEFAULT, 55);
+
 
 -- レコード登録(いいね)
 INSERT INTO favorite VALUES(seq_favorite.NEXTVAL, DEFAULT, 1, 2);
@@ -318,4 +311,3 @@ INSERT INTO favorite VALUES(seq_favorite.NEXTVAL, DEFAULT, 2, 1);
 
 -- コミット
 COMMIT;
-

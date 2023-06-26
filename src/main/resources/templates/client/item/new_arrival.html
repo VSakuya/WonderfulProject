@@ -12,9 +12,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-	<title>商品詳細</title>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 </head>
 
@@ -31,19 +28,23 @@
 				<th th:text="#{itemForm.price}"></th>
 			</tr>
 
-
-
-		 <tr th:each="item, status: ${itemList}">
-		 	<td th:text="${status.count}"></td>
-		 	<td>
-		 	<div class="icon-medium block-center">
-			<img th:src="@{/static/images/} + ${item.imageList[0].imagePath}"/>
-			</div>
-			</td>
-			
-
-		 	<td><a th:href="@{/client/item/detail/} + ${item.id}" th:text="${item.name}"></a></td>
-		 	<td th:text="${item.price}"></td>
+			<tr th:each="item, status: ${itemList}">
+				<td th:text="${status.count}"></td>
+				<td>
+					<div class="icon-medium block-center">
+						<a th:href="@{/client/item/detail/} + ${item.id}">
+							<img class="icon-img" th:src="@{/images/} + ${item.imageList[0].imagePath}" />
+						</a>
+					</div>
+					<!--		 	<td><a th:href="@{/client/item/detail/{id}(id = ${items.id})}" th:text="${items.name}"></a></td>-->
+				<td>
+					<h2>
+						<a th:href="@{/client/item/detail/} + ${item.id}" th:text="${item.name}"></a>
+					</h2>
+				</td>
+				<td th:text="${item.price}"></td>
+				<!--			 	<td th:text="${item.items.images.imagePath}"></td>-->
+				<!--			<td><img th:src="@{/client/item/detail/{id}(id = ${item.items.id})}"></td>  -->
 
 			</tr>
 
