@@ -42,6 +42,7 @@ public class ClientUserShowController {
 		// セッション保持情報から値を再取得
 		UserBean userBean = (UserBean) session.getAttribute("user");
 
+		if (userBean != null) {
 		// Beanに保存した値からユーザー名を取得
 		String name = userBean.getName();
 
@@ -53,5 +54,8 @@ public class ClientUserShowController {
 
 		// 会員詳細画面を表示
 		return "client/user/detail";
+		} else {
+			return "redirect:/login";
+		}
 	}
 }

@@ -6,15 +6,12 @@ import java.util.List;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import jp.co.sss.shop.bean.ItemBean;
 import jp.co.sss.shop.bean.UserBean;
 import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
@@ -114,19 +111,21 @@ public class ClientItemShowController {
 	 * @return "client/item/new_arrival"商品新着順画面
 	 * @author Tomita
 	 */
+	//@RequestMapping(path="/client/item/new_arrival", method =  RequestMethod.GET)
+	//public String newArrival(Model model, Pageable pageable) {
+		//<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
+		//List<Item> itemList = itemsPage.getContent();
 
+		//model.addAttribute("itemsPage", itemsPage);
+		//model.addAttribute("itemList", itemList );
 
-
-
-
-	@RequestMapping(path="/client/item/new_arrival", method =  RequestMethod.GET)
-	public String newArrival(Model model, Pageable pageable) {
-		Page<Object[]> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
-		List<Object[]> itemList = itemsPage.getContent();
-
-		model.addAttribute("itemsPage", itemsPage);
-		model.addAttribute("itemList", itemList );
-
+		//return"client/item/new_arrival";
+	//}
+	@RequestMapping(path = "client/item/new_arrival", method = RequestMethod.GET)
+	public String newArrival(Model model) {
+		List<Item> itemList =  itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED);
+		List<Item> sbList = itemList.subList(0, 10);
+		model.addAttribute("itemList", sbList);
 		return"client/item/new_arrival";
 	}
 
@@ -139,7 +138,8 @@ public class ClientItemShowController {
 	@RequestMapping("/client/item/hot_seller")
 	public String showFindDateForRanking(Model model) {
 		List<Item> itemList = itemRepository.findDataForHotSell();
-		model.addAttribute("items", itemList);
+		List<Item> sbList = itemList.subList(0,10);
+		model.addAttribute("items", sbList);
 		return "client/item/hot_seller";
 
 	}

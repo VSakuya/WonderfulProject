@@ -4,17 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.BasketBean;
 import jp.co.sss.shop.bean.OrderItemBean;
 import jp.co.sss.shop.bean.UserBean;
+import jp.co.sss.shop.entity.Image;
 import jp.co.sss.shop.entity.Item;
+import jp.co.sss.shop.entity.Order;
 import jp.co.sss.shop.entity.OrderItem;
 import jp.co.sss.shop.entity.User;
 import jp.co.sss.shop.form.OrderForm;
@@ -74,27 +80,35 @@ public class ClientOrderRegistController {
 	}
 	
 	@RequestMapping(path = "/client/order/address/input", method = RequestMethod.GET)
-	public String inputAddress(Model model) {
+	public String inputAddress(OrderForm form) {
 		
-//		OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
-		
-//		if (result.hasErrors()) {
-//			session.setAttribute("result", result);
-//		}
-		
-//		session.setAttribute("orderForm", orderForm);
+		OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
 		
 		return "client/order/address_input";
 	}
 	
 	
 	@RequestMapping(path = "/client/order/payment/input", method = RequestMethod.POST)
-	public String payment(OrderForm orderForm) {
+	public String payment(@Valid @ModelAttribute OrderForm orderForm, BindingResult result) {
 		
 		UserBean userBean = (UserBean) session.getAttribute("user");
 		if (userBean != null) {
 			
-			session.setAttribute("orderForm", orderForm);
+			if (result.hasErrors()) {
+				
+				session.setAttribute("result", result);
+				
+				return "redirect:/client/order/address/input";
+			}
+			
+			OrderForm exOrderForm = (OrderForm) session.getAttribute("orderForm"); 
+			
+			exOrderForm.setAddress(orderForm.getAddress());
+			exOrderForm.setPostalCode(orderForm.getPostalCode());
+			exOrderForm.setName(orderForm.getName());
+			exOrderForm.setPhoneNumber(orderForm.getPhoneNumber());
+			
+			session.setAttribute("orderForm", exOrderForm);
 			
 			return "redirect:/client/order/payment/input";
 			
@@ -189,13 +203,17 @@ public class ClientOrderRegistController {
 		OrderItemBean orderItemBean = new OrderItemBean();
 		
 		for (int i = 0; i < basketList.size(); i++) {
-			
+			//
 			basketItem = basketList.get(i);
 			
 			int id = basketItem.getId();
 			Item item = itemRepository.getReferenceById(id);
 			
 			orderItemBean = beanTools.generateOrderItemBean(item, basketItem);
+			Image image = (item.getImageList()).get(0);
+			String imagePath = image.getImagePath();
+			orderItemBean.setImage(imagePath);
+			
 			orderList.add(orderItemBean);
 			
 			total += basketItem.getOrderNum() * item.getPrice();
@@ -222,87 +240,92 @@ public class ClientOrderRegistController {
 		
 	}
 	
-/*
-	UserBean userBean = (UserBean) session.getAttribute("user");
-	if (userBean != null) {
-		
-	} else {
-		return "redirect:/login";
-	}
-*/	
-	
 	
 	@RequestMapping(path = "/client/order/complete", method = RequestMethod.POST)
 	public String complete(Model model) {
 		
-		OrderForm orderForm = (OrderForm) session.getAttribute("ex");
-		
-		@SuppressWarnings("unchecked")
-		List<OrderItem> orderList = (List<OrderItem>) session.getAttribute("orderItems");
-		
-		@SuppressWarnings("unchecked")
-		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("baskets");
-		
-//		BasketBean basketItem;
-		
-		OrderItem orderItem;
-		
-		for (int i = 0; i < orderList.size(); i++) {						//買い物かご内商品の削除フラグチェック
+		UserBean userBean = (UserBean) session.getAttribute("user");
+		if (userBean != null) {
 			
-			orderItem = orderList.get(i);
-			int itemId = orderItem.getId();
+			@SuppressWarnings("unchecked")
+			List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("baskets");
+			BasketBean basketItem;
 			
-			Item item = itemRepository.getReferenceById(itemId);
-			
-			if(item.getDeleteFlag() == 1) {
-				orderList.remove(i);
+			for (int i = 0; i < basketList.size(); i++) {						//商品のチェック
+				
+				basketItem = basketList.get(i);
+				
+				if (basketItem.getStock() == 0) {								//在庫切れの場合
+					
+					basketList.remove(i);
+					session.setAttribute("baskets", basketList);
+					model.addAttribute("stockNone", basketItem.getName());
+					
+				}
 			}
+			
+			Order order = new Order();
+			
+			OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");			//注文情報（住所や電話番号）
+			
+			@SuppressWarnings("unchecked")
+			List<OrderItemBean> orderItemBeanList = (List<OrderItemBean>) session.getAttribute("orderItems");
+			List<OrderItem> orderItemList = new ArrayList<>();
+			
+			for (int i = 0; i < orderItemBeanList.size(); i++) {
+				
+				OrderItem orderItem = new OrderItem();
+				Item item = new Item();
+				
+				OrderItemBean orderItemBean = orderItemBeanList.get(i);
+				int id  = orderItemBean.getId();
+				item = itemRepository.getReferenceById(id);
+				System.out.println(item.getName());
+				BeanUtils.copyProperties(orderItemBean, orderItem, "id");
+				
+				orderItem.setPrice(orderItemBean.getPrice());
+				orderItem.setQuantity(orderItemBean.getOrderNum());
+				orderItem.setItem(item);
+				
+				orderItemList.add(orderItem);
+				
+			}
+			
+			for (int i = 0; i < orderItemList.size(); i++) {		//orderItemList内チェック
+				OrderItem orderItem = orderItemList.get(i);
+				Item item = orderItem.getItem();
+				System.out.println(item.getName());
+			}
+			
+			User user = userRepository.getReferenceById(userBean.getId());
+			order.setUser(user);
+			order.setOrderItemsList(orderItemList);
+			BeanUtils.copyProperties(orderForm, order, "id");
+			orderRepository.save(order);
+			
+			
+			
+			
+			for (int i = 0; i < orderItemList.size(); i++) {
+				
+				OrderItem orderItem = new OrderItem();
+				orderItem = orderItemList.get(i);
+				Item item = orderItem.getItem();
+				orderItem.setItem(item);
+				orderItem.setOrder(order);
+				orderItemRepository.save(orderItem);
+			}
+			
+			
+			
+			session.removeAttribute("orderForm");
+			session.removeAttribute("baskets");
+			
+			return "redirect:/client/order/complete";
+			
+		} else {
+			return "redirect:/login";
 		}
-		
-//		for (int i = 0; i < orderList.size(); i++) {						//買い物かご内商品のチェック
-//			
-//			orderItem = orderList.get(i);
-//			
-//			if ((orderItem.getItem()).getStock() == 0) {								//在庫切れの場合
-//				
-//				orderList.remove(i);
-//				session.setAttribute("baskets", orderList);
-//				model.addAttribute("stockNone", (orderItem.getItem()).getName());
-//				
-//			} else if (basketItem.getOrderNum() > (orderItem.getItem()).getStock()) {	//注文数が在庫を超えている場合
-//				
-//				orderItem.setOrderNum((orderItem.getItem()).getStock());
-//				basketList.set(i, basketItem);
-//				session.setAttribute("baskets", basketList);
-//				model.addAttribute("stockShort", basketItem.getName());
-//				
-//			}
-//		}
-//		
-//		Order order = new Order();
-//		
-//		UserBean userBean = (UserBean) session.getAttribute("user");
-//		int userId = userBean.getId();
-//		User user = userRepository.findByIdAndDeleteFlag(userId, 0);
-//		
-//		BeanUtils.copyProperties(orderForm, order);
-//		BeanUtils.copyProperties(orderList, order);
-//		BeanUtils.copyProperties(user, order);
-//		
-//		orderRepository.save(order);
-//		
-//		OrderItem orderItems = new OrderItem();
-//		
-//		for (int i = 0; i < orderList.size(); i++) {						//買い物かご内商品のチェック
-//			
-//			orderItem = orderList.get(i);
-//			
-//			
-//		}
-//		
-//		BeanUtils.copyProperties(orderList, orderItems);
-		
-		return "redirect:/client/order/complete";
 	}
 	
 	
@@ -311,19 +334,6 @@ public class ClientOrderRegistController {
 		return "client/order/complete";
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
