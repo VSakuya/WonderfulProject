@@ -81,6 +81,8 @@ public class ClientBasketController {
 					}
 				}
 
+//				List<String> 
+
 				for (int i = 0; i < basketList.size(); i++) {						//買い物かご内商品のチェック
 
 					basketItem = basketList.get(i);
