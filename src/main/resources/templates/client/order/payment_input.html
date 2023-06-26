@@ -15,7 +15,7 @@
 	<div class="container-10">
 		<form method="post" th:action="@{/client/order/check}" class="user_info_form was-validated">
 			<div class="form-check mt-3">
-				<input class="form-check-input" type="radio" name="payMethod" id="payMethod_1" value="1" required>
+				<input class="form-check-input" type="radio" name="payMethod" id="payMethod_1" value="1" checked required>
 				<label class="form-check-label" for="payMethod_1" th:text="#{paymethod.credit.str}">
 				  Default radio
 				</label>

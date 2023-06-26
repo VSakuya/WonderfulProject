@@ -83,11 +83,6 @@ public class ClientOrderRegistController {
 	public String inputAddress(OrderForm form) {
 		
 		OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
-//		model.addAttribute("orderForm", orderForm);
-//		
-//		if (result.hasErrors()) {
-//			session.setAttribute("result", result);
-//		}
 		
 		return "client/order/address_input";
 	}
