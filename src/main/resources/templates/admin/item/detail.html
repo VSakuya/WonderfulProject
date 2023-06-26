@@ -13,11 +13,9 @@
 	<div class="info_form_area" th:object="${item}">
 		<div class="item_detail_area">
 			<div class="item_image_area">
-				<span th:if="*{image != null}">
-					<img th:src="@{/static/images/} + ${item.imageList[0].imagePath}"></img>
-				</span>
-				<span th:if="*{image == null}">
-					<img th:src="@{/images/common/no_image.jpg}"></img>
+				<span>
+					<img th:if="!${#lists.isEmpty(item.imageList)}" th:each="image : *{imageList}" th:src="@{/images/} + ${image.imagePath}"></img>
+					<img th:if="${#lists.isEmpty(item.imageList)}" th:src="@{/images/common/no_image.jpg}"></img>
 				</span>
 			</div>
 			<dl class="item_detail_list">
@@ -28,7 +26,7 @@
 				<dt>[[#{itemForm.stock}]]</dt>
 				<dd th:text="*{stock}"></dd>
 				<dt>[[#{data.category}]]</dt>
-				<dd th:text="*{categoryName}"></dd>
+				<dd th:text="*{category.name}"></dd>
 				<dt>[[#{itemForm.description}]]</dt>
 				<dd th:text="*{description}"></dd>
 			</dl>

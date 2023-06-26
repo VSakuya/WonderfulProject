@@ -1,6 +1,7 @@
 package jp.co.sss.shop.form;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotBlank;
@@ -15,9 +16,9 @@ import jp.co.sss.shop.annotation.ItemCheck;
  * 商品情報のフォーム
  *
  * @author SystemShared
- * 
+ *
  * TIPS 入力チェックアノテーションのmessage属性に"{messages.propertiesで指定した名前}"と記述することができます。
- * 
+ *
  */
 @ItemCheck
 public class ItemForm implements Serializable {
@@ -57,12 +58,18 @@ public class ItemForm implements Serializable {
 	/**
 	 * 商品画像ファイル
 	 */
-	private MultipartFile imageFile;
+	private MultipartFile[] imageFiles;
 
 	/**
 	 * 商品画像ファイル名
 	 */
-	private String image;
+	private ArrayList<String> images = new ArrayList<>();
+
+
+	/**
+	 * 画像ファイルが変更されるかどうか
+	 */
+	private boolean hasImageFilesChange;
 
 	/**
 	 * カテゴリID
@@ -158,32 +165,32 @@ public class ItemForm implements Serializable {
 	 * 画像ファイルの取得
 	 * @return 画像ファイル
 	 */
-	public MultipartFile getImageFile() {
-		return imageFile;
+	public MultipartFile[] getImageFiles() {
+		return imageFiles;
 	}
 
 	/**
 	 * 画像ファイルのセット
 	 * @param imageFile 画像ファイル
 	 */
-	public void setImageFile(MultipartFile imageFile) {
-		this.imageFile = imageFile;
+	public void setImageFiles(MultipartFile[] imageFiles) {
+		this.imageFiles = imageFiles;
 	}
 
 	/**
 	 * 画像ファイル名の取得
 	 * @return 画像ファイル名
 	 */
-	public String getImage() {
-		return image;
+	public ArrayList<String> getImages() {
+		return images;
 	}
 
 	/**
 	 * 画像ファイル名のセット
 	 * @param image 画像ファイル名
 	 */
-	public void setImage(String image) {
-		this.image = image;
+	public void setImages(ArrayList<String> images) {
+		this.images = images;
 	}
 
 	/**
@@ -217,4 +224,14 @@ public class ItemForm implements Serializable {
 	public void setCategoryName(String categoryName) {
 		this.categoryName = categoryName;
 	}
+
+	public boolean isHasImageFilesChange() {
+		return hasImageFilesChange;
+	}
+
+	public void setHasImageFilesChange(boolean hasImageFilesChange) {
+		this.hasImageFilesChange = hasImageFilesChange;
+	}
+
+
 }

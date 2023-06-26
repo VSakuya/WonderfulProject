@@ -34,7 +34,7 @@ public class Constant {
 	public static final String IMAGE_FOLDER = "/images/";
 
 	/** ユーザー画像ファイル保存用フォルダの名前 */
-	public static final String USER_IMAGE_FOLDER = "/images/user_images/";
+	public static final String USER_IMAGE_FOLDER = "images/user_images/";
 
 	/** サイド画像ファイル保存用フォルダの名前 */
 	public static final String WEB_IMAGE_FOLDER = "/images/web_images/";
