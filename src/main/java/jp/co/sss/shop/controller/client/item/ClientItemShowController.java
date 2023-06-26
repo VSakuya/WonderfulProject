@@ -116,27 +116,12 @@ public class ClientItemShowController {
 		//<Item> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
 		//List<Item> itemList = itemsPage.getContent();
 
-<<<<<<< HEAD
-	@RequestMapping(path="/client/item/new_arrival", method =  RequestMethod.GET)
-	public String newArrival(Model model, Pageable pageable) {
-		Page<Object[]> itemsPage = itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED, pageable);
-		List<Object[]> itemList = itemsPage.getContent();
 
-		model.addAttribute("itemsPage", itemsPage);
-		model.addAttribute("itemList", itemList );
-
-=======
-		//model.addAttribute("itemsPage", itemsPage);
-		//model.addAttribute("itemList", itemList );
-
-		//return"client/item/new_arrival";
-	//}
 	@RequestMapping(path = "client/item/new_arrival", method = RequestMethod.GET)
 	public String newArrival(Model model) {
 		List<Item> itemList =  itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED);
 		List<Item> sbList = itemList.subList(0, 10);
 		model.addAttribute("itemList", sbList);
->>>>>>> fcf39eb73a7043d48f1dd0effda35351f4e535cb
 		return"client/item/new_arrival";
 	}
 
