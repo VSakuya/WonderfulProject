@@ -58,10 +58,9 @@
 						</form>
 					</div>
 
-					<th:bllock th:if="${item.stock gt 0}">
-					<div class="col-auto">
-
+				               
 					<div class="col-7">
+					<th:block th:if="${item.stock gt 0}">
 						<form th:action="@{/client/basket/add}" , method="post">
 							<input type="hidden" name="id" th:value="${item.id}">
 							<button type="submit" class="btn btn-dark auto_adjust" style="font-size: 1vw;">
@@ -70,8 +69,8 @@
 							</button>
 							<!-- <input type="submit" value="買い物かごに入れる" class="send_button" /> -->
 						</form>
+						</th:block>
 					</div>
-					</th:block>
 				</div>
 			</div>
 			<div class="col-8 p-4">
