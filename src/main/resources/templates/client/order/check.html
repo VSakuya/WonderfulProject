@@ -12,8 +12,21 @@
 	<div class="container-70">
 		<h2 class="title" th:text="#{title.order.check}">
 		</h2>
+		<!--  注文不可の場合のメッセージ  -->
+		<div th:if="${session.orderItems == null}">
+			<p th:text="#{msg.order.stop}"></p>
+		</div>
+		<!--  商品の在庫がない場合のメッセージ    -->
+		<div th:if="${stockNone != null}" th:each="none:${stockNone}">
+			<h4 th:text="#{msg.order.item.stock.none(${none})}"></h4>
+		</div>
+		
+		<!--  商品の注文数が在庫を超えた場合のメッセージ    -->
+		<div th:if="${stockShort != null}" th:each="short:${stockShort}">
+			<span th:text="#{msg.order.item.stock.short(${short})}"></span>
+		</div>
 		<br />
-		<table class="table table-hover table-striped table-bordered">
+		<table class="table table-hover table-striped table-bordered" th:if="${session.orderItems != null}">
 			<thead class="table-dark">
 				<tr>
 					<th th:text="#{data.item.name}">
@@ -31,10 +44,14 @@
 			<tr th:each="item: ${session.orderItems}">
 				<td th:text="${item.name}">
 				</td>
-				<td>
-				<img th:src="@{/static/images/} + ${item.image}" th:if="${item.image != null}" />
-				<img th:src="@{/images/common/no_image.jpg}" th:if="${item.image == null}" />
-				</td>
+
+				<!--
+						<td>
+							<img th:src="@{/images/} + ${item.item.imageList[0].imagePath}"　th:if="${item.item.imageList[0].imagePath != null}" />
+					<img th:src="@{/images/common/no_image.jpg}" th:if="${item.item.imageList[0].imagePath == null}" />
+						</td>
+						-->
+				<td>画像</td>
 				<td th:text="${item.price}">
 				</td>
 				<td th:text="${item.orderNum}">
@@ -50,7 +67,7 @@
 				</td>
 			</tr>
 		</table>
-		<div class="user_info_form_area">
+		<div class="user_info_form_area" th:if="${session.orderItems != null}">
 			<caption class="table_caption">
 				<h2 th:text="#{data.address}"></h2>
 			</caption>
@@ -105,6 +122,10 @@
 					<input class="btn btn-dark btn-lg" type="submit" value="ご注文の確定" />
 				</form>
 			</div>
+		</div>
+		<!--  注文不可時トップへ戻る  -->
+		<div th:if="${session.orderItems == null}">
+			<a th:href="@{/}" th:text="#{msg.back.to.top}">
 		</div>
 	</div>
 </body>

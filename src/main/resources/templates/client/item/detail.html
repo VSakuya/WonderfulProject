@@ -30,7 +30,7 @@
 					<div class="carousel-inner" role="listbox">
 						<div th:each="img, imgStat : ${item.imageList}" class="carousel-item"
 							th:classappend="${imgStat.index == 0} ? 'active' : ''">
-							<img th:src="@{/static/images/} + ${img.imagePath}" class="w-100 d-block">
+							<img th:src="@{/images/} + ${img.imagePath}" class="w-100 d-block">
 						</div>
 					</div>
 					<button class="carousel-control-prev" type="button" data-bs-target="#carouselId"

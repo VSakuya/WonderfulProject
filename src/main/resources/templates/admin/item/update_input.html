@@ -48,13 +48,17 @@
 				</li>
 				<li>
 					<label><span class="input_title">[[#{data.item.image}]]</span></label>
-					<input type="file" id="upload_file" th:field="*{imageFile}" />
+					<img th:if="!${#lists.isEmpty(itemForm.images)}" th:each="image : *{images}" th:src="@{/images/} + ${image}"></img>
+					<img th:if="${#lists.isEmpty(itemForm.images)}" th:src="@{/images/common/no_image.jpg}"></img>
+					<input type="file" id="img_upload" name="imageFiles" enctype="multipart/form-data" multiple />
+					<div id="image_preview_container"></div>
+					<!-- <input type="file" id="upload_file" th:field="*{imageFile}" />
 					<span th:unless="*{#strings.isEmpty(image)}">
 						<img th:src="@{/images/{image}(image=*{image})}"></img>
 					</span>
 					<span th:if="*{#strings.isEmpty(image)}">
 						<img th:src="@{/images/common/no_image.jpg}"></img>
-					</span>
+					</span> -->
 				</li>
 			</ul>
 			<input type="hidden" th:field="*{id}" />
@@ -64,6 +68,28 @@
 			<input type="submit" value="戻る" class="back_button" />
 		</form>
 	</div>
+
+	<script>
+		document.getElementById('img_upload').addEventListener('change', function (event) {
+			var imageContainer = document.getElementById('image_preview_container');
+			imageContainer.innerHTML = '';
+
+			var files = event.target.files;
+			for (var i = 0; i < files.length; i++) {
+				var file = files[i];
+				var reader = new FileReader();
+
+				reader.onload = function (event) {
+					var image = new Image();
+					image.src = event.target.result;
+					imageContainer.appendChild(image);
+				};
+
+				reader.readAsDataURL(file);
+			}
+		});
+
+	</script>
 </body>
 
 </html>

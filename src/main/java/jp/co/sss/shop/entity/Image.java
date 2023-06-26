@@ -110,6 +110,6 @@ public class Image {
 	public void setItems(Item items) {
 		this.items = items;
 	}
-	
-	
+
+
 }

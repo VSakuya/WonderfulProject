@@ -1,6 +1,5 @@
 package jp.co.sss.shop.controller.client.favorite;
 
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
