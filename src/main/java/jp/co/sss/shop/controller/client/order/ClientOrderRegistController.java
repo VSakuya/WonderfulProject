@@ -102,21 +102,6 @@ public class ClientOrderRegistController {
 		}
 	}
 
-	
-	
-	
-	/**
-	//ログインチェックを行う　ログイン情報がなければログイン画面へ遷移
-	UserBean userBean = (UserBean) session.getAttribute("user");
-	if (userBean != null) {
-
-		
-
-	} else {
-		return "redirect:/login";
-	}
-	 */
-	
 	/**
 	 * 届け先入力画面へ遷移
 	 * 

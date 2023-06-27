@@ -44,14 +44,13 @@
 			<tr th:each="item: ${session.orderItems}">
 				<td th:text="${item.name}">
 				</td>
+				<td class="icon-small">
+					<div class="icon-medium block-center">
+					<img class="icon-img" th:src="@{/images/} + ${item.image}"　th:if="${item.image != null}" />
+					<img class="icon-img" th:src="@{/images/common/no_image.jpg}" th:if="${item.image == null}" />
+					</div>
+				</td>
 
-				<!--
-						<td>
-							<img th:src="@{/images/} + ${item.item.imageList[0].imagePath}"　th:if="${item.item.imageList[0].imagePath != null}" />
-					<img th:src="@{/images/common/no_image.jpg}" th:if="${item.item.imageList[0].imagePath == null}" />
-						</td>
-						-->
-				<td>画像</td>
 				<td th:text="${item.price}">
 				</td>
 				<td th:text="${item.orderNum}">
