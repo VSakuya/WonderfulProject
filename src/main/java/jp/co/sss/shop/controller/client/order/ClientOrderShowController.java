@@ -66,33 +66,39 @@ public class ClientOrderShowController {
 	 */
 	@RequestMapping(path = "/client/order/list", method = { RequestMethod.GET, RequestMethod.POST })
 	public String showOrderList(Model model, Pageable pageable) {
-		
-		Integer userId = ((UserBean) session.getAttribute("user")).getId();
-		User user = userRepository.findByIdAndDeleteFlag(userId, Constant.NOT_DELETED);
-		
-		// すべての注文情報を取得(注文日降順)
-		Page<Order> orderListPage = orderRepository.findByIdOrderByInsertdateDescIdDesc(user, pageable);
-		
-		List<Order> orderList = orderListPage.getContent();
-		
-		// 注文情報リストを生成
-		List<OrderBean> orderBeanList = new ArrayList<OrderBean>();
-		
-		for (Order order : orderList) {
-			// 表示する注文情報を生成
-			OrderBean orderBean = beanTools.copyEntityToOrderBean(order);
-			//orderレコードから紐づくOrderItemのListを取り出す
-			List<OrderItem> orderItemList = order.getOrderItemsList();
-			//合計金額の算出
-			int total = priceCalc.orderItemPriceTotal(orderItemList);
-			//合計金額のセット
-			orderBean.setTotal(total);
-			orderBeanList.add(orderBean);
+		UserBean userBean = (UserBean) session.getAttribute("user");
+		if (userBean != null) {
+			Integer userId = ((UserBean) session.getAttribute("user")).getId();
+			User user = userRepository.findByIdAndDeleteFlag(userId, Constant.NOT_DELETED);
+			
+			// すべての注文情報を取得(注文日降順)
+			Page<Order> orderListPage = orderRepository.findByIdOrderByInsertdateDescIdDesc(user, pageable);
+			
+			List<Order> orderList = orderListPage.getContent();
+			
+			// 注文情報リストを生成
+			List<OrderBean> orderBeanList = new ArrayList<OrderBean>();
+			
+			for (Order order : orderList) {
+				// 表示する注文情報を生成
+				OrderBean orderBean = beanTools.copyEntityToOrderBean(order);
+				//orderレコードから紐づくOrderItemのListを取り出す
+				List<OrderItem> orderItemList = order.getOrderItemsList();
+				//合計金額の算出
+				int total = priceCalc.orderItemPriceTotal(orderItemList);
+				//合計金額のセット
+				orderBean.setTotal(total);
+				orderBeanList.add(orderBean);
+			}
+			// 注文情報リストをViewへ渡す
+			model.addAttribute("pages", orderList);
+			model.addAttribute("orders", orderBeanList);
+			return "client/order/list";
+			
+		} else {
+			return "redirect:/login";
 		}
-		// 注文情報リストをViewへ渡す
-		model.addAttribute("pages", orderList);
-		model.addAttribute("orders", orderBeanList);
-		return "client/order/list";
+		
 	}
 	/**
 	 * 詳細表示処理
