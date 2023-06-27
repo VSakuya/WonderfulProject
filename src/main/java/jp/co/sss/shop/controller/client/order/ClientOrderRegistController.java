@@ -117,12 +117,6 @@ public class ClientOrderRegistController {
 	}
 	 */
 	
-	
-	
-	
-	
-	
-	
 	/**
 	 * 届け先入力画面へ遷移
 	 * 
@@ -283,16 +277,17 @@ public class ClientOrderRegistController {
 			//在庫不足商品の商品名格納用リストの宣言
 			List<String> stockShortList = new ArrayList<>();
 			//商品の在庫チェック
-			for (int i = 0; i < basketList.size(); i++) {
+			int max = basketList.size();
+			for (int i = 0; i < max; i++) {
 
-				basketItem = basketList.get(i);
+				basketItem = basketList.get(i-stockNoneList.size());
 				int itemId = basketItem.getId();
 				//itemIdの取得　IdをもとにItem型の変数を作成
 				Item item = itemRepository.getReferenceById(itemId);
 				//該当商品が在庫切れの場合
 				if (item.getStock() == 0) {
 					//商品を削除
-					basketList.remove(i);
+					basketList.remove(i-stockNoneList.size());
 					//削除情報をセッションスコープに保存
 					session.setAttribute("baskets", basketList);
 					//在庫切れ商品の商品名をリストに追加
@@ -301,7 +296,7 @@ public class ClientOrderRegistController {
 				} else if (basketItem.getOrderNum() > item.getStock()) {
 					//注文数=在庫数に変更
 					basketItem.setOrderNum(item.getStock());
-					basketList.set(i, basketItem);
+					basketList.set(i-stockNoneList.size(), basketItem);
 					//更新した情報をセッションスコープに保存
 					session.setAttribute("baskets", basketList);
 					//在庫不足商品の商品名をリストに追加
