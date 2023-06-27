@@ -5,18 +5,26 @@ import java.util.List;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.sss.shop.bean.UserBean;
+import jp.co.sss.shop.entity.Category;
 import jp.co.sss.shop.entity.Favorite;
 import jp.co.sss.shop.entity.Item;
 import jp.co.sss.shop.entity.User;
+import jp.co.sss.shop.form.ListForm;
 import jp.co.sss.shop.repository.FavoriteRepository;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.repository.OrderItemRepository;
@@ -149,6 +157,41 @@ public class ClientItemShowController {
 		model.addAttribute("items", sbList);
 		return "client/item/hot_seller";
 
+	}
+
+
+	/**
+	 * 商品一覧ページ
+	 *
+	 * @param model テンプレートのmodel
+	 * @param listForm 検索用データ情報
+	 * @return ページ"client/item/list"
+	 * @author tan
+	 */
+	@RequestMapping(path = "/client/item/list", method = RequestMethod.GET)
+	public String itemList(@Valid @ModelAttribute ListForm listForm, BindingResult result, Pageable pageable, Model model) {
+		List<Item> rtItems 	= new ArrayList<>();
+		Page<Item> pageItems = new PageImpl<>(rtItems);
+		String searchStr 	= listForm.getSearchStr();
+		Integer minPrice 	= listForm.getMinPrice();
+		Integer maxPrice 	= listForm.getMaxPrice();
+		Integer isInstock	= listForm.getIsInstock();
+		Integer categoryId	= listForm.getCategoryId();
+
+		if (categoryId != -1) {
+			Category category = new Category();
+			category.setId(categoryId);
+			pageItems = itemRepository.findByCategoryAndDeleteFlag(category, 0, pageable);
+		}
+		else {
+			pageItems = itemRepository.findByStrAndPriceRange(searchStr, minPrice, maxPrice, 0, pageable);
+		}
+		rtItems = pageItems.getContent();
+
+
+		model.addAttribute("pageItems", pageItems);
+		model.addAttribute("items", rtItems);
+		return "client/item/list";
 	}
 
 }

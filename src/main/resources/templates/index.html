@@ -1,29 +1,44 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{client/layout/layout_5block :: layout(~{::title},~{::body/content()})}">
+	th:replace="~{client/layout/layout_3block_nav :: layout(~{::title},~{::body/content()})}">
+
 <head>
-<title th:text="#{top}+' | '+ #{shop.title}"> </title>
-<meta charset="UTF-8" />
+	<title th:text="#{top}+' | '+ #{shop.title}"> </title>
+	<meta charset="UTF-8" />
 </head>
+
 <body class="user index">
-	<div>
-		<h2 class="title">
-				<span th:if="${sortType==1}" th:text="#{sort.latest.title}"></span>
-				<span th:if="${sortType==2 || sortType==null}" th:text="#{sort.hotsell.title}"></span>
-		</h2>
-	</div>
-	<div th:if="${#lists.isEmpty(items)}">
-		<p th:text="#{msg.client.item.list.none}"></p>
-	</div>
-	<th:block th:each="item, status: ${items}" th:if="${status.count le 10}">
-		<!--/* 1件分の商品情報 */-->
-		<div class="item">
-			<div class="item_name" th:text="${item.name}"></div>
-			<a th:href="@{/client/item/detail/}+${item.id}">
-			    <img th:src="@{/images/{image}(image=${item.image})}" th:if="${item.image != null}" />
-			    <img th:src="@{/images/common/no_image.jpg}" th:if="${item.image == null}" />
-			</a>
+	<div class="top-page-container">
+		<div id="carouselId" class="carousel slide slider-container py-4" data-bs-ride="carousel">
+			<div class="carousel-inner" role="listbox">
+				<div th:each="img, imgStat : ${sliderImgs}" class="carousel-item"
+					th:classappend="${imgStat.index == 0} ? 'active' : ''">
+					<img th:src="@{${img}}" class="w-100 d-block">
+				</div>
+			</div>
+			<button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+			</button>
+			<button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+			</button>
 		</div>
-	</th:block>
+		<div class="d-flex justify-content-between py-4">
+			<div class="d-flex align-items-start hover_zoom">
+				<a th:href="@{/client/item/new_arrival}">
+					<img class="top-page__link-image" th:src="@{/static/images/web_images/home/new_arrival.png}" alt="">
+				</a>
+			</div>
+			<div class="d-flex align-items-end hover_zoom">
+				<a th:href="@{/client/item/hot_seller}">
+					<img class="top-page__link-image" th:src="@{/static/images/web_images/home/hot_seller.png}" alt="">
+				</a>
+			</div>
+		</div>
+
+	</div>
 </body>
+
 </html>
