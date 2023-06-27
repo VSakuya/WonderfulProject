@@ -53,57 +53,72 @@ public class ClientBasketController {
 	 */
 	@RequestMapping(path = "/client/basket/list", method = RequestMethod.GET)
 	public String showCart(Model model) {
-
+		//ログインチェック　ログイン情報がない場合ログイン画面に遷移
 		UserBean userBean = (UserBean) session.getAttribute("user");
 
 		if (userBean != null) {
-
-			if(session.getAttribute("baskets") == null) {							//買い物かごに商品が存在しない場合
+			//買い物かごに商品が存在しない場合　一覧画面に遷移
+			if(session.getAttribute("baskets") == null) {
 
 				return "client/basket/list";
 
-			} else {																//買い物かごに商品が存在する場合
-
+			} else {
+				//買い物かごに商品が存在する場合
 				@SuppressWarnings("unchecked")
 				List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("baskets");
-
 				BasketBean	basketItem;
 
-				for (int i = 0; i < basketList.size(); i++) {						//買い物かご内商品の削除フラグチェック
-
-					basketItem = basketList.get(i);
+				//買い物かご内商品の削除フラグチェック
+				int max = basketList.size();
+				List<String> deletedItem = new ArrayList<>();
+				for (int i = 0; i < max; i++) {
+					//買い物かご内商品情報の取得
+					basketItem = basketList.get(i-deletedItem.size());
 					int itemId = basketItem.getId();
-
 					Item item = itemRepository.getReferenceById(itemId);
-
+					//削除フラグが立っている場合
 					if(item.getDeleteFlag() == 1) {
-						basketList.remove(i);
+						basketList.remove(i-deletedItem.size());
+						deletedItem.add(item.getName());
 					}
+				}
+				//削除フラグチェック後買い物かご内に商品がない場合
+				if (basketList.size() == 0) {
+					session.removeAttribute("baskets");
+					return "client/basket/list";
 				}
 
 				List<String> stockNoneList = new ArrayList<>();
 				List<String> stockShortList = new ArrayList<>();
+				//在庫チェック
+				max = basketList.size();
+				for (int i = 0; i < max; i++) {
 
-				for (int i = 0; i < basketList.size(); i++) {						//買い物かご内商品のチェック
-
-					basketItem = basketList.get(i);
-
-					if (basketItem.getStock() == 0) {								//在庫切れの場合
-
-						basketList.remove(i);
+					basketItem = basketList.get(i-stockNoneList.size());
+					int itemId = basketItem.getId();
+					Item item = itemRepository.getReferenceById(itemId);
+					//商品が在庫切れの場合
+					if (item.getStock() == 0) {
+						//買い物かごリストから対象商品の削除
+						basketList.remove(i-stockNoneList.size());
 						session.setAttribute("baskets", basketList);
+						//在庫切れ商品の商品名をリストに保存
 						stockNoneList.add(basketItem.getName());
 
-					} else if (basketItem.getOrderNum() > basketItem.getStock()) {	//注文数が在庫を超えている場合
-
-						basketItem.setOrderNum(basketItem.getStock());
-						basketList.set(i, basketItem);
+					} else if (basketItem.getOrderNum() > item.getStock()) {
+						//商品の注文数が在庫を超えている場合　注文数＝在庫数に変更
+						basketItem.setOrderNum(item.getStock());
+						basketList.set(i-stockNoneList.size(), basketItem);
 						session.setAttribute("baskets", basketList);
+						//在庫を超えた商品の商品名をリストに保存
 						stockShortList.add(basketItem.getName());
 
 					}
 				}
-
+				if (basketList.size() == 0) {
+					session.removeAttribute("baskets");
+				}
+				//リクエストスコープに買い物かご内商品の在庫情報を保存
 				model.addAttribute("stockNone", stockNoneList);
 				model.addAttribute("stockShort", stockShortList);
 
@@ -129,41 +144,43 @@ public class ClientBasketController {
 		UserBean userBean = (UserBean) session.getAttribute("user");
 
 		if (userBean != null) {
-
-			if (session.getAttribute("baskets") == null) {			//買い物かごに商品がない場合　リストの生成
-
+			//買い物かごに商品が入っていない場合
+			if (session.getAttribute("baskets") == null) {
+				//BasketBean型の買い物かごリストの生成
 				List<BasketBean> basketList = new ArrayList<BasketBean>();
-
+				//商品情報の取得
 				Item item = itemRepository.getReferenceById(id);
 				BasketBean basketBean = new BasketBean(item.getId(), item.getName(), item.getStock());
 				basketList.add(basketBean);
-
+				//セッションスコープに買い物かごリスト情報を保存
 				session.setAttribute("baskets", basketList);
 
-			} else {												//買い物かごに商品がある場合
-
+			} else {
+				//買い物かごに商品が存在する場合
 				@SuppressWarnings("unchecked")
 				List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("baskets");
-
+				//商品情報の取得
 				Item item = itemRepository.getReferenceById(id);
-
-				for (int i = 0; i < basketList.size(); i++) {		//買い物かご内の重複チェック
+				//買い物かご内の重複チェック
+				for (int i = 0; i < basketList.size(); i++) {
 
 					BasketBean basketItem = basketList.get(i);
+					//追加したい商品が買い物かごに存在する場合
+					if (basketItem.getId() == id) {
+						//買い物かごリストから商品情報の取得
+						basketItem = basketList.get(i);
+						int orderNum = basketItem.getOrderNum();
+						//注文数を１増やす
+						basketItem.setOrderNum(orderNum += 1);
+						basketList.set(i, basketItem);
+						//買い物かご情報をセッションスコープに保存
+						session.setAttribute("baskets", basketList);
 
-					if (basketItem.getId() == id) {					//買い物かごに追加したい商品が存在する場合
-
-							basketItem = basketList.get(i);
-							int orderNum = basketItem.getOrderNum();
-							basketItem.setOrderNum(orderNum += 1);
-							basketList.set(i, basketItem);
-							session.setAttribute("baskets", basketList);
-
-							return "redirect:/client/basket/list";
+						return "redirect:/client/basket/list";
 
 					}
 				}
-															//買い物かごに追加したい商品が存在しない場合
+				//買い物かごに追加したい商品が存在しない場合
 				BasketBean basketBean = new BasketBean(item.getId(), item.getName(), item.getStock());
 				basketList.add(basketBean);
 				session.setAttribute("baskets", basketList);
@@ -215,8 +232,8 @@ public class ClientBasketController {
 				session.setAttribute("baskets", basketList);
 
 			} else {
-
-				basketItem.setOrderNum(orderNum -= 1);			//注文数が２つ以上の場合
+				//注文数が２つ以上の場合
+				basketItem.setOrderNum(orderNum -= 1);
 				basketList.set(listNum, basketItem);
 				session.setAttribute("baskets", basketList);
 
@@ -239,12 +256,12 @@ public class ClientBasketController {
 	 */
 	@RequestMapping(path = "/client/basket/deleteAll", method = RequestMethod.POST)
 	public String deleteAll() {
-
+		//ログインチェック　ログイン情報がなければログイン画面へ遷移
 		UserBean userBean = (UserBean) session.getAttribute("user");
 
 		if (userBean != null) {
-
-		session.removeAttribute("baskets");
+			//買い物かご情報を破棄
+			session.removeAttribute("baskets");
 
 		return "redirect:/client/basket/list";
 
