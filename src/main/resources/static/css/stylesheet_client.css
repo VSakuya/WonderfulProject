@@ -310,6 +310,14 @@ header {
     width: 60%;
 }
 
+.sidebar__categories-con a{
+    overflow: hidden;
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
 /* For elements in item list */
 .square-img-wrapper {
     position: relative;
@@ -325,4 +333,16 @@ header {
     /* Fill the square container */
     object-fit: cover;
     /* Maintain the image aspect ratio */
+}
+
+.card-body a{
+    overflow: hidden;
+    display: block;
+    width: 100%;
+}
+
+.card-title{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }

@@ -2,6 +2,7 @@ package jp.co.sss.shop.controller.client.item;
 
 
 import java.util.List;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
@@ -120,7 +121,12 @@ public class ClientItemShowController {
 	@RequestMapping(path = "client/item/new_arrival", method = RequestMethod.GET)
 	public String newArrival(Model model) {
 		List<Item> itemList =  itemRepository.findByDeleteFlagOrderByInsertDateDescIdDescPage(Constant.NOT_DELETED);
-		List<Item> sbList = itemList.subList(0, 10);
+		List<Item> sbList = new ArrayList<Item>();
+		if (itemList.size() >= 10) {
+			sbList = itemList.subList(0, 10);
+		}else {
+			sbList = itemList;
+		}
 		model.addAttribute("itemList", sbList);
 		return"client/item/new_arrival";
 	}
@@ -134,7 +140,12 @@ public class ClientItemShowController {
 	@RequestMapping("/client/item/hot_seller")
 	public String showFindDateForRanking(Model model) {
 		List<Item> itemList = itemRepository.findDataForHotSell();
-		List<Item> sbList = itemList.subList(0,10);
+		List<Item> sbList = new ArrayList<Item>();
+		if (itemList.size() >= 10) {
+			sbList = itemList.subList(0, 10);
+		}else {
+			sbList = itemList;
+		}
 		model.addAttribute("items", sbList);
 		return "client/item/hot_seller";
 
