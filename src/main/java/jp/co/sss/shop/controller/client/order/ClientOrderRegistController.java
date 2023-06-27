@@ -210,6 +210,7 @@ public class ClientOrderRegistController {
 		//セッションスコープより買い物かご情報の取得
 		@SuppressWarnings("unchecked")
 		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("baskets");
+
 		//BasketBean型の変数を宣言
 		BasketBean basketItem;
 		//合計金額変数の宣言
@@ -234,28 +235,37 @@ public class ClientOrderRegistController {
 		for (int i = 0; i < basketList.size(); i++) {
 
 			basketItem = basketList.get(i);
+			int itemId = basketItem.getId();
+			//itemIdの取得　IdをもとにItem型の変数を作成
+			Item item = itemRepository.getReferenceById(itemId);
 			//該当商品が在庫切れの場合
-			if (basketItem.getStock() == 0) {
+			if (item.getStock() == 0) {
 				//商品を削除
 				basketList.remove(i);
 				//削除情報をセッションスコープに保存
 				session.setAttribute("baskets", basketList);
 				//在庫切れ商品の商品名をリストに追加
-				stockNoneList.add(basketItem.getName());
+				stockNoneList.add(item.getName());
 				//注文数が在庫数を超えている場合
-			} else if (basketItem.getOrderNum() > basketItem.getStock()) {
+			} else if (basketItem.getOrderNum() > item.getStock()) {
 				//注文数=在庫数に変更
-				basketItem.setOrderNum(basketItem.getStock());
+				basketItem.setOrderNum(item.getStock());
 				basketList.set(i, basketItem);
 				//更新した情報をセッションスコープに保存
 				session.setAttribute("baskets", basketList);
 				//在庫不足商品の商品名をリストに追加
-				stockShortList.add(basketItem.getName());
+				stockShortList.add(item.getName());
 			}
 		}
 		//リクエストスコープに在庫切れ、在庫不足商品の情報を保存
 		model.addAttribute("stockNone", stockNoneList);
 		model.addAttribute("stockShort", stockShortList);
+		
+		if (basketList.size() == 0) {
+			session.removeAttribute("baskets");
+			session.removeAttribute("orderItems");
+			return "client/order/check";
+		}
 
 		List<OrderItemBean> orderList = new ArrayList<>();
 		OrderItemBean orderItemBean = new OrderItemBean();
@@ -325,10 +335,14 @@ public class ClientOrderRegistController {
 			for (int i = 0; i < basketList.size(); i++) {
 
 				basketItem = basketList.get(i);
+				//商品IDをもとにItem型の変数を作成
+				int id = basketItem.getId();
+				Item item = itemRepository.getReferenceById(id);
 				//商品が在庫切れの場合
-				if (basketItem.getStock() == 0) {
+				if (item.getStock() == 0 || basketItem.getOrderNum() > item.getStock()) {
 					//注文内容確認画面へリダイレクト
 					return "redirect:/client/order/check";
+
 				}
 			}
 
