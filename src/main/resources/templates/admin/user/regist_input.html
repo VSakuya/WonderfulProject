@@ -12,7 +12,7 @@
 	<p th:class="input_message" th:text="#{msg.regist.input}"></p>
 
 	<div class="user_info_form_area">
-		<form th:action="@{/admin/user/regist/check}" method="post" class="user_info_form" th:object="${userForm}">
+		<form th:action="@{/admin/user/regist/check}" method="post" class="user_info_form login_form" th:object="${userForm}">
 			<th:block th:if="${#fields.hasErrors()}">
 				<ul class="error_list">
 					<li th:each="err:${#fields.detailedErrors()}" th:text="${err.message}"></li>
