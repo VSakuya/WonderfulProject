@@ -52,7 +52,10 @@ public class ClientUserUpdateController {
 			// セッション情報がない場合、詳細画面からの遷移と判断し初期値を準備
 			// 変更対象の情報取得
 			UserBean userBean = (UserBean) session.getAttribute("user");
-
+			if(userBean == null) {
+				return "redirect:/login";
+			}
+			
 			// Beanに保存した値からユーザー名を取得
 			String name = userBean.getName();
 
@@ -83,7 +86,7 @@ public class ClientUserUpdateController {
 		UserUpdateForm userForm = (UserUpdateForm) session.getAttribute("userForm");
 		if (userForm == null) {
 			// セッション情報がない場合、
-			return "redirect:/syserror";
+			return "redirect:/login";
 		}
 			// 入力フォーム情報を画面表示設定
 			model.addAttribute("userForm", userForm);
@@ -108,7 +111,7 @@ public class ClientUserUpdateController {
 		UserUpdateForm lastUserForm = (UserUpdateForm) session.getAttribute("userForm");
 		if (lastUserForm == null) {
 			// セッション情報が無い場合
-			return "redirect:/";
+			return "redirect:/login";
 		}
 		if (form.getAuthority() == null) {
 			//権限情報がない場合、セッション情報から値をセット
