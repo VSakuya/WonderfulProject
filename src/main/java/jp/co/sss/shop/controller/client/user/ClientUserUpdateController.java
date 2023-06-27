@@ -130,6 +130,18 @@ public class ClientUserUpdateController {
 			return "redirect:/client/user/update/input";
 
 		}
+		
+		UserBean userBean = (UserBean) session.getAttribute("user");
+		
+		User loginUser = userRepository.findByName(userBean.getName());
+		
+		User user = userRepository.findByEmail(form.getEmail());
+		
+		if (user != null && user.getId() != loginUser.getId()) {
+			
+			session.setAttribute("{userRegist.duplicate.message}", result);
+			return "redirect:/client/user/update/input";
+		}
 
 		//変更確認画面　表示処理
 		return "redirect:/client/user/update/check";
