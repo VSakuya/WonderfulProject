@@ -109,6 +109,8 @@ public class ClientOrderShowController {
 	 */
 	@RequestMapping(path = "/client/order/detail/{id}")
 	public String showOrder(@PathVariable int id, Model model) {
+		UserBean userBean = (UserBean) session.getAttribute("user");
+		if (userBean != null) {
 		// 選択された注文情報に該当する情報を取得
 		Order order = orderRepository.getReferenceById(id);
 		// 表示する注文情報を生成
@@ -122,5 +124,8 @@ public class ClientOrderShowController {
 		model.addAttribute("orderItemBeans", orderItemBeanList);
 		model.addAttribute("total", total);
 		return "client/order/detail";
+		} else {
+			return "redirect:/login";
+		}
 	}
 }
