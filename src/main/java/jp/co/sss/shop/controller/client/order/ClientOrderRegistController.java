@@ -102,6 +102,27 @@ public class ClientOrderRegistController {
 		}
 	}
 
+	
+	
+	
+	/**
+	//ログインチェックを行う　ログイン情報がなければログイン画面へ遷移
+	UserBean userBean = (UserBean) session.getAttribute("user");
+	if (userBean != null) {
+
+		
+
+	} else {
+		return "redirect:/login";
+	}
+	 */
+	
+	
+	
+	
+	
+	
+	
 	/**
 	 * 届け先入力画面へ遷移
 	 * 
@@ -109,12 +130,19 @@ public class ClientOrderRegistController {
 	 */
 	@RequestMapping(path = "/client/order/address/input", method = RequestMethod.GET)
 	public String inputAddress(OrderForm form) {
-		
-		OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
-		//届け先入力画面へ遷移
-		return "client/order/address_input";
+		//ログインチェックを行う　ログイン情報がなければログイン画面へ遷移
+		UserBean userBean = (UserBean) session.getAttribute("user");
+		if (userBean != null) {
+			
+			OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
+			//届け先入力画面へ遷移
+			return "client/order/address_input";
+			
+		} else {
+			return "redirect:/login";
+		}
 	}
-	
+
 	/**
 	 * 届け先入力画面で次へボタン押下後処理
 	 * 
@@ -156,8 +184,17 @@ public class ClientOrderRegistController {
 	 */
 	@RequestMapping(path = "/client/order/payment/input", method = RequestMethod.GET)
 	public String paymentInput() {
-		//支払い方法選択画面へ遷移
-		return "client/order/payment_input";
+
+		//ログインチェックを行う　ログイン情報がなければログイン画面へ遷移
+		UserBean userBean = (UserBean) session.getAttribute("user");
+		if (userBean != null) {
+
+			//支払い方法選択画面へ遷移
+			return "client/order/payment_input";
+
+		} else {
+			return "redirect:/login";
+		}
 	}
 
 	/**
@@ -187,14 +224,23 @@ public class ClientOrderRegistController {
 	 */
 	@RequestMapping(path = "/client/order/check", method = RequestMethod.POST)
 	public String check(int payMethod) {
-		//セッションスコープから注文情報を取得
-		OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
-		//支払い方法を更新
-		orderForm.setPayMethod(payMethod);
-		//セッションスコープに注文情報を保存
-		session.setAttribute("orderForm", orderForm);
+		
+		//ログインチェックを行う　ログイン情報がなければログイン画面へ遷移
+		UserBean userBean = (UserBean) session.getAttribute("user");
+		if (userBean != null) {
 
-		return "redirect:/client/order/check";
+			//セッションスコープから注文情報を取得
+			OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
+			//支払い方法を更新
+			orderForm.setPayMethod(payMethod);
+			//セッションスコープに注文情報を保存
+			session.setAttribute("orderForm", orderForm);
+
+			return "redirect:/client/order/check";	
+
+		} else {
+			return "redirect:/login";
+		}
 	}
 
 	/**
@@ -207,81 +253,100 @@ public class ClientOrderRegistController {
 	 */
 	@RequestMapping(path = "/client/order/check", method = RequestMethod.GET)
 	public String orderCheck(Model model) {
-		//セッションスコープより買い物かご情報の取得
-		@SuppressWarnings("unchecked")
-		List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("baskets");
-		//BasketBean型の変数を宣言
-		BasketBean basketItem;
-		//合計金額変数の宣言
-		int total = 0;
-		//買い物かご商品の削除フラグチェック
-		for (int i = 0; i < basketList.size(); i++) {
 
-			basketItem = basketList.get(i);
-			int itemId = basketItem.getId();
-			//itemIdの取得　IdをもとにItem型の変数を作成
-			Item item = itemRepository.getReferenceById(itemId);
-			//削除フラグチェック　削除フラグが立っている場合、該当商品を削除
-			if(item.getDeleteFlag() == 1) {
-				basketList.remove(i);
+		//ログインチェックを行う　ログイン情報がなければログイン画面へ遷移
+		UserBean userBean = (UserBean) session.getAttribute("user");
+		if (userBean != null) {
+
+			//セッションスコープより買い物かご情報の取得
+			@SuppressWarnings("unchecked")
+			List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("baskets");
+
+			//BasketBean型の変数を宣言
+			BasketBean basketItem;
+			//合計金額変数の宣言
+			int total = 0;
+			//買い物かご商品の削除フラグチェック
+			for (int i = 0; i < basketList.size(); i++) {
+
+				basketItem = basketList.get(i);
+				int itemId = basketItem.getId();
+				//itemIdの取得　IdをもとにItem型の変数を作成
+				Item item = itemRepository.getReferenceById(itemId);
+				//削除フラグチェック　削除フラグが立っている場合、該当商品を削除
+				if(item.getDeleteFlag() == 1) {
+					basketList.remove(i);
+				}
 			}
-		}
-		//在庫切れ商品の商品名格納用リストの宣言
-		List<String> stockNoneList = new ArrayList<>();
-		//在庫不足商品の商品名格納用リストの宣言
-		List<String> stockShortList = new ArrayList<>();
-		//商品の在庫チェック
-		for (int i = 0; i < basketList.size(); i++) {
+			//在庫切れ商品の商品名格納用リストの宣言
+			List<String> stockNoneList = new ArrayList<>();
+			//在庫不足商品の商品名格納用リストの宣言
+			List<String> stockShortList = new ArrayList<>();
+			//商品の在庫チェック
+			for (int i = 0; i < basketList.size(); i++) {
 
-			basketItem = basketList.get(i);
-			//該当商品が在庫切れの場合
-			if (basketItem.getStock() == 0) {
-				//商品を削除
-				basketList.remove(i);
-				//削除情報をセッションスコープに保存
-				session.setAttribute("baskets", basketList);
-				//在庫切れ商品の商品名をリストに追加
-				stockNoneList.add(basketItem.getName());
-				//注文数が在庫数を超えている場合
-			} else if (basketItem.getOrderNum() > basketItem.getStock()) {
-				//注文数=在庫数に変更
-				basketItem.setOrderNum(basketItem.getStock());
-				basketList.set(i, basketItem);
-				//更新した情報をセッションスコープに保存
-				session.setAttribute("baskets", basketList);
-				//在庫不足商品の商品名をリストに追加
-				stockShortList.add(basketItem.getName());
+				basketItem = basketList.get(i);
+				int itemId = basketItem.getId();
+				//itemIdの取得　IdをもとにItem型の変数を作成
+				Item item = itemRepository.getReferenceById(itemId);
+				//該当商品が在庫切れの場合
+				if (item.getStock() == 0) {
+					//商品を削除
+					basketList.remove(i);
+					//削除情報をセッションスコープに保存
+					session.setAttribute("baskets", basketList);
+					//在庫切れ商品の商品名をリストに追加
+					stockNoneList.add(item.getName());
+					//注文数が在庫数を超えている場合
+				} else if (basketItem.getOrderNum() > item.getStock()) {
+					//注文数=在庫数に変更
+					basketItem.setOrderNum(item.getStock());
+					basketList.set(i, basketItem);
+					//更新した情報をセッションスコープに保存
+					session.setAttribute("baskets", basketList);
+					//在庫不足商品の商品名をリストに追加
+					stockShortList.add(item.getName());
+				}
 			}
-		}
-		//リクエストスコープに在庫切れ、在庫不足商品の情報を保存
-		model.addAttribute("stockNone", stockNoneList);
-		model.addAttribute("stockShort", stockShortList);
+			//リクエストスコープに在庫切れ、在庫不足商品の情報を保存
+			model.addAttribute("stockNone", stockNoneList);
+			model.addAttribute("stockShort", stockShortList);
 
-		List<OrderItemBean> orderList = new ArrayList<>();
-		OrderItemBean orderItemBean = new OrderItemBean();
+			if (basketList.size() == 0) {
+				session.removeAttribute("baskets");
+				session.removeAttribute("orderItems");
+				return "client/order/check";
+			}
 
-		for (int i = 0; i < basketList.size(); i++) {
-			//買い物かごの商品情報取得
-			basketItem = basketList.get(i);
-			//商品IDをもとにItem型の変数を作成
-			int id = basketItem.getId();
-			Item item = itemRepository.getReferenceById(id);
-			//orderItemBeanに情報を保存
-			orderItemBean = beanTools.generateOrderItemBean(item, basketItem);
-			Image image = (item.getImageList()).get(0);
-			String imagePath = image.getImagePath();
-			orderItemBean.setImage(imagePath);
-			//orderItemBeanをorderListに追加
-			orderList.add(orderItemBean);
-			//合計金額の計算
-			total += basketItem.getOrderNum() * item.getPrice();
+			List<OrderItemBean> orderList = new ArrayList<>();
+			OrderItemBean orderItemBean = new OrderItemBean();
+
+			for (int i = 0; i < basketList.size(); i++) {
+				//買い物かごの商品情報取得
+				basketItem = basketList.get(i);
+				//商品IDをもとにItem型の変数を作成
+				int id = basketItem.getId();
+				Item item = itemRepository.getReferenceById(id);
+				//orderItemBeanに情報を保存
+				orderItemBean = beanTools.generateOrderItemBean(item, basketItem);
+				Image image = (item.getImageList()).get(0);
+				String imagePath = image.getImagePath();
+				orderItemBean.setImage(imagePath);
+				//orderItemBeanをorderListに追加
+				orderList.add(orderItemBean);
+				//合計金額の計算
+				total += basketItem.getOrderNum() * item.getPrice();
+			}
+			//合計金額をリクエストスコープに保存
+			model.addAttribute("total", total);
+			//注文商品リストをセッションスコープに保存
+			session.setAttribute("orderItems", orderList);
+			//注文内容確認画面へ遷移
+			return "client/order/check";
+
+		} else {
+			return "redirect:/login";
 		}
-		//合計金額をリクエストスコープに保存
-		model.addAttribute("total", total);
-		//注文商品リストをセッションスコープに保存
-		session.setAttribute("orderItems", orderList);
-		//注文内容確認画面へ遷移
-		return "client/order/check";
 	}
 
 	/**
@@ -325,10 +390,14 @@ public class ClientOrderRegistController {
 			for (int i = 0; i < basketList.size(); i++) {
 
 				basketItem = basketList.get(i);
+				//商品IDをもとにItem型の変数を作成
+				int id = basketItem.getId();
+				Item item = itemRepository.getReferenceById(id);
 				//商品が在庫切れの場合
-				if (basketItem.getStock() == 0) {
+				if (item.getStock() == 0 || basketItem.getOrderNum() > item.getStock()) {
 					//注文内容確認画面へリダイレクト
 					return "redirect:/client/order/check";
+
 				}
 			}
 
@@ -397,7 +466,16 @@ public class ClientOrderRegistController {
 	 */
 	@RequestMapping(path = "/client/order/complete", method = RequestMethod.GET)
 	public String completed() {
-		return "client/order/complete";
+
+		//ログインチェックを行う　ログイン情報がなければログイン画面へ遷移
+		UserBean userBean = (UserBean) session.getAttribute("user");
+		if (userBean != null) {
+
+			return "client/order/complete";
+
+		} else {
+			return "redirect:/login";
+		}
 	}
 }
 
