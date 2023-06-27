@@ -90,7 +90,10 @@ public class ClientItemShowController {
 	 */
 	@RequestMapping(path = "/client/item/detail/{id}", method = RequestMethod.GET)
 	public String detail(@PathVariable Integer id, Model model) {
-		Item item = itemRepository.getReferenceById(id);
+		Item item = itemRepository.findByIdAndDeleteFlag(id, Constant.NOT_DELETED);
+		if (item == null) {
+			return "redirect:/";
+		}
 	    UserBean userBean =(UserBean) session.getAttribute("user");
 	    if (userBean != null) {
 	    	Integer userId  = userBean.getId();
@@ -181,10 +184,10 @@ public class ClientItemShowController {
 		if (categoryId != -1) {
 			Category category = new Category();
 			category.setId(categoryId);
-			pageItems = itemRepository.findByCategoryAndDeleteFlag(category, 0, pageable);
+			pageItems = itemRepository.findByCategoryAndDeleteFlag(category, Constant.NOT_DELETED, pageable);
 		}
 		else {
-			pageItems = itemRepository.findByStrAndPriceRange(searchStr, minPrice, maxPrice, 0, pageable);
+			pageItems = itemRepository.findByStrAndPriceRange(searchStr, minPrice, maxPrice, Constant.NOT_DELETED, pageable);
 		}
 		rtItems = pageItems.getContent();
 
