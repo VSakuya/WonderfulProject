@@ -12,31 +12,39 @@
 	<h2 th:class="title" th:text="#{title.order.address.input}"></h2>
 	<p th:class="input_message" th:text="#{msg.order.address.input}"></p>
 
-	<div class="user_info_form_area" th:object=${userForm}>
+	<div class="user_info_form_area" th:object=${orderForm}>
 		<div class="container-40">
 			<form method="post" th:action="@{/client/order/payment/input}" class="user_info_form">
+
+			<th:block th:if="${#fields.hasErrors()}">
+				<ul class="error_list">
+					<li th:each="error:${#fields.detailedErrors()}" th:text="${error.message}"></li>
+				</ul>
+				<br />
+			</th:block>
+
 				<div class="row mb-3 mt-3">
 					<label for="postalCode" class="col-sm-4 col-form-label">[[#{orderForm.postalCode}]]</label>
 					<div class="col-sm-8">
-						<input type="text" name="postalCode" class="form-control" id="postalCode" th:value="${session.orderForm.postalCode}" required>
+						<input type="text" name="postalCode" class="form-control" id="postalCode" th:value="${orderForm.postalCode}" required>
 					</div>
 				</div>
 				<div class="row mb-3 mt-3">
 					<label for="address" class="col-sm-4 col-form-label">[[#{orderForm.address}]]</label>
 					<div class="col-sm-8">
-						<textarea rows="6" name="address" class="form-control" id="address" required>[[${session.orderForm.address}]]</textarea>
+						<textarea rows="6" name="address" class="form-control" id="address" required>[[${orderForm.address}]]</textarea>
 					</div>
 				</div>
 				<div class="row mb-3 mt-3">
 					<label for="name" class="col-sm-4 col-form-label">[[#{orderForm.name}]]</label>
 					<div class="col-sm-8">
-						<input type="text" class="form-control" name="name" id="name" th:value="${session.orderForm.name}" required>
+						<input type="text" class="form-control" name="name" id="name" th:value="${orderForm.name}" required>
 					</div>
 				</div>
 				<div class="row mb-3 mt-3">
 					<label for="phoneNumber" class="col-sm-4 col-form-label">[[#{orderForm.phoneNumber}]]</label>
 					<div class="col-sm-8">
-						<input type="text" class="form-control" id="phoneNumber" name="phoneNumber" th:value="${session.orderForm.phoneNumber}" required>
+						<input type="text" class="form-control" id="phoneNumber" name="phoneNumber" th:value="${orderForm.phoneNumber}" required>
 					</div>
 				</div>
 				<input type="submit" value="確認" class="btn btn-dark btn-lg" />

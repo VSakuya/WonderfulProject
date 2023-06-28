@@ -108,15 +108,16 @@ public class ClientOrderRegistController {
 	 * @return　届け先入力画面へ遷移
 	 */
 	@RequestMapping(path = "/client/order/address/input", method = RequestMethod.GET)
-	public String inputAddress(OrderForm form) {
+	public String inputAddress(Model model) {
 		//ログインチェックを行う　ログイン情報がなければログイン画面へ遷移
 		UserBean userBean = (UserBean) session.getAttribute("user");
 		if (userBean != null) {
-			
+
 			OrderForm orderForm = (OrderForm) session.getAttribute("orderForm");
+			model.addAttribute("orderForm", orderForm);
 			//届け先入力画面へ遷移
 			return "client/order/address_input";
-			
+
 		} else {
 			return "redirect:/login";
 		}
@@ -128,19 +129,18 @@ public class ClientOrderRegistController {
 	 * @return　"/client/order/payment/input"へリダイレクト
 	 */
 	@RequestMapping(path = "/client/order/payment/input", method = RequestMethod.POST)
-	public String payment(@Valid @ModelAttribute OrderForm orderForm, BindingResult result) {
-		//ログインチェック　ログイン画面がなければログイン画面へ遷移する
+	public String payment(@Valid @ModelAttribute OrderForm orderForm, BindingResult result, Model model) {
+		//ログインチェック　ログイン情報がなければログイン画面へ遷移する
 		UserBean userBean = (UserBean) session.getAttribute("user");
 		if (userBean != null) {
 
 			if (result.hasErrors()) {
 
-				session.setAttribute("result", result);
+				return "client/order/address_input";
 
-				return "redirect:/client/order/address/input";
 			}
 			//以前の注文フォーム情報を取得
-			OrderForm exOrderForm = (OrderForm) session.getAttribute("orderForm"); 
+			OrderForm exOrderForm = (OrderForm) model.getAttribute("orderForm"); 
 			//入力情報をもとに注文情報の更新
 			exOrderForm.setAddress(orderForm.getAddress());
 			exOrderForm.setPostalCode(orderForm.getPostalCode());
@@ -374,7 +374,7 @@ public class ClientOrderRegistController {
 				int id = basketItem.getId();
 				Item item = itemRepository.getReferenceById(id);
 				//商品が在庫切れの場合
-				if (item.getStock() == 0 || basketItem.getOrderNum() > item.getStock()) {
+				if (item.getStock() == 0 || basketItem.getOrderNum() > item.getStock() || item.getDeleteFlag() == 1) {
 					//注文内容確認画面へリダイレクト
 					return "redirect:/client/order/check";
 
