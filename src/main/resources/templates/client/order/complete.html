@@ -8,10 +8,11 @@
 </head>
 
 <body class="client order_complete">
-	<h2 th:class="title" th:text="#{title.order.complete}"></h2>
-	<p th:class="complete_message" th:text="#{msg.order.complete1}"></p>
-    <p th:class="complete_message" th:text="#{msg.order.complete2}"></p>
-	<p class="complete_link"><a th:href="@{/}" th:text="#{msg.back.to.top}"></a></p>
+	<h3 th:text="#{title.order.complete}"></h3>
+	<h4 class="m-4" th:text="#{msg.order.complete1}"></h4>
+	<h4 class="m-4" th:text="#{msg.order.complete2}"></h4>
+	<h4 class="countdown m-4" data-duration="5" th:data-target-url="@{/}">自動的に<span
+			class="countdown-time">5</span>秒内後に<a th:href="@{/}">トップへ</a>戻る</h4>
 </body>
 
 </html>

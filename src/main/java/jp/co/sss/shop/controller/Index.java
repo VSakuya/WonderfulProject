@@ -75,41 +75,8 @@ public class Index {
 			imgList.add(str);
 		}
 		model.addAttribute("sliderImgs", imgList);
-		return "index_new";
+		return "index";
 	}
 
-	/**
-	 * 商品一覧ページ
-	 *
-	 * @param model テンプレートのmodel
-	 * @param listForm 検索用データ情報
-	 * @return ページ"client/item/list"
-	 * @author tan
-	 */
-	@RequestMapping(path = "/client/item/list", method = RequestMethod.GET)
-	public String itemList(@Valid @ModelAttribute ListForm listForm, BindingResult result, Pageable pageable, Model model) {
-		List<Item> rtItems 	= new ArrayList<>();
-		Page<Item> pageItems = new PageImpl<>(rtItems);
-		String searchStr 	= listForm.getSearchStr();
-		Integer minPrice 	= listForm.getMinPrice();
-		Integer maxPrice 	= listForm.getMaxPrice();
-		Integer isInstock	= listForm.getIsInstock();
-		Integer categoryId	= listForm.getCategoryId();
-
-		if (categoryId != -1) {
-			Category category = new Category();
-			category.setId(categoryId);
-			pageItems = itemRepository.findByCategoryAndDeleteFlag(category, 0, pageable);
-		}
-		else {
-			pageItems = itemRepository.findByStrAndPriceRange(searchStr, minPrice, maxPrice, 0, pageable);
-		}
-		rtItems = pageItems.getContent();
-
-
-		model.addAttribute("pageItems", pageItems);
-		model.addAttribute("items", rtItems);
-		return "client/item/list";
-	}
 
 }
