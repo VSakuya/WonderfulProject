@@ -107,12 +107,14 @@ public class ClientUserUpdateController {
 	@RequestMapping(path = "/client/user/update/check", method = RequestMethod.POST)
 	public String updateInputCheck(@Valid @ModelAttribute UserUpdateForm form, BindingResult result) {
 
+		String returnStr = "redirect:/client/user/update/check";
 		//直前のセッション情報を取得
 		UserUpdateForm lastUserForm = (UserUpdateForm) session.getAttribute("userForm");
 		if (lastUserForm == null) {
 			// セッション情報が無い場合
 			return "redirect:/login";
 		}
+		
 		if (form.getAuthority() == null) {
 			//権限情報がない場合、セッション情報から値をセット
 			form.setAuthority(lastUserForm.getAuthority());
@@ -127,7 +129,7 @@ public class ClientUserUpdateController {
 			session.setAttribute("result", result);
 
 			//変更入力画面　表示処理
-			return "redirect:/client/user/update/input";
+			returnStr =  "redirect:/client/user/update/input";
 
 		}
 		
@@ -139,12 +141,12 @@ public class ClientUserUpdateController {
 		
 		if (user != null && user.getId() != loginUser.getId()) {
 			
-			session.setAttribute("{userRegist.duplicate.message}", result);
-			return "redirect:/client/user/update/input";
+			session.setAttribute("result", result);
+			returnStr = "redirect:/client/user/update/input";
 		}
 
 		//変更確認画面　表示処理
-		return "redirect:/client/user/update/check";
+		return returnStr;
 	}
 
 	@RequestMapping(path = "/client/user/update/check", method = RequestMethod.GET)
