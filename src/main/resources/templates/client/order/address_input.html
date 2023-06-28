@@ -17,9 +17,12 @@
 			<form method="post" th:action="@{/client/order/payment/input}" class="user_info_form">
 
 			<th:block th:if="${#fields.hasErrors()}">
-				<ul class="error_list">
-					<li th:each="error:${#fields.detailedErrors()}" th:text="${error.message}"></li>
-				</ul>
+				<div class="error_list alert alert-danger alert-dismissible text-center fade show">
+					<ul class="list-unstyled">
+						<li th:each="error:${#fields.detailedErrors()}" th:text="${error.message}"></li>
+					</ul>
+					<button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+				</div>
 				<br />
 			</th:block>
 
