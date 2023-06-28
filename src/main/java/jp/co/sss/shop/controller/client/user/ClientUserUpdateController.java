@@ -141,7 +141,7 @@ public class ClientUserUpdateController {
 		
 		if (user != null && user.getId() != loginUser.getId()) {
 			
-			session.setAttribute("result", result);
+			session.setAttribute("emailCheck", true);
 			returnStr = "redirect:/client/user/update/input";
 		}
 
