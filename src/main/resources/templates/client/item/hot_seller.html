@@ -11,13 +11,12 @@
 </head>
 
 <body>
-    <h2 class="title">
+    <h2 class="m-4">
         <span th:if="${sortType==1}" th:text="#{sort.latest.title}"></span>
         <span th:if="${sortType==2 || sortType==null}" th:text="#{sort.hotsell.title}"></span>
     </h2>
     <!--売れ筋順-->
-    <div class="container-50">
-
+    <div class="container-m10">
         <table class="table table-hover table-striped table-bordered align-middle">
             <tr>
                 <th>No.</th>

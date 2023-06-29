@@ -112,6 +112,13 @@ button {
     margin: 0 auto;
 }
 
+.container-m10{
+    margin-right: 10vw;
+    margin-left: 10vw;
+    max-width: none;
+    width: auto;
+}
+
 .floating-container {
     position: absolute;
 }
