@@ -1,33 +1,17 @@
 package jp.co.sss.shop.controller;
 
-import java.io.File;
 import java.io.IOException;
-import java.util.Iterator;
 import java.util.List;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-
-import org.hibernate.type.IntegerType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.Resource;
-import org.springframework.core.io.ResourceLoader;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ResourceUtils;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-
-import jp.co.sss.shop.entity.Category;
-import jp.co.sss.shop.entity.Item;
-import jp.co.sss.shop.form.ListForm;
 import jp.co.sss.shop.repository.ItemRepository;
 import jp.co.sss.shop.util.Constant;
 

@@ -1,6 +1,5 @@
 package jp.co.sss.shop.controller.client.item;
 
-
 import java.util.List;
 import java.util.ArrayList;
 
@@ -178,7 +177,7 @@ public class ClientItemShowController {
 		String searchStr 	= listForm.getSearchStr();
 		Integer minPrice 	= listForm.getMinPrice();
 		Integer maxPrice 	= listForm.getMaxPrice();
-		Integer isInstock	= listForm.getIsInstock();
+		// Integer isInstock	= listForm.getIsInstock();
 		Integer categoryId	= listForm.getCategoryId();
 
 		if (categoryId != -1) {
