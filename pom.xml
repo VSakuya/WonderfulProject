@@ -10,9 +10,9 @@
 	</parent>
 	<groupId>jp.co.sss</groupId>
 	<artifactId>shared_shop</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0</version>
 	<name>shared_shop</name>
-	<description>SharedShop project for Spring Boot 2.7.5</description>
+	<description>Shop site powered by Group Wada</description>
 	<packaging>jar</packaging>
 	<properties>
 		<java.version>16</java.version>
