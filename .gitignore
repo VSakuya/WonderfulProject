@@ -36,3 +36,6 @@ build/
 ### temp files/user files ###
 /temp/
 /images/
+
+### h2 database file ###
+/data/

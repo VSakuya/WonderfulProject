@@ -141,6 +141,9 @@ public class ClientOrderRegistController {
 			}
 			//以前の注文フォーム情報を取得
 			OrderForm exOrderForm = (OrderForm) model.getAttribute("orderForm"); 
+			if (exOrderForm == null){
+				return "redirect:/login";
+			}
 			//入力情報をもとに注文情報の更新
 			exOrderForm.setAddress(orderForm.getAddress());
 			exOrderForm.setPostalCode(orderForm.getPostalCode());
