@@ -18,7 +18,6 @@ public class PagingConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> agResolvers) {
-		// TODO Auto-generated method stub
 		PageableHandlerMethodArgumentResolver resolver = new PageableHandlerMethodArgumentResolver();
 		//一ページ10個
 		resolver.setFallbackPageable(PageRequest. of(0, 10));

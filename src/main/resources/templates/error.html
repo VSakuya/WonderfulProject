@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-    th:replace="~{common/layout_3block :: layout(~{::title},~{::body/content()})}">
+    th:replace="~{client/layout/layout_3block :: layout(~{::title},~{::body/content()})}">
 <head>
 <meta charset="UTF-8" />
 	<title th:text="#{error}+' | '+ #{shop.title}"> </title>
 </head>
 <body>
-		<div class="container">
-			<p th:text="#{msg.error.sys}"></p>
+		<div class="container-m10 d-flex justify-content-center m-4 ">
+			<h1 th:text="#{msg.error.sys}"></h1>
 		</div>
 
 </body>
