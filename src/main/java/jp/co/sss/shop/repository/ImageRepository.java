@@ -1,7 +1,6 @@
 package jp.co.sss.shop.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.sss.shop.entity.Image;
@@ -12,7 +11,6 @@ import jp.co.sss.shop.entity.Item;
  *
  * @author System Shared
  */
-@Repository
 public interface ImageRepository extends JpaRepository<Image, Integer> {
 
 

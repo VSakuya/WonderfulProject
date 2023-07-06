@@ -4,7 +4,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 
 import jp.co.sss.shop.entity.Order;
 import jp.co.sss.shop.entity.User;
@@ -15,8 +14,6 @@ import jp.co.sss.shop.util.JPQLConstant;
  *
  * @author System Shared
  */
-@Repository
-
 public interface OrderRepository extends JpaRepository<Order, Integer> {
 
 	/**
