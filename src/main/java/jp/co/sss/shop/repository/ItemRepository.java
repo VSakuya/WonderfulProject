@@ -93,21 +93,6 @@ public interface ItemRepository extends JpaRepository<Item, Integer> {
 	@Query(JPQLConstant.FIND_DATE_FOR_NEW_SELLS)
 	List<Item> findByDeleteFlagOrderByInsertDateDescIdDescPage(@Param (value = "deleteFlag")int deleteFlag);
 
-	//@Query(JPQLConstant.FIND_DATE_FOR_NEW_SELLS)
-	//Page<Item> findByDeleteFlagOrderByInsertDateDescIdDescPage(@Param (value = "deleteFlag")int deleteFlag, Pageable pageable);
-
-//	@Query(JPQLConstant.FIND_DATE_FOR_NEW_SELL)
-//	Page<Object[]> findByDeleteFlagOrderByInsertDateDescPages(
-//			 @Param(value = "deleteFlag") int deleteFlag, Pageable pageable);
-
-	/**
-	 * 商品idで条件検索
-	 * @param id 商品id
-	 * @return 商品エンティティ
-	 * @author tanaka
-	 */
-	//@Query("SELECT i FROM Item i WHERE i.id = :id")
-	//public List<Item> findByIdQuery(@Param("id") Integer id);
 
 	@Query(JPQLConstant.FIND_BY_STR_AND_PRICE_RANGE)
 	Page<Item> findByStrAndPriceRange(String searchStr, Integer minPrice, Integer maxPrice, Integer deleteFlag, Pageable pageable);

@@ -14,6 +14,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
+
 /**
  * 商品情報のエンティティクラス
  *
@@ -21,6 +23,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "items")
+@DependsOnDatabaseInitialization
 public class Item {
 	/**
 	 * 商品ID

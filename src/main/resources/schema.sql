@@ -19,7 +19,7 @@ CREATE TABLE items (
   stock INT DEFAULT 0 NOT NULL,
   delete_flag INT DEFAULT 0 NOT NULL,
   insert_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  category_id INT REFERENCES categories(id) NOT NULL
+  category_id INT REFERENCES categories(id) DEFERRABLE NOT NULL
 );
 
 -- 会員テーブルの作成
@@ -47,7 +47,7 @@ CREATE TABLE orders (
   phone_number VARCHAR(11) NOT NULL,
   pay_method INT NOT NULL,
   insert_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  user_id INT REFERENCES users(id) NOT NULL
+  user_id INT REFERENCES users(id) DEFERRABLE NOT NULL
 );
 
 -- 注文商品テーブル
@@ -56,8 +56,8 @@ CREATE TABLE order_items (
   id INT PRIMARY KEY,
   quantity INT NOT NULL,
   price INT NOT NULL,
-  order_id INT REFERENCES orders(id) NOT NULL,
-  item_id INT REFERENCES items(id) NOT NULL
+  order_id INT REFERENCES orders(id) DEFERRABLE NOT NULL,
+  item_id INT REFERENCES items(id) DEFERRABLE NOT NULL
 );
 
 -- 画像テーブル
@@ -66,7 +66,7 @@ CREATE TABLE images (
   id INT PRIMARY KEY,
   image_path VARCHAR(128) NOT NULL,
   upload_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  item_id INT REFERENCES items(id) NOT NULL
+  item_id INT REFERENCES items(id) DEFERRABLE NOT NULL
 );
 
 -- いいねテーブル
@@ -74,8 +74,8 @@ DROP TABLE IF EXISTS favorite CASCADE;
 CREATE TABLE favorite (
   id INT PRIMARY KEY,
   insert_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
-  item_id INT REFERENCES items(id) NOT NULL,
-  user_id INT REFERENCES users(id) NOT NULL
+  item_id INT REFERENCES items(id) DEFERRABLE NOT NULL,
+  user_id INT REFERENCES users(id) DEFERRABLE NOT NULL
 );
 
 -- シーケンスの作成(カテゴリテーブル用)

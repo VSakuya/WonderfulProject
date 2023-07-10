@@ -105,7 +105,7 @@ public class AdminOrderShowController {
 	public String showOrder(@PathVariable int id, Model model) {
 
 		// 選択された注文情報に該当する情報を取得
-		Order order = orderRepository.getReferenceById(id);
+		Order order = orderRepository.getById(id);
 
 		// 表示する注文情報を生成
 		OrderBean orderBean = beanTools.copyEntityToOrderBean(order);
