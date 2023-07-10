@@ -254,7 +254,7 @@ public class ClientOrderRegistController {
 				basketItem = basketList.get(i);
 				int itemId = basketItem.getId();
 				//itemIdの取得　IdをもとにItem型の変数を作成
-				Item item = itemRepository.getById(itemId);
+				Item item = itemRepository.getReferenceById(itemId);
 				//削除フラグチェック　削除フラグが立っている場合、該当商品を削除
 				if(item.getDeleteFlag() == 1) {
 					basketList.remove(i);
@@ -271,7 +271,7 @@ public class ClientOrderRegistController {
 				basketItem = basketList.get(i-stockNoneList.size());
 				int itemId = basketItem.getId();
 				//itemIdの取得　IdをもとにItem型の変数を作成
-				Item item = itemRepository.getById(itemId);
+				Item item = itemRepository.getReferenceById(itemId);
 				//該当商品が在庫切れの場合
 				if (item.getStock() == 0) {
 					//商品を削除
@@ -309,7 +309,7 @@ public class ClientOrderRegistController {
 				basketItem = basketList.get(i);
 				//商品IDをもとにItem型の変数を作成
 				int id = basketItem.getId();
-				Item item = itemRepository.getById(id);
+				Item item = itemRepository.getReferenceById(id);
 				//orderItemBeanに情報を保存
 				orderItemBean = beanTools.generateOrderItemBean(item, basketItem);
 				Image image = (item.getImageList()).get(0);
@@ -375,7 +375,7 @@ public class ClientOrderRegistController {
 				basketItem = basketList.get(i);
 				//商品IDをもとにItem型の変数を作成
 				int id = basketItem.getId();
-				Item item = itemRepository.getById(id);
+				Item item = itemRepository.getReferenceById(id);
 				//商品が在庫切れの場合
 				if (item.getStock() == 0 || basketItem.getOrderNum() > item.getStock() || item.getDeleteFlag() == 1) {
 					//注文内容確認画面へリダイレクト
@@ -399,7 +399,7 @@ public class ClientOrderRegistController {
 
 				OrderItemBean orderItemBean = orderItemBeanList.get(i);
 				int id  = orderItemBean.getId();
-				item = itemRepository.getById(id);
+				item = itemRepository.getReferenceById(id);
 				System.out.println(item.getName());
 				BeanUtils.copyProperties(orderItemBean, orderItem, "id");
 
@@ -411,7 +411,7 @@ public class ClientOrderRegistController {
 
 			}
 			//注文情報をＤＢに登録
-			User user = userRepository.getById(userBean.getId());
+			User user = userRepository.getReferenceById(userBean.getId());
 			order.setUser(user);
 			order.setOrderItemsList(orderItemList);
 			BeanUtils.copyProperties(orderForm, order, "id");
