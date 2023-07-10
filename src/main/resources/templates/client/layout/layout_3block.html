@@ -1,21 +1,10 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-	th:fragment="layout(title,body)">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/layout.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}" />
-<link rel="stylesheet" type="text/css" th:href="@{/css/stylesheet_client.css}" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/crypto-js.min.js"></script>
-<script th:src="@{/js/jquery-3.7.0.min.js}"></script>
-<script th:src="@{/js/bootstrap.min.js}"></script>
-<script th:src="@{/js/common.js}"></script>
-<title th:replace="${title}"></title>
-</head>
-<body th:classappend="${(session.user != null and (session.user.authority == 0 or session.user.authority == 1)) ? 'admin' : 'user' }">
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(title,body)">
+<head th:replace="client/layout/head :: head_fragment()"></head>
+<body
+	th:classappend="${(session.user != null and (session.user.authority == 0 or session.user.authority == 1)) ? 'admin' : 'user' }">
 	<!--/* ヘッダー */-->
-	<header >
+	<header>
 		<div th:replace="~{client/layout/header :: layout-header}"></div>
 	</header>
 
@@ -29,4 +18,5 @@
 		<div th:replace="~{client/layout/footer :: layout-footer}"></div>
 	</footer>
 </body>
+
 </html>
