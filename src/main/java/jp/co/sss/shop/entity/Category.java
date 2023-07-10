@@ -12,6 +12,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
+
 /**
  * カテゴリ情報のエンティティクラス
  *
@@ -19,6 +21,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "categories")
+@DependsOnDatabaseInitialization
 public class Category {
 
 	/**

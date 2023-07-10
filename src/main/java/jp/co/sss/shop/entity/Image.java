@@ -12,6 +12,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
+
 /**
  * 画像のエンティティクラス
  *
@@ -19,6 +21,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "images")
+@DependsOnDatabaseInitialization
 public class Image {
 	/**
 	 * 画像ID

@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.springframework.boot.sql.init.dependency.DependsOnDatabaseInitialization;
+
 /**
  * 会員情報エンティティクラス
  *
@@ -17,6 +19,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "users")
+@DependsOnDatabaseInitialization
 public class User {
 
 	/**

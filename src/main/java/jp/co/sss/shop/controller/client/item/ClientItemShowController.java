@@ -186,14 +186,13 @@ public class ClientItemShowController {
 			pageItems = itemRepository.findByCategoryAndDeleteFlag(category, Constant.NOT_DELETED, pageable);
 		}
 		else {
-			if (searchStr == null) {
+			if (searchStr == null){
 				searchStr = "";
 			}
 			pageItems = itemRepository.findByStrAndPriceRange(searchStr, minPrice, maxPrice, Constant.NOT_DELETED, pageable);
 		}
 		rtItems = pageItems.getContent();
-
-
+		
 		model.addAttribute("pageItems", pageItems);
 		model.addAttribute("items", rtItems);
 		return "client/item/list";

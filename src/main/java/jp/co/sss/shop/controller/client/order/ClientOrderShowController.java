@@ -112,7 +112,7 @@ public class ClientOrderShowController {
 		UserBean userBean = (UserBean) session.getAttribute("user");
 		if (userBean != null) {
 		// 選択された注文情報に該当する情報を取得
-		Order order = orderRepository.getReferenceById(id);
+		Order order = orderRepository.getById(id);
 		// 表示する注文情報を生成
 		OrderBean orderBean = beanTools.copyEntityToOrderBean(order);
 		// 注文商品情報を取得

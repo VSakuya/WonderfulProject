@@ -75,7 +75,7 @@ public class ClientBasketController {
 					//買い物かご内商品情報の取得
 					basketItem = basketList.get(i-deletedItem.size());
 					int itemId = basketItem.getId();
-					Item item = itemRepository.getReferenceById(itemId);
+					Item item = itemRepository.getById(itemId);
 					//削除フラグが立っている場合
 					if(item.getDeleteFlag() == 1) {
 						basketList.remove(i-deletedItem.size());
@@ -96,7 +96,7 @@ public class ClientBasketController {
 
 					basketItem = basketList.get(i-stockNoneList.size());
 					int itemId = basketItem.getId();
-					Item item = itemRepository.getReferenceById(itemId);
+					Item item = itemRepository.getById(itemId);
 					//商品が在庫切れの場合
 					if (item.getStock() == 0) {
 						//買い物かごリストから対象商品の削除
@@ -149,7 +149,7 @@ public class ClientBasketController {
 				//BasketBean型の買い物かごリストの生成
 				List<BasketBean> basketList = new ArrayList<BasketBean>();
 				//商品情報の取得
-				Item item = itemRepository.getReferenceById(id);
+				Item item = itemRepository.getById(id);
 				BasketBean basketBean = new BasketBean(item.getId(), item.getName(), item.getStock());
 				basketList.add(basketBean);
 				//セッションスコープに買い物かごリスト情報を保存
@@ -160,7 +160,7 @@ public class ClientBasketController {
 				@SuppressWarnings("unchecked")
 				List<BasketBean> basketList = (List<BasketBean>) session.getAttribute("baskets");
 				//商品情報の取得
-				Item item = itemRepository.getReferenceById(id);
+				Item item = itemRepository.getById(id);
 				//買い物かご内の重複チェック
 				for (int i = 0; i < basketList.size(); i++) {
 
