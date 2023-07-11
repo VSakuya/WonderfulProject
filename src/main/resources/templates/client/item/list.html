@@ -91,7 +91,7 @@
 			</ul>
 		</div>
 	</div>
-	<script>
+	<script th:inline="javascript">
 		$(document).ready(function () {
 			// Get current url and params in get
 			var url = new URL(window.location.href);
@@ -124,6 +124,19 @@
 					var newUrl = pageUrl.origin + pageUrl.pathname + '?' + updatedQueryStr;
 					window.location.href = newUrl;
 				});
+			});
+
+			var ajaxUrl = /*[[@{/client/item/test}]]*/
+			$.ajax({
+				url: ajaxUrl,
+				method: "POST",
+				dataType: "json",
+				success: function(response) {
+					console.log(response);
+				},
+				error: function(){
+					console.log("error");
+				}
 			});
 		}
 		)
