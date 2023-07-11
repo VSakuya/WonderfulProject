@@ -28,6 +28,9 @@ public class ClientItemDataController {
         for (Item item : items) {
             ItemBean itemBean = new ItemBean();
             BeanUtils.copyProperties(item, itemBean);
+            itemBean.setCategoryId(item.getCategory().getId());
+            itemBean.setCategoryName(item.getCategory().getName());
+            itemBean.setImage(item.getImageList().get(0) == null ? "" : item.getImageList().get(0).getImagePath());
             itemBeans.add(itemBean);
         }
         BeanUtils.copyProperties(items, itemBeans);
